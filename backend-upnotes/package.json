@@ -1,0 +1,12 @@
+{
+  "name": "backend-upnotes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["Typescript", "NodeJS", "Express", "Postgresql"],
+  "author": "Saulo Román Santillán Nava",
+  "license": "ISC"
+}
