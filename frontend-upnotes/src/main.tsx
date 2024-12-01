@@ -5,6 +5,6 @@ import { UpNotesApp } from './presentation/UpNotesApp.tsx'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <UpNotesApp />
-  </StrictMode>,
+  </StrictMode>
 )
 
