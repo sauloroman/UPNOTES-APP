@@ -1,13 +1,22 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { RoutesAuth } from './RoutesAuth'
-import { RoutesMain } from './RoutesMain'
+import { RoutesAuth, RoutesMain } from './'
+import { AuthLayout, MainLayout } from '../layouts'
 
 export const RoutesApp: React.FC = () => {
   return (
-    <Routes>
-      <Route path='/auth/*' element={<RoutesAuth />} />
-      <Route path='/*' element={<RoutesMain />} />
-    </Routes>
+    <>
+      <AuthLayout>
+        <Routes>
+          <Route path='/auth/*' element={<RoutesAuth />} />
+        </Routes>
+      </AuthLayout>
+
+      <MainLayout>
+        <Routes>
+          <Route path='/*' element={<RoutesMain />} />
+        </Routes>
+      </MainLayout>
+    </>
   )
 }

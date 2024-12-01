@@ -9,7 +9,7 @@ export const RoutesAuth: React.FC = () => {
       <Route path='register' element={<Register />} />
       <Route path='forgot-password' element={<ForgotPassword />} />
       <Route path='verify-account' element={<VerifyAccount />} />
-      <Route path='/*' element={<Navigate to="/login" />} />
+      <Route path='/*' element={<Navigate to="/auth/login" />} />
     </Routes>
   )
 }
