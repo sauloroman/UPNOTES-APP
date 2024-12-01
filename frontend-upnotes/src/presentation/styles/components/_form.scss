@@ -1,0 +1,47 @@
+.form {
+
+  &__container {
+    width: 60rem;
+    max-width: 95%;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    color: $color-black;
+  }
+
+  &__field--password {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid $color-gray;
+    font-size: 1.6rem;
+    padding-right: 1rem;
+    border-radius: 5px;
+  }
+
+  &__label {
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  &__input {
+    border-radius: 5px;
+    font-family: inherit;
+    width: 100%;
+    border: 1px solid $color-gray;
+    padding: 1rem;
+    font-size: 1.6rem;
+  }
+
+  &__input--password {
+    border: none;
+  }
+
+  &__buttons {
+    margin-top: 2rem;
+  }
+
+}

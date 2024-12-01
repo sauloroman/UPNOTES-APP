@@ -1,0 +1,27 @@
+.flex {
+  display: flex;
+
+  &-center {
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  &-column-center {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &-end {
+    align-items: center;
+    justify-content: flex-end;
+  }
+}

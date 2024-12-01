@@ -1,0 +1,34 @@
+.login {
+  
+  &__or {
+    width: 80%;
+    position: relative;
+
+    &::after, &::before {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      width: 35%;
+      height: 2px;
+      background-color: $color-gray;
+    }
+
+    &::after {
+      left: 0;
+      top: 50%;
+    }
+
+    &::before {
+      right: 0;
+      top: 50%;
+    }
+
+  }
+
+  &__google {
+    width: 30rem;
+    max-width: 95%;
+    margin: 2rem 0;
+  }
+
+}

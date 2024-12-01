@@ -1,0 +1,15 @@
+.icon {
+
+  cursor: pointer;
+  transition: color .4s ease;
+
+  &--form {
+    font-size: 2.2rem;
+    color: lighten( $color-black, 30% );
+
+    &:hover {
+      color: darken( $color-black, 60% );
+    }
+  }
+
+}

@@ -1,0 +1,23 @@
+.auth-layout {
+  height: 100vh;
+  width: 100vw;
+
+  &__container {
+    @include grid(2, 5rem);
+
+    @include responsive("phone") {
+      @include grid(1, 2rem );
+    }
+  }
+
+  &__logo {
+    height: 8rem;
+  }
+
+  &__content {
+    padding: 5rem 12rem;
+    height: 100vh;
+    border-left: 1px solid $color-gray;
+  }
+
+}

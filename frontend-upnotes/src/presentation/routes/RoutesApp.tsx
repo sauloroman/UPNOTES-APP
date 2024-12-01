@@ -6,15 +6,13 @@ import { AuthLayout, MainLayout } from '../layouts'
 export const RoutesApp: React.FC = () => {
   return (
     <>
-      <AuthLayout>
-        <Routes>
-          <Route path='/auth/*' element={<RoutesAuth />} />
-        </Routes>
-      </AuthLayout>
+      <Routes>
+        <Route path='/auth/*' element={<RoutesAuth />} />
+      </Routes>
 
       <MainLayout>
         <Routes>
-          <Route path='/*' element={<RoutesMain />} />
+          <Route path='/upnotes/*' element={<RoutesMain />} />
         </Routes>
       </MainLayout>
     </>
