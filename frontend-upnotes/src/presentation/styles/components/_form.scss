@@ -1,0 +1,65 @@
+.form {
+
+  &__container {
+    width: 60rem;
+    max-width: 95%;
+  }
+
+  &__field {
+    font-family: $font-title;
+    display: flex;
+    flex-direction: column;
+    color: $color-black;
+  }
+
+  &__field--password {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid $color-gray;
+    font-size: 1.6rem;
+    padding-right: 1rem;
+    border-radius: 5px;
+  }
+
+  &__label {
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  &__input {
+    background-color: transparent;
+    border-radius: 5px;
+    font-family: inherit;
+    width: 100%;
+    border: 1px solid $color-gray;
+    padding: 1rem;
+    font-size: 1.6rem;
+  }
+
+  &__input:focus {
+    outline: none;
+    border: 1px solid $color-green;
+  }
+
+  &__input--password {
+    border: none;
+  }
+
+  &__span {
+    font-size: 1.4rem;
+    font-weight: 300;
+    text-align: right;
+  }
+
+  &__option {
+    background-color: #eee;
+    color: $color-black;
+    font-weight: 500;
+  }
+
+  &__buttons {
+    margin-top: 2rem;
+  }
+
+}

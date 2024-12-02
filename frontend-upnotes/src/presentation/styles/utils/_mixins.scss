@@ -1,0 +1,26 @@
+@mixin grid( $num-cols: 2, $gap: 2 ) {
+  display: grid;
+  grid-template-columns: repeat($num-cols, 1fr);
+  gap: $gap;
+}
+
+@mixin buttonOutline( $color, $bgColor ) {
+  background-color: $color;
+    color: $bgColor;
+
+    &:hover {
+      border-color: $color;
+      color: $color;
+      background-color: $bgColor;
+    }
+}
+
+@mixin responsive( $breakpoint ) {
+
+  @if $breakpoint == "phone" {
+    @media screen and ( max-width: 480px ) {
+      @content;
+    }
+  }
+
+}

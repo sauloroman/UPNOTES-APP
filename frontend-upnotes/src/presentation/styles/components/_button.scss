@@ -1,0 +1,27 @@
+.btn {
+
+  font-family: inherit;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.6rem;
+  text-align: center;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  transition: all .4s ease;
+
+  &--green {
+    @include buttonOutline( $color-green, $color-white );
+  }
+
+  &--google {
+    border-color: $color-green;
+    @include buttonOutline( $color-white, $color-green );
+  }
+
+  &--black {
+    @include buttonOutline( $color-black, $color-white );
+  }
+
+}
