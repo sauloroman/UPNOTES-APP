@@ -1,6 +1,17 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Analitics, Course, Courses, Home, Professors, Profile, Schedule, Settings, Task, Tasks } from '../pages'
+import { 
+  Analitics,
+  Course,
+  Courses,
+  Home,
+  Professors,
+  Profile,
+  Schedule,
+  Settings,
+  Task,
+  Tasks,
+} from '../pages/dashboard'
 
 export const RoutesMain: React.FC = () => {
   return (

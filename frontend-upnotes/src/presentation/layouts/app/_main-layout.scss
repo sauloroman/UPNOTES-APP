@@ -1,0 +1,84 @@
+.main-layout-header {
+
+  padding: .5rem 3rem;
+  background-color: $color-black;
+
+  &__img {
+    height: 7rem;
+  }
+
+}
+
+.main-layout-search {
+  margin-left: 5rem;
+  background-color: $color-white;
+  padding: 0 1rem;
+  border-radius: 5px;
+
+  &__input {
+    border: none;
+    width: 50rem;
+  }
+}
+
+.main-layout-user {
+  color: $color-white;
+  margin-right: 2rem;
+
+  &__name {
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  &__career {
+    font-size: 1.4rem;
+  }
+}
+
+.main-layout-photo {
+  &--default {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%; 
+    font-size: 2.6rem;
+    line-height: 0;
+    font-weight: bold;
+    font-family: $font-title;
+    background-color: $color-green;
+    color: $color-white;
+  }
+}
+
+.main-layout-menu {
+  box-shadow: 0 8px 8px rgba(0, 0, 0, .25);
+  border: 1px solid #ddd;
+  position: absolute;
+  border-radius: 5px;
+  width: 27rem;
+  padding: 2rem;
+  bottom: -20.5rem;
+  right: 0%;
+  background-color: $color-white;
+
+  &__title {
+    color: $color-black;
+    font-weight: 700;
+    text-align: right;
+    padding-bottom: 3px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid #aaa;
+  }
+
+  &__nav {
+    padding: 1rem 0;
+    flex-direction: column;
+  }
+
+  &__item {
+    text-align: right;
+    display: flex;
+    justify-content: space-around;
+  }
+
+}
