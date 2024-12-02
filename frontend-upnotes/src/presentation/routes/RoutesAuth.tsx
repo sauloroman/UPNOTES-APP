@@ -1,6 +1,11 @@
 import React from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { ForgotPassword, Login, Register, VerifyAccount } from '../pages'
+import { 
+  Login,
+  ForgotPassword,
+  Register,
+  VerifyAccount 
+} from '../pages/auth'
 
 export const RoutesAuth: React.FC = () => {
   return (

@@ -1,6 +1,11 @@
 .flex {
   display: flex;
 
+  &-between {
+    justify-content: space-between;
+    align-items: center;
+  }
+
   &-center {
     align-items: center;
     justify-content: center;

@@ -11,8 +11,9 @@
 @import './components/form';
 
 @import './layout/flex-layout';
-@import './layout/auth-layout';
-@import './layout/main-layout';
+
+@import '../layouts/auth/auth-layout';
+@import '../layouts/app/main-layout';
 
 @import './pages/home-page';
 @import './pages/login-page';

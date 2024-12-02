@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { SliderAuth } from './SliderAuth';
+import { SliderAuth } from './components/SliderAuth';
 import logo from '../../assets/images/logo.png';
 
 interface AuthLayoutProps {

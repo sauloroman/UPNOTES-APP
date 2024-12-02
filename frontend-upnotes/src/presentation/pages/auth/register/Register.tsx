@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { AuthLayout } from '../../layouts';
-import { InputPassword } from '../../shared/components/InputPassword';
-import { useForm } from '../../shared/hooks/useForm';
+import { AuthLayout } from '../../../layouts';
+import { InputPassword } from '../../../shared/components/InputPassword';
+import { useForm } from '../../../shared/hooks/useForm';
 
 const formData = {
   email: '',

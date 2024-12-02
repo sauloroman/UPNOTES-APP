@@ -4,21 +4,21 @@ import { Autoplay, Pagination } from 'swiper/modules'
 import 'swiper/css/pagination'
 import 'swiper/css/autoplay'
 
-import image1 from '../../assets/images/login-1.svg'
-import image2 from '../../assets/images/login-2.svg'
-import image3 from '../../assets/images/login-3.svg'
+import image1 from '../../../assets/images/login-1.svg'
+import image2 from '../../../assets/images/login-2.svg'
+import image3 from '../../../assets/images/login-3.svg'
 
 const slidesAuth = [
   {
     id: 1,
     title: 'Organiza tus materias',
-    description: 'Centraliza toda la información referente a tus planes de estudio.',
+    description: 'Centraliza toda la información referente a tus planes de estudio. Todos tus pendientes en un solo lugar. Fácil y rápido.',
     img: image1,
   },
   {
     id: 2,
     title: 'Controla tus calificaciones',
-    description: 'Tus calificaciones en un solo lugar, evita sorpresas inesperadas.',
+    description: 'Tus calificaciones en un solo lugar, evita sorpresas inesperadas. Sigue',
     img: image2,
   },
   {
@@ -48,7 +48,7 @@ export const SliderAuth: React.FC = () => {
                 alt={item.title} 
               />
               <h2 className="auth-layout__slider-title">{item.title}</h2>
-              <p>{item.description}</p>
+              <p className='u-text-center'>{item.description}</p>
             </div>
           </SwiperSlide>
         ))
