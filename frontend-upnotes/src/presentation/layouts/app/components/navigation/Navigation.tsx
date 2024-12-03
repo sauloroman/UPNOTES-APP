@@ -6,11 +6,7 @@ export const Navigation: React.FC = () => {
   const { isMenuAsideShown, closeMenuAside, openMenuAside } = useUISlice();
 
   return (
-    <aside
-      className={`main-layout-aside ${
-        !isMenuAsideShown && "main-layout-aside--closed"
-      }`}
-    >
+    <>
       <div className="main-layout-aside__container">
         <header className="flex flex-between main-layout-aside__header">
           <p
@@ -33,6 +29,6 @@ export const Navigation: React.FC = () => {
           <NavigationList />
         </nav>
       </div>
-    </aside>
+    </>
   );
 };

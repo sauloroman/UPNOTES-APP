@@ -1,7 +1,8 @@
 import React from 'react'
+import { MainLayout } from '../../../layouts'
 
 export const Professors: React.FC = () => {
   return (
-    <div>Professors</div>
+    <MainLayout>Professors</MainLayout>
   )
 }
