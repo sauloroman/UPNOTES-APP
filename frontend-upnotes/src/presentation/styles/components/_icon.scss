@@ -3,12 +3,12 @@
   
   &--form {
     cursor: pointer;
-    transition: color .4s ease;
+    transition: all .4s ease;
     font-size: 2.2rem;
     color: lighten( $color-black, 30% );
 
     &:hover {
-      color: darken( $color-black, 60% );
+      opacity: .8;
     }
   }
   
@@ -29,6 +29,11 @@
   
   &--aside {
     font-size: 2.4rem;
+  }
+
+  &--location {
+    font-size: 2rem;
+    line-height: 0;
   }
 
   &--navigation {

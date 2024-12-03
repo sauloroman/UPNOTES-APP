@@ -6,9 +6,10 @@ import { useUISlice } from "../../shared/redux-hooks";
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  titleView: string;
 }
 
-export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+export const MainLayout: React.FC<MainLayoutProps> = ({ children, titleView }) => {
   
   const { isMenuAsideShown } = useUISlice();
 
@@ -36,6 +37,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           }`}
         >
           <Location />
+
+          <h1 className="main-layout-title">{titleView}</h1>
           {children}
         </div>
       </div>

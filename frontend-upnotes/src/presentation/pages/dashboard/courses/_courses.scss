@@ -1,0 +1,28 @@
+.courses {
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.courses-filter {
+  border: 1px solid #ddd;
+
+  &__span {
+    transition: all .4s ease;
+    padding: .5rem 2rem;
+  }
+
+  &__span:not(:last-child) {
+    border-right: 1px solid #ddd;
+  }
+
+  &__span:hover {
+    cursor: pointer;
+    font-weight: 700;
+  }
+}
+
+.courses-buttons {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}

@@ -15,7 +15,7 @@
 @import '../layouts/auth/auth-layout';
 @import '../layouts/app/main-layout';
 
-@import './pages/home-page';
-@import './pages/login-page';
+@import '../pages/auth/login/login';
+@import '../pages/dashboard/courses/courses';
 
 @import './utils/utilities';
