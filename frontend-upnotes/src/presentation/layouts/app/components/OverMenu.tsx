@@ -14,9 +14,18 @@ export const OverMenu: React.FC = () => {
             <i className='bx bx-user icon icon--menu-over'></i>
             Perfíl
           </li>
-          <li className="main-layout-menu__item">Configuración</li>
-          <li className="main-layout-menu__item">Conctacto</li>
-          <li className="main-layout-menu__item">Tema</li>
+          <li className="main-layout-menu__item">
+            <i className='bx bx-cog icon icon--menu-over'></i>
+            Configuración
+          </li>
+          <li className="main-layout-menu__item">
+            <i className='bx bx-info-circle icon icon--menu-over'></i>
+            Contacto
+          </li>
+          <li className="main-layout-menu__item">
+            <i className='bx bx-moon icon icon--menu-over'></i>
+            Tema Oscuro
+          </li>
         </ul>
       </div>
     </div>

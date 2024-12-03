@@ -1,9 +1,9 @@
 .icon {
 
   cursor: pointer;
-  transition: color .4s ease;
-
+  
   &--form {
+    transition: color .4s ease;
     font-size: 2.2rem;
     color: lighten( $color-black, 30% );
 

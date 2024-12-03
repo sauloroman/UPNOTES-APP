@@ -55,16 +55,16 @@
   border: 1px solid #ddd;
   position: absolute;
   border-radius: 5px;
-  width: 27rem;
+  width: 25rem;
   padding: 2rem;
-  bottom: -20.5rem;
+  bottom: -34.5rem;
   right: 0%;
   background-color: $color-white;
 
   &__title {
     color: $color-black;
     font-weight: 700;
-    text-align: right;
+    text-align: left;
     padding-bottom: 3px;
     margin-bottom: 3px;
     border-bottom: 1px solid #aaa;
@@ -76,9 +76,21 @@
   }
 
   &__item {
+    padding: 1rem;
+    cursor: pointer;
     text-align: right;
     display: flex;
-    justify-content: space-around;
+    gap: 2rem;
+    transition: all .3s ease;
+  }
+
+  &__item:hover {
+    background-color: $color-black;
+    color: $color-white;
+  }
+  
+  &__item:not(:last-child) {
+    margin-bottom: 2rem;
   }
 
 }
