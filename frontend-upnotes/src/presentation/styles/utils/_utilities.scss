@@ -21,3 +21,9 @@
 .u-text-center {
   text-align: center;
 }
+
+.u-hidden { 
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}

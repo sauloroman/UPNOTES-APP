@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
+import { useUISlice } from "../../../shared/redux-hooks";
 
-export const OverMenu: React.FC = () => {
+export const MenuOver: React.FC = () => {
 
-  const [isMenuOverOpen, setIsMenuOverOpen] = useState(false)
+  const { openMenuOver, closeMenuOver, isMenuOverShown } = useUISlice()
 
   return (
     <div className="flex flex-center u-relative">
-      <i className="bx bx-chevron-down icon icon--open-menu"></i>
-      <div className="main-layout-menu">
+      
+      <i 
+        onClick={ isMenuOverShown ? closeMenuOver : openMenuOver } 
+        className={`bx bx-chevron-${ isMenuOverShown ? 'up' : 'down' } icon icon--open-menu`}>
+      </i>
+
+      <div className={`main-layout-menu ${!isMenuOverShown && 'main-layout-menu--hidden' }`}>
         <p className="main-layout-menu__title">Menú de opciones</p>
         <ul className="main-layout-menu__nav flex">
           <li className="main-layout-menu__item">
