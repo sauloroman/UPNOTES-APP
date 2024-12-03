@@ -1,7 +1,8 @@
 import React from 'react'
+import { MainLayout } from '../../../layouts'
 
 export const Home: React.FC = () => {
   return (
-    <div>HomePage</div>
+    <MainLayout>HomePage</MainLayout>
   )
 }

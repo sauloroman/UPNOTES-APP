@@ -1,10 +1,20 @@
 .main-layout-header {
-
+  border-bottom: 1px solid #ddd;
+  position: fixed;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, .25);
+  top: 0;
+  left: 35rem;
+  width: calc( 100% - 35rem );
   padding: .5rem 3rem;
-  background-color: $color-black;
+  transition: all .4s ease;
+
+  &--aside {
+    width: calc(100% - 10rem);
+    left: 10rem;
+  }
 
   &__img {
-    height: 7rem;
+    height: $header-height;
   }
 
 }
@@ -14,15 +24,15 @@
   background-color: $color-white;
   padding: 0 1rem;
   border-radius: 5px;
+  border: 1px solid #ddd;
 
   &__input {
     border: none;
-    width: 50rem;
+    width: 60rem;
   }
 }
 
 .main-layout-user {
-  color: $color-white;
   margin-right: 2rem;
 
   &__name {
@@ -94,12 +104,78 @@
   }
 
   &__item:hover {
+    border-radius: .5rem;
     background-color: $color-black;
     color: $color-white;
   }
   
   &__item:not(:last-child) {
     margin-bottom: 2rem;
+  }
+
+}
+
+.main-layout-aside {
+  background-color: $color-black;
+  position: fixed;
+  top: 0;
+  width: 35rem;
+  height: 100vh;
+  transition: all .4s ease;
+
+  &--closed {
+    width: 10rem;
+  }
+
+  &__container {
+    padding: 2rem;
+  }
+
+  &__header {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #555 ;
+  }
+
+  &__title {
+    font-size: 2.4rem;
+    font-family: $font-title;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: $color-white;
+  }
+
+}
+
+.main-layout-navigation {
+  margin-top: 4rem;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    color: $color-white;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: .5rem;
+    transition: all .4s ease;
+    width: 90%;
+  }
+
+  &__item:hover {
+    background-color: $color-white;
+    color: $color-black;
+  }
+
+  &__link--active {
+    background-color: $color-white;
+    color: $color-black;
   }
 
 }

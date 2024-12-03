@@ -3,11 +3,15 @@ import { SearchInput } from './SearchInput'
 import { MenuOver } from './MenuOver'
 import { UserPhoto } from './UserPhoto'
 import { UserInfo } from './UserInfo'
-import logo from '../../../assets/images/logo-white.png'
+import logo from '../../../../assets/images/logo.png'
+import { useUISlice } from '../../../../shared/redux-hooks'
 
 export const Header: React.FC = () => {
+
+  const { isMenuAsideShown } = useUISlice()
+
   return (
-    <header className='main-layout-header flex flex-between'>
+    <header className={`main-layout-header flex flex-between ${ !isMenuAsideShown && 'main-layout-header--aside'}`}>
 
       <div className='flex flex-center'>
         <div className='flex flex-center'>

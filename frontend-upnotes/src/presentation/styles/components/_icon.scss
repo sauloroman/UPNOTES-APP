@@ -1,8 +1,8 @@
 .icon {
 
-  cursor: pointer;
   
   &--form {
+    cursor: pointer;
     transition: color .4s ease;
     font-size: 2.2rem;
     color: lighten( $color-black, 30% );
@@ -11,18 +11,37 @@
       color: darken( $color-black, 60% );
     }
   }
-
+  
   &--search {
+    cursor: pointer;
     font-size: 2.4rem;
   }
 
   &--open-menu {
+    cursor: pointer;
     font-size: 3.2rem;
-    color: $color-white;
   }
 
   &--menu-over {
+    cursor: pointer;
     font-size: 2.4rem;
+  }
+  
+  &--aside {
+    font-size: 2.4rem;
+  }
+
+  &--navigation {
+    cursor: pointer;
+    color: $color-white;
+    font-size: 3.2rem;
+    transition: all .4s ease;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: $color-white;
+      color: $color-black;
+    }
   }
 
 }

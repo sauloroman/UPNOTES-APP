@@ -1,5 +1,5 @@
 import React from "react";
-import { useUISlice } from "../../../shared/redux-hooks";
+import { useUISlice } from "../../../../shared/redux-hooks";
 
 export const MenuOver: React.FC = () => {
 
@@ -25,12 +25,12 @@ export const MenuOver: React.FC = () => {
             Configuración
           </li>
           <li className="main-layout-menu__item">
-            <i className='bx bx-info-circle icon icon--menu-over'></i>
-            Contacto
-          </li>
-          <li className="main-layout-menu__item">
             <i className='bx bx-moon icon icon--menu-over'></i>
             Tema Oscuro
+          </li>
+          <li className="main-layout-menu__item">
+            <i className='bx bx-log-out icon icon--menu-over'></i>
+            Cerrar Sesión
           </li>
         </ul>
       </div>
