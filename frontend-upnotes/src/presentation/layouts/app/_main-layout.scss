@@ -1,12 +1,82 @@
-.main-layout-header {
+.main-layout {
+  position: relative;
 
-  padding: .5rem 3rem;
-  background-color: $color-black;
-
-  &__img {
-    height: 7rem;
+  &__container {
+    width: calc( 100% - $menu-aside-width - 5rem );
+    position: absolute;
+    left: calc($menu-aside-width + 2rem);
+    top: calc($header-height + 3rem);
+    transition: all 0.4s ease;
   }
 
+  &__container--small {
+    width: calc( 100% - $menu-aside-width-small - 5rem );
+    left: calc($menu-aside-width-small + 2rem);
+    top: calc($header-height + 3rem);
+  }
+}
+
+.main-layout-header {
+  border-bottom: 1px solid #ddd;
+  position: fixed;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  top: 0;
+  left: $menu-aside-width;
+  width: calc(100% - $menu-aside-width);
+  padding: 0.5rem 3rem;
+  transition: all 0.4s ease;
+
+  &--aside {
+    width: calc(100% - $menu-aside-width-small);
+    left: $menu-aside-width-small;
+  }
+
+  &__img {
+    height: $header-height;
+  }
+}
+
+.main-layout-aside {
+  background-color: $color-black;
+  position: fixed;
+  top: 0;
+  width: $menu-aside-width;
+  height: 100vh;
+  transition: all 0.4s ease;
+
+  &--closed {
+    width: $menu-aside-width-small;
+  }
+
+  &__container {
+    padding: 2rem;
+  }
+
+  &__header {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #555;
+  }
+
+  &__title {
+    font-size: 2.4rem;
+    font-family: $font-title;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: $color-white;
+  }
+}
+
+.main-layout-location {
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+  color: #444;
+  font-family: $font-title;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .main-layout-search {
@@ -14,15 +84,15 @@
   background-color: $color-white;
   padding: 0 1rem;
   border-radius: 5px;
+  border: 1px solid #ddd;
 
   &__input {
     border: none;
-    width: 50rem;
+    width: 60rem;
   }
 }
 
 .main-layout-user {
-  color: $color-white;
   margin-right: 2rem;
 
   &__name {
@@ -36,11 +106,16 @@
   }
 }
 
+.main-layout-title {
+  font-size: 3.2rem;
+  font-family: $font-title;
+}
+
 .main-layout-photo {
   &--default {
     width: 5rem;
     height: 5rem;
-    border-radius: 50%; 
+    border-radius: 50%;
     font-size: 2.6rem;
     line-height: 0;
     font-weight: bold;
@@ -51,20 +126,29 @@
 }
 
 .main-layout-menu {
-  box-shadow: 0 8px 8px rgba(0, 0, 0, .25);
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
   border: 1px solid #ddd;
   position: absolute;
   border-radius: 5px;
-  width: 27rem;
+  width: 25rem;
   padding: 2rem;
-  bottom: -20.5rem;
+  bottom: -34.5rem;
   right: 0%;
   background-color: $color-white;
+  transition: all 0.4s ease;
+
+  &--hidden {
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transform: translateY(-15px);
+  }
 
   &__title {
     color: $color-black;
     font-weight: 700;
-    text-align: right;
+    text-align: left;
     padding-bottom: 3px;
     margin-bottom: 3px;
     border-bottom: 1px solid #aaa;
@@ -76,9 +160,57 @@
   }
 
   &__item {
+    padding: 1rem;
+    cursor: pointer;
     text-align: right;
     display: flex;
-    justify-content: space-around;
+    gap: 2rem;
+    transition: all 0.3s ease;
   }
 
+  &__item:hover {
+    border-radius: 0.5rem;
+    background-color: $color-black;
+    color: $color-white;
+  }
+
+  &__item:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+}
+
+.main-layout-navigation {
+  margin-top: 4rem;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    width: 80%;
+    line-height: 0;
+    font-family: $font-title;
+    font-weight: 300;
+  }
+
+  &__item:hover,
+  &__link--active {
+    background-color: $color-green;
+    color: $color-white;
+    border-radius: 0.5rem;
+    width: 100%;
+  }
+
+  &__link {
+    background-color: $color-black;
+    color: $color-white;
+  }
 }

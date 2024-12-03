@@ -1,8 +1,8 @@
 import React from 'react'
 import { MainLayout } from '../../../layouts'
 
-export const Home: React.FC = () => {
+export const Scores: React.FC = () => {
   return (
-    <MainLayout>HomePage</MainLayout>
+    <MainLayout>Scores</MainLayout>
   )
 }

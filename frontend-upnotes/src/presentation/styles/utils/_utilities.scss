@@ -21,3 +21,10 @@
 .u-text-center {
   text-align: center;
 }
+
+.u-hidden { 
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}

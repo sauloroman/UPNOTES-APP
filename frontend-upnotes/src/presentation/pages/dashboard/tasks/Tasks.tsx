@@ -1,7 +1,8 @@
 import React from 'react'
+import { MainLayout } from '../../../layouts'
 
 export const Tasks: React.FC = () => {
   return (
-    <div>Tasks</div>
+    <MainLayout>Tasks</MainLayout>
   )
 }

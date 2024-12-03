@@ -17,12 +17,9 @@ body {
 }
 
 a:link, a:visited {
-  color: $color-green;
   font-weight: bold;
   padding-bottom: 2px;
-  border-bottom: 1px solid currentColor;
   cursor: pointer;
-  background: none;
   text-decoration: none;
 }
 
