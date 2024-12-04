@@ -1,36 +1,19 @@
-import cors from 'cors'
-import express, { Application, Request, Response, Router } from 'express'
-import { ServerApp } from './presentation/server'
+import { ServerApp } from "./presentation/server-express";
+import { envs } from './config/plugins/envs.plugin';
+import { RouterApp } from "./presentation/routes";
 
-const createExpressApp = function(): Application {
-  const app = express()
+ (async() => {
+  await main();
+ })()
 
-  app.use( cors() )
-  app.use( express.json() )
-  app.use( express.urlencoded({extended: true}))
-  app.use( express.static('public') )
-  
-  return app;
-}
-
-async function main() {
-
-  // TODO: Mover a archivo independiente
-  const router: Router = Router()
-  router.get('/', function( req, res ){
-    res.send('Hello')
-  })
+ async function main() {
 
   const server = new ServerApp({
-    port: 4000,
-    app: createExpressApp,
-    router: router,
+    port: envs.PORT,
+    router: RouterApp.routes,
+    publicPath: 'public'
   })
 
-  await server.start()
+  await server.start();
 
-}
-
-(async () => {
-  await main()
-})()
+ }
