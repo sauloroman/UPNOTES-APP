@@ -17,7 +17,7 @@ import {
 export const RoutesMain: React.FC = () => {
   return (
     <Routes>
-      <Route path='/*' element={<Navigate to="/home" />} />
+      <Route path='/*' element={<Navigate to="/upnotes/home" />} />
       <Route path='/home' element={<Home />} />
       <Route path='analitics' element={<Analitics />} />
       <Route path='course/:id' element={<Course />} />
