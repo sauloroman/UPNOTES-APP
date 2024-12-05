@@ -45,11 +45,8 @@ export class UserService {
 
       const { password, ...restUserEntity } = UserEntity.fromObject( userCreated )
 
-      const token = await this.generateToken({id: userCreated.id})
-
       return {
         user: restUserEntity,
-        token,
       }
 
     } catch (error) {
