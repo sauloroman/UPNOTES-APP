@@ -20,7 +20,7 @@ export class UsersController {
 
   }
 
-  public registerUser = ( req: Request, res: Response ) => {
+  public registerUser = ( req: Request, res: Response ): any => {
 
     const [ createUserDto, errorMessage ] = CreateUserDto.create( req.body )
 
