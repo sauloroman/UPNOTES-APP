@@ -3,23 +3,20 @@ import { prisma } from '../../data';
 import { CreateUserDto } from '../../domain/dtos/users/create-user.dto';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { CustomError } from '../../domain/errors/custom.error';
+import { EmailService } from '../services/email.services';
+import { TokenService } from '../services/token.services';
 
 const errorMessages = {
   emailExists: 'El correo ya existe. Intente con otro.',
-  tokenNoGenerated: 'Error creando el Token. Intente de nuevo más tarde',
+  errorSendingEmail: 'El email no se pudo enviar'
 }
 
 export class UserService {
 
-  private async generateToken( payload: any ) {
-    const token = await jwtGenerator.generateToken({ payload })
-
-    if ( !token ) {
-      throw CustomError.internalServerError(errorMessages.tokenNoGenerated)
-    }
-
-    return token
-  }
+  constructor (
+    private readonly emailService: EmailService,
+    private readonly tokenService: TokenService,
+  ) {}
 
   public async postUser( createUserDto: CreateUserDto ) {
 
@@ -38,12 +35,20 @@ export class UserService {
       const userCreated = await prisma.user.create({data: {
         ...createUserDto,
         password: passwordHashed,
-        createdAt: new Date().toLocaleDateString(),
+        createdAt: new Date(),
       }})
       
       await prisma.profile.create({ data: { userId: userCreated.id }})
 
       const { password, ...restUserEntity } = UserEntity.fromObject( userCreated )
+
+      const emailSent = this.emailService.sendEmail({
+        to: userCreated.email,
+        subject: 'Confirma tu correo electrónico - UPNOTES',
+        htmlBody: 'Debes validar tu cuenta, presiona aqui',
+      })
+
+      if ( !emailSent ) throw CustomError.internalServerError( errorMessages.errorSendingEmail ) 
 
       return {
         user: restUserEntity,
