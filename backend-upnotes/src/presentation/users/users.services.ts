@@ -1,4 +1,4 @@
-import { bcryptAdapter, envs, jwtGenerator } from '../../config';
+import { bcryptAdapter } from '../../config';
 import { prisma } from '../../data';
 import { CreateUserDto } from '../../domain/dtos/users/create-user.dto';
 import { UserEntity } from '../../domain/entities/user.entity';
