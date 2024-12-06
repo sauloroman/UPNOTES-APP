@@ -1,14 +1,15 @@
-import { bcryptAdapter, envs } from '../../config';
+import { envs } from '../../config';
 import { prisma } from '../../data';
 import { CreateUserDto } from '../../domain/dtos/users/create-user.dto';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { CustomError } from '../../domain/errors/custom.error';
-import { VerificationCodeService, EmailService, TokenService} from '../services';
+import { VerificationCodeService, EmailService, TokenService, EncriptionService} from '../services';
 
 interface UserServiceOption {
   emailService: EmailService,
   tokenService: TokenService,
-  verificationCodeService: VerificationCodeService
+  verificationCodeService: VerificationCodeService,
+  encripterService: EncriptionService
 }
 
 export class UserService {
@@ -16,12 +17,14 @@ export class UserService {
   private readonly emailService: EmailService;
   private readonly tokenService: TokenService;
   private readonly verificationCodeService: VerificationCodeService;
+  private readonly encripterService: EncriptionService
 
   constructor ( userOptions: UserServiceOption ) {
-    const { emailService, tokenService, verificationCodeService } = userOptions;
+    const { emailService, tokenService, verificationCodeService, encripterService} = userOptions;
     this.emailService = emailService
     this.tokenService = tokenService
     this.verificationCodeService = verificationCodeService
+    this.encripterService = encripterService
   }
 
   public async postUser( createUserDto: CreateUserDto ) {
@@ -36,7 +39,7 @@ export class UserService {
 
     try {
 
-      const passwordHashed = bcryptAdapter.hash(createUserDto.password)
+      const passwordHashed = this.encripterService.hashPassword(createUserDto.password)
 
       const userCreated = await prisma.user.create({data: {
         ...createUserDto,

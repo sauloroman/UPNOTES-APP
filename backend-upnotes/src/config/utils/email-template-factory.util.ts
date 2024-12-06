@@ -5,7 +5,7 @@ export const emailTemplateFactory = {
     frontendUrl: string
   ): string => {
 
-    const validationUrl = `${frontendUrl}/?code=${code}?email=${email}`
+    const validationUrl = `${frontendUrl}/?email=${email}`
 
     const html = `
     <div
