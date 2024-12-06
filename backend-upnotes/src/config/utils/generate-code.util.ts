@@ -1,9 +1,17 @@
+import { envs } from "../plugins/envs.plugin";
+
 interface OnlyNumbers {
+  durationMin: number;
   onlyNumbers: (value: number) => string;
   randomNumber: (startValue: number, endValue: number) => number;
 }
 
+const verificationCodeDurationMin = envs.VERIFICATION_CODE_DURATION_MIN
+
 export const codeGenerator: OnlyNumbers = {
+
+  durationMin: verificationCodeDurationMin,
+
   onlyNumbers(quantityOfNumbers: number): string {
     let finalNumber = '';
 

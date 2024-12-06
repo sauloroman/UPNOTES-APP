@@ -2,18 +2,17 @@ import { Router } from 'express';
 import {
   envs,
   codeGenerator,
-  jwtGenerator,
   emailTemplateFactory,
   bcryptAdapter,
 } from '../../config';
-import { UsersController } from './users.controller';
+import { UsersController } from './users.controllers';
 import { UserService } from './users.services';
+import { VerificationCodeService } from '../verification-code/verification-code.services';
 import {
   EmailService,
   EncriptionService,
-  TokenService,
-  VerificationCodeService,
 } from '../services';
+import { ProfileService } from '../profile/profile.services';
 
 export class UserRoutes {
   public static get routes(): Router {
@@ -27,24 +26,24 @@ export class UserRoutes {
       emailTemplateFactory: emailTemplateFactory,
     });
 
-    const tokenService = new TokenService({ jwtGenerator });
-
     const encripterService = new EncriptionService({ encripter: bcryptAdapter });
 
     const verificationCodeService = new VerificationCodeService({
-      codeGenerator,
-      codeDurationMin: envs.VERIFICATION_CODE_DURATION_MIN,
+      generatorCode: codeGenerator
     });
+
+    const profileService = new ProfileService();
 
     const userService = new UserService({
       emailService,
-      tokenService,
       verificationCodeService,
+      profileService,
       encripterService,
     });
 
     const userController = new UsersController(userService);
 
+    // ENDPOINTS
     router.post('/', userController.registerUser);
 
     return router;

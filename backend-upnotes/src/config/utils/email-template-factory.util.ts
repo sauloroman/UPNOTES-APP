@@ -1,11 +1,22 @@
-export const emailTemplateFactory = {
-  generateVerificationEmailTemplate: (
+import { envs } from "../plugins/envs.plugin";
+
+interface EmailTemplateFactory {
+  frontendUrl: string,
+  generateVerificationEmailTemplate: ( email: string, code: string ) => string
+}
+
+const frontendUrl = envs.FRONTEND_URL
+
+export const emailTemplateFactory: EmailTemplateFactory = {
+
+  frontendUrl: frontendUrl,
+
+  generateVerificationEmailTemplate (
     email: string,
     code: string,
-    frontendUrl: string
-  ): string => {
+  ): string {
 
-    const validationUrl = `${frontendUrl}/?email=${email}`
+    const validationUrl = `${this.frontendUrl}/?email=${email}`
 
     const html = `
     <div

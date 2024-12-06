@@ -46,7 +46,7 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
           <div className="auth-layout__navigate">
             <p className="paragraph">
               {textNavigation}
-              <Link to={`/auth/${page}`}>{textLink}</Link>
+              <Link className='auth-layout__link' to={`/auth/${page}`}>{textLink}</Link>
             </p>
           </div>
         </div>

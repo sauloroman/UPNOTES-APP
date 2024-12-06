@@ -1,5 +1,5 @@
 interface RegularExpr {
-  [key: string]: RegExp
+  email: RegExp
 }
 
 export const regularExps: RegularExpr = {

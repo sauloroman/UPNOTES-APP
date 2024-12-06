@@ -1,41 +1,46 @@
-import { envs } from '../../config';
 import { prisma } from '../../data';
 import { CreateUserDto } from '../../domain/dtos/users/create-user.dto';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { CustomError } from '../../domain/errors/custom.error';
-import { VerificationCodeService, EmailService, TokenService, EncriptionService} from '../services';
+import { EmailService, EncriptionService} from '../services';
+import { VerificationCodeService } from '../verification-code/verification-code.services';
+import { ProfileService } from '../profile/profile.services';
 
 interface UserServiceOption {
   emailService: EmailService,
-  tokenService: TokenService,
   verificationCodeService: VerificationCodeService,
+  profileService: ProfileService,
   encripterService: EncriptionService
 }
 
 export class UserService {
 
   private readonly emailService: EmailService;
-  private readonly tokenService: TokenService;
   private readonly verificationCodeService: VerificationCodeService;
   private readonly encripterService: EncriptionService
+  private readonly  profileService: ProfileService
 
   constructor ( userOptions: UserServiceOption ) {
-    const { emailService, tokenService, verificationCodeService, encripterService} = userOptions;
+    const { emailService, verificationCodeService, encripterService, profileService } = userOptions;
     this.emailService = emailService
-    this.tokenService = tokenService
     this.verificationCodeService = verificationCodeService
     this.encripterService = encripterService
+    this.profileService = profileService
   }
 
-  public async postUser( createUserDto: CreateUserDto ) {
-
+  private async isUserInDataBase( email: string ) {
     const userExists = await prisma.user.findUnique({
-      where: { email: createUserDto.email }
+      where: { email }
     })
 
     if ( userExists ) {
       throw CustomError.badRequest('El correo ya existe. Intente con otro.')
     }
+  }
+
+  public async postUser( createUserDto: CreateUserDto ) {
+
+    await this.isUserInDataBase( createUserDto.email )
 
     try {
 
@@ -45,26 +50,16 @@ export class UserService {
         ...createUserDto,
         password: passwordHashed,
       }})
+      const profileId = await this.profileService.postProfile( userCreated.id )
+      const verificationCode = await this.verificationCodeService.postVerificationCode( userCreated.id )
       
-      await prisma.profile.create({ data: { userId: userCreated.id }})
-
-      const { password, ...restUserEntity } = UserEntity.fromObject( userCreated )
-
-      const verificationCode = this.verificationCodeService.generateVerificationNumberCode()
-
-      await prisma.verificacionCode.create({
-        data: {
-          code: verificationCode,
-          expiresAt: new Date( Date.now() + this.verificationCodeService.codeDurationMin * 60 * 1000 ),
-          userId: userCreated.id
-        }
-      })
-
+      
       await this.emailService.sendEmailWithVerificationCode({
         email: userCreated.email,
         code: verificationCode,
-        frontendUrl: `${envs.FRONTEND_URL}/auth/verify-account`,
       })
+      
+      const { password, ...restUserEntity } = UserEntity.fromObject({ ...userCreated, profileId })
 
       return {
         user: restUserEntity,
@@ -75,5 +70,9 @@ export class UserService {
     }
 
   } 
+
+  public async validateUser() {
+    
+  }
 
 }

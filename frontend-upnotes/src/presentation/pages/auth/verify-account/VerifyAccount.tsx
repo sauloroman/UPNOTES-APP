@@ -1,7 +1,12 @@
 import React from 'react'
-import { InputList } from './components/InputList';
+import { useNavigationPage } from '../../../shared/hooks';
+import { ValidationCodeForm } from './components/ValidationCodeForm';
 
 export const VerifyAccount: React.FC = () => {
+
+  const {getParams} = useNavigationPage()
+  const { param, value } = getParams()
+
   return (
     <div className='verify-account flex flex-center'>
       <div className="verify-account__container">
@@ -13,17 +18,12 @@ export const VerifyAccount: React.FC = () => {
           <div className='verify-account__info'>
             <p className='paragraph u-margin-bottom-small u-text-center'>Un código de verificación ha sido enviado a: </p>
             <div className="flex flex-center">
-              <p className='verify-account__email u-text-center'>romansantillan1998@outlook.com</p>
+              <p className='verify-account__email u-text-center'>{param}: {value}</p>
             </div>
           </div>
           <p>Por favor revisa tu bandeja de entrada e ingresa el código de verificación abajo para validar tu dirección de correo electrónico. El código expirará en <span className='verify-account__time'>10 minutos.</span></p>
 
-          <form action="#" className='form-verify'>
-            <InputList />
-            <div>
-              <button className='btn btn--green'>Verificar</button>
-            </div>
-          </form>
+          <ValidationCodeForm />
 
         </div>
       </div>
