@@ -7,8 +7,8 @@ export const bcryptAdapter = {
     return hashSync( password, salt )
   },
 
-  compare( password: string, hashPassword: string ) {
-    
+  compare( password: string, hashPassword: string ): boolean {
+    return true
   }
 
 }

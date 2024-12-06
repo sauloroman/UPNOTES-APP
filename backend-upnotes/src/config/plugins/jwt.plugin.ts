@@ -6,7 +6,7 @@ const secretKey = envs.JWT_KEY
 
 export const jwtGenerator = {
 
-  async generateToken( payload: any, duration: string = sessionDuration ): Promise<null | any> {
+  async generateToken( payload: any, duration: string = sessionDuration ): Promise<null | unknown> {
     return new Promise(( resolve, _ ) => {
 
       jwt.sign( payload, secretKey, { expiresIn: duration }, ( err, token ) => {

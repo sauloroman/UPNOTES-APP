@@ -1,13 +1,17 @@
 import { CustomError } from "../../domain/errors/custom.error"
 
+interface CodeGenerator {
+  onlyNumbers: ( value: number ) => string;
+}
+
 interface VerificationCodeOptions {
-  codeGenerator: any;
+  codeGenerator: CodeGenerator;
   codeDurationMin: number;
 }
 
 export class VerificationCodeService {
 
-  public readonly codeGenerator: any
+  public readonly codeGenerator: CodeGenerator
   public readonly codeDurationMin: number; 
 
   constructor( { codeGenerator, codeDurationMin }: VerificationCodeOptions ){
