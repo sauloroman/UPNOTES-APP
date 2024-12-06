@@ -25,7 +25,7 @@ export class UserEntity {
     } = userObj
 
     for( const [key, value] of Object.entries( userObj ) ) {
-      if ( typeof key === 'string' && !value ) {
+      if ( typeof key === 'string' && value === undefined ) {
         this.sendErrorForStringTypes( key )
       }
     }
