@@ -1,5 +1,6 @@
 import { prisma } from '../../data';
 import { RegenerateVerificationCodeDto } from '../../domain/dtos/verification-code/regenerate-verification-code.dto';
+import { CustomError } from '../../domain/errors/custom.error';
 
 interface GeneratorCode {
   durationMin: number,
@@ -18,11 +19,10 @@ export class VerificationCodeService {
     this.generatorCode = generatorCode
   }
 
-  private async isCodeInDataBase( code: string, userId: string ): Promise<boolean> {
+  private async getVerificationCode( code: string, userId: string ) {
     const codeByUser = await prisma.verificacionCode.findFirst({ where: { userId, code } }) 
-    if ( codeByUser ) return true
-    return false    
-  }
+    return codeByUser
+  } 
 
   public async regenerateVerificationCode( regenerateVerificationCodeDto: RegenerateVerificationCodeDto ) {
 
@@ -34,7 +34,7 @@ export class VerificationCodeService {
 
     do {
       code = this.generatorCode.onlyNumbers(5)
-    } while ( await this.isCodeInDataBase( code, userId ) )
+    } while ( await this.getVerificationCode( code, userId ) )
 
     const verificationCode = await prisma.verificacionCode.create({
       data: { 
@@ -46,6 +46,16 @@ export class VerificationCodeService {
     })
 
     return verificationCode.code
+  }
+
+  public async isValidationCodeActive( code: string, userId: string ): Promise<boolean> {
+    const verificationCode = await this.getVerificationCode( code, userId ) 
+
+    if (!verificationCode) {
+      throw CustomError.notFound(`No existe el codigo ${code} para el usuario ${userId}`)
+    }
+
+    return Date.now() > new Date(verificationCode.expiresAt).getTime() 
   }
 
 }

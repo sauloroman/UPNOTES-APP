@@ -43,8 +43,9 @@ export class UserRoutes {
 
     const userController = new UsersController(userService);
 
-    // ENDPOINTS
-    router.post('/', userController.registerUser);
+    // PUBLIC ENDPOINTS
+    router.post('/', userController.registerUser );
+    router.post('/validate-account', userController.validateUserAccount )
 
     return router;
   }

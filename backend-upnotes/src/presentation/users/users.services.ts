@@ -1,10 +1,12 @@
 import { prisma } from '../../data';
-import { CreateUserDto } from '../../domain/dtos/users/create-user.dto';
+import { ValidateUserDto, CreateUserDto } from '../../domain/dtos';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { CustomError } from '../../domain/errors/custom.error';
+
 import { EmailService, EncriptionService} from '../services';
 import { VerificationCodeService } from '../verification-code/verification-code.services';
 import { ProfileService } from '../profile/profile.services';
+import { User } from '@prisma/client';
 
 interface UserServiceOption {
   emailService: EmailService,
@@ -28,19 +30,17 @@ export class UserService {
     this.profileService = profileService
   }
 
-  private async isUserInDataBase( email: string ) {
-    const userExists = await prisma.user.findUnique({
+  private async getUserByEmail( email: string ): Promise<User | null> {
+    return await prisma.user.findUnique({
       where: { email }
     })
-
-    if ( userExists ) {
-      throw CustomError.badRequest('El correo ya existe. Intente con otro.')
-    }
   }
 
   public async postUser( createUserDto: CreateUserDto ) {
 
-    await this.isUserInDataBase( createUserDto.email )
+    if( await this.getUserByEmail( createUserDto.email ) ) {
+      throw CustomError.badRequest('El correo ya existe. Intente con otro.')
+    }
 
     try {
 
@@ -52,7 +52,6 @@ export class UserService {
       }})
       const profileId = await this.profileService.postProfile( userCreated.id )
       const verificationCode = await this.verificationCodeService.postVerificationCode( userCreated.id )
-      
       
       await this.emailService.sendEmailWithVerificationCode({
         email: userCreated.email,
@@ -71,8 +70,39 @@ export class UserService {
 
   } 
 
-  public async validateUser() {
+  public async validateUser( validateUserDto: ValidateUserDto ) {
     
+    const { code, email } = validateUserDto
+
+    const userExists = await this.getUserByEmail( email )
+
+    if ( !userExists ) {
+      throw CustomError.notFound(`El usuario con correo ${email} no existe`)
+    }
+    
+    if ( !userExists.isActive ) {
+      throw CustomError.badRequest('El usuario no está activo')
+    }
+
+    if ( userExists.isAccountVerified ) {
+      throw CustomError.badRequest('El usuario ya está verificado. Inicie sesión')
+    }
+
+    const user = await prisma.user.findUnique({ where: {email} } )
+
+    const isCodeActive = await this.verificationCodeService.isValidationCodeActive(code, user!.id)
+
+    if ( !isCodeActive ) {
+      throw CustomError.badRequest(`El codigo ya ha expirado. Vuelva a generar uno`)
+    }
+
+    await prisma.user.update({ 
+      where: { email },
+      data: {
+        isAccountVerified: true
+      }
+    })
+
   }
 
 }
