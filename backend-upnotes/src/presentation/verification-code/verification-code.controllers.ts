@@ -20,6 +20,9 @@ export class VerificationCodeController {
 
   public regenerateVerificationCode = ( req: Request, res: Response ): any => {
 
+    const { token } = req.params
+
+    console.log(token)
     const [ regenerateVerificationCodeDto, errorMessage ] = RegenerateVerificationCodeDto.create( req.body )
 
     if ( errorMessage ) {

@@ -7,16 +7,23 @@ interface GeneratorCode {
   onlyNumbers: ( quantityOfNumbers: number ) => string
 }
 
+interface DateFormatter {
+  convertToLocalTime: ( UTCDate: string, timeZone?: string ) => string
+}
+
 interface VerificationCodeOptions {
+  dateFormatter: DateFormatter,
   generatorCode: GeneratorCode
 }
 
 export class VerificationCodeService {
 
   private readonly generatorCode: GeneratorCode 
+  private readonly dateFormatter: DateFormatter 
 
-  constructor( { generatorCode }: VerificationCodeOptions ){
+  constructor( { generatorCode, dateFormatter }: VerificationCodeOptions ){
     this.generatorCode = generatorCode
+    this.dateFormatter = dateFormatter
   }
 
   private async getVerificationCode( code: string, userId: string ) {
@@ -25,7 +32,7 @@ export class VerificationCodeService {
   } 
 
   public async regenerateVerificationCode( regenerateVerificationCodeDto: RegenerateVerificationCodeDto ) {
-
+ 
 
   }
 
@@ -39,7 +46,6 @@ export class VerificationCodeService {
     const verificationCode = await prisma.verificacionCode.create({
       data: { 
         code: code,
-        createdAt: new Date(),
         expiresAt: new Date( Date.now() + this.generatorCode.durationMin * 60 * 1000 ),
         userId: userId
       }
@@ -55,7 +61,13 @@ export class VerificationCodeService {
       throw CustomError.notFound(`No existe el codigo ${code} para el usuario ${userId}`)
     }
 
-    return Date.now() > new Date(verificationCode.expiresAt).getTime() 
+    const currentDate = this.dateFormatter.convertToLocalTime( new Date().toString() )
+    const currentTime = new Date( currentDate ).getTime()
+
+    const localExpireDate = this.dateFormatter.convertToLocalTime( `${verificationCode.expiresAt}` )
+    const localExpireTime = new Date( localExpireDate ).getTime()
+
+    return localExpireTime > currentTime
   }
 
-}
+} 

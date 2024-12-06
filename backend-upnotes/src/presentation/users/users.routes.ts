@@ -4,6 +4,8 @@ import {
   codeGenerator,
   emailTemplateFactory,
   bcryptAdapter,
+  jwtGenerator,
+  dateFormatter
 } from '../../config';
 import { UsersController } from './users.controllers';
 import { UserService } from './users.services';
@@ -11,6 +13,7 @@ import { VerificationCodeService } from '../verification-code/verification-code.
 import {
   EmailService,
   EncriptionService,
+  TokenService,
 } from '../services';
 import { ProfileService } from '../profile/profile.services';
 
@@ -29,16 +32,20 @@ export class UserRoutes {
     const encripterService = new EncriptionService({ encripter: bcryptAdapter });
 
     const verificationCodeService = new VerificationCodeService({
+      dateFormatter: dateFormatter,
       generatorCode: codeGenerator
     });
 
     const profileService = new ProfileService();
+
+    const tokenService = new TokenService({ jwtGenerator })
 
     const userService = new UserService({
       emailService,
       verificationCodeService,
       profileService,
       encripterService,
+      tokenService
     });
 
     const userController = new UsersController(userService);

@@ -4,6 +4,7 @@ interface EmailTemplateFactory {
   generateVerificationEmailTemplate: (
     email: string,
     code: string,
+    token: string,
   ) => string;
 }
 
@@ -18,6 +19,7 @@ interface EmailServiceOptions {
 interface SendEmailVerificationCode {
   email: string;
   code: string;
+  token: string;
 }
 
 interface SendMailOptions {
@@ -83,11 +85,13 @@ export class EmailService {
   public async sendEmailWithVerificationCode({
     email,
     code,
+    token,
   }: SendEmailVerificationCode): Promise<boolean> {
 
     const htmlEmail = this.emailTemplateFactory.generateVerificationEmailTemplate(
       email,
       code,
+      token,
     );
 
     const emailSent = await this.sendEmail({

@@ -2,7 +2,7 @@ import { envs } from "../plugins/envs.plugin";
 
 interface EmailTemplateFactory {
   frontendUrl: string,
-  generateVerificationEmailTemplate: ( email: string, code: string ) => string
+  generateVerificationEmailTemplate: ( email: string, code: string, token: string ) => string
 }
 
 const frontendUrl = envs.FRONTEND_URL
@@ -14,9 +14,10 @@ export const emailTemplateFactory: EmailTemplateFactory = {
   generateVerificationEmailTemplate (
     email: string,
     code: string,
+    token: string,
   ): string {
 
-    const validationUrl = `${this.frontendUrl}/?email=${email}`
+    const validationUrl = `${this.frontendUrl}/${token}?email=${email}`
 
     const html = `
     <div

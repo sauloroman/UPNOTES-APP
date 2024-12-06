@@ -34,7 +34,7 @@ export class UsersController {
     this.sendErrorMessage( errorMessage, res )
 
     this.userService.postUser( createUserDto! )
-      .then( userCreated => res.status(201).json( userCreated ) )
+      .then( data => res.status(201).json( data ) )
       .catch( error => this.handleErrorResponse( error, res ))
 
   }
@@ -46,8 +46,8 @@ export class UsersController {
     this.sendErrorMessage( errorMessage, res )
 
     this.userService.validateUser( validateUserDto! )
-      .then()
-      .catch()
+      .then( data => res.status(200).json( data ) )
+      .catch( error => this.handleErrorResponse( error, res ) )
 
   }
 
