@@ -63,3 +63,28 @@
   }
 
 }
+
+.form-verify {
+
+  margin: 0 auto;
+  margin-top: 3rem;
+  width: 80%;
+
+  &__input {
+    background-color: inherit;
+    width: 6rem;
+    height: 6rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 2.4rem;
+    font-family: $font-title;
+  }
+
+  &__input:focus {
+    outline: none;
+    border: 1px solid $color-green;
+  }
+
+}

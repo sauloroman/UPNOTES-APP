@@ -1,0 +1,49 @@
+.verify-account {
+
+  height: 100vh;
+  background-color: $color-green-light;
+
+  &__container {
+    width: 80rem;
+    max-width: 95%;
+    background-color: $color-white;
+    border-radius: 10px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, .25);
+    margin: 0 auto;
+    padding: 8rem 10rem;
+  }
+
+  &__title {
+    font-size: 2.2rem;
+    font-family: $font-title;
+    text-transform: uppercase;
+    color: $color-black;
+  }
+
+  &__header {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #ddd;
+  }
+
+  &__content {
+    padding: 2rem 0;
+  }
+  
+  &__info {
+    margin: 2rem 0 4rem;
+  }
+
+  &__email {
+    color: $color-black;
+    font-weight: 700;
+    font-size: 1.8rem;
+    display: inline-block;
+    border-bottom: 1px solid currentColor;
+  }
+
+  &__time {
+    font-weight: 600;
+    color: $color-black;
+  }
+
+}

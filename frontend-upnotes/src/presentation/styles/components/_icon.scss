@@ -36,6 +36,11 @@
     line-height: 0;
   }
 
+  &--verify {
+    font-size: 3rem;
+    color: $color-green;
+  }
+
   &--navigation {
     cursor: pointer;
     color: $color-white;
