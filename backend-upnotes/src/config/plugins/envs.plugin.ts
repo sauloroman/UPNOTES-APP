@@ -18,4 +18,6 @@ export const envs = {
   SEND_EMAIL: env.get('SEND_EMAIL').required().asBool(),
 
   VERIFICATION_CODE_DURATION_MIN: env.get('VERIFICATION_CODE_DURATION_MIN').required().asInt(),
+
+  FRONTEND_URL: env.get('FRONTEND_URL').required().asString(),
 }

@@ -1,4 +1,4 @@
-import { bcryptAdapter } from '../../config';
+import { bcryptAdapter, envs } from '../../config';
 import { prisma } from '../../data';
 import { CreateUserDto } from '../../domain/dtos/users/create-user.dto';
 import { UserEntity } from '../../domain/entities/user.entity';
@@ -9,11 +9,6 @@ interface UserServiceOption {
   emailService: EmailService,
   tokenService: TokenService,
   verificationCodeService: VerificationCodeService
-}
-
-const errorMessages = {
-  emailExists: 'El correo ya existe. Intente con otro.',
-  errorSendingEmail: 'El email no se pudo enviar'
 }
 
 export class UserService {
@@ -36,7 +31,7 @@ export class UserService {
     })
 
     if ( userExists ) {
-      throw CustomError.badRequest( errorMessages.emailExists )
+      throw CustomError.badRequest('El correo ya existe. Intente con otro.')
     }
 
     try {
@@ -46,23 +41,27 @@ export class UserService {
       const userCreated = await prisma.user.create({data: {
         ...createUserDto,
         password: passwordHashed,
-        createdAt: new Date(),
       }})
       
       await prisma.profile.create({ data: { userId: userCreated.id }})
 
       const { password, ...restUserEntity } = UserEntity.fromObject( userCreated )
 
+      const verificationCode = this.verificationCodeService.generateVerificationNumberCode()
+
       await prisma.verificacionCode.create({
         data: {
-          code: this.verificationCodeService.generateVerificationNumberCode(),
-          createdAt: new Date(),
+          code: verificationCode,
           expiresAt: new Date( Date.now() + this.verificationCodeService.codeDurationMin * 60 * 1000 ),
           userId: userCreated.id
         }
       })
 
-      // if ( !emailSent ) throw CustomError.internalServerError( errorMessages.errorSendingEmail ) 
+      await this.emailService.sendEmailWithVerificationCode({
+        email: userCreated.email,
+        code: verificationCode,
+        frontendUrl: `${envs.FRONTEND_URL}/auth/verify-account`,
+      })
 
       return {
         user: restUserEntity,
