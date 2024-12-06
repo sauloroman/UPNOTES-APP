@@ -1,23 +1,21 @@
 interface OnlyNumbers {
-  onlyNumbers: ( value: number ) => string;
-  randomNumber: ( startValue: number, endValue: number ) => number;
+  onlyNumbers: (value: number) => string;
+  randomNumber: (startValue: number, endValue: number) => number;
 }
 
-export const generateCode: OnlyNumbers = {
+export const codeGenerator: OnlyNumbers = {
+  onlyNumbers(quantityOfNumbers: number): string {
+    let finalNumber = '';
 
-  onlyNumbers ( quantityOfNumbers: number ): string {
-    let finalNumber = ''
-
-    for( let i = 0; i <= quantityOfNumbers; i++ ) {
-      const randomIndex = this.randomNumber(0, 9)
-      finalNumber += randomIndex
+    for (let i = 0; i < quantityOfNumbers; i++) {
+      const randomIndex = this.randomNumber(0, 9);
+      finalNumber += randomIndex;
     }
 
-    return finalNumber
+    return finalNumber;
   },
 
-  randomNumber( min: number, max: number ): number {
-    return Math.random() * (max - min) + min; 
-  }
-
-}
+  randomNumber(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min) + min)
+  },
+};

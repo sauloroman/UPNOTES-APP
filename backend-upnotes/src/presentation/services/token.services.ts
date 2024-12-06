@@ -12,7 +12,7 @@ export class TokenService {
     this.jwtGenerator = jwtGenerator
   }
 
-  public async generateToken( payload: any ) {
+  public async generateToken( payload: any ): Promise<string> {
     const token = await this.jwtGenerator.generateToken({ payload })
 
     if ( !token ) {

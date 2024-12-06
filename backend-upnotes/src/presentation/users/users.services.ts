@@ -1,10 +1,15 @@
-import { bcryptAdapter, jwtGenerator } from '../../config';
+import { bcryptAdapter, envs, jwtGenerator } from '../../config';
 import { prisma } from '../../data';
 import { CreateUserDto } from '../../domain/dtos/users/create-user.dto';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { CustomError } from '../../domain/errors/custom.error';
-import { EmailService } from '../services/email.services';
-import { TokenService } from '../services/token.services';
+import { VerificationCodeService, EmailService, TokenService} from '../services';
+
+interface UserServiceOption {
+  emailService: EmailService,
+  tokenService: TokenService,
+  verificationCodeService: VerificationCodeService
+}
 
 const errorMessages = {
   emailExists: 'El correo ya existe. Intente con otro.',
@@ -13,10 +18,16 @@ const errorMessages = {
 
 export class UserService {
 
-  constructor (
-    private readonly emailService: EmailService,
-    private readonly tokenService: TokenService,
-  ) {}
+  private readonly emailService: EmailService;
+  private readonly tokenService: TokenService;
+  private readonly verificationCodeService: VerificationCodeService;
+
+  constructor ( userOptions: UserServiceOption ) {
+    const { emailService, tokenService, verificationCodeService } = userOptions;
+    this.emailService = emailService
+    this.tokenService = tokenService
+    this.verificationCodeService = verificationCodeService
+  }
 
   public async postUser( createUserDto: CreateUserDto ) {
 
@@ -42,13 +53,16 @@ export class UserService {
 
       const { password, ...restUserEntity } = UserEntity.fromObject( userCreated )
 
-      const emailSent = this.emailService.sendEmail({
-        to: userCreated.email,
-        subject: 'Confirma tu correo electrónico - UPNOTES',
-        htmlBody: 'Debes validar tu cuenta, presiona aqui',
+      await prisma.verificacionCode.create({
+        data: {
+          code: this.verificationCodeService.generateVerificationNumberCode(),
+          createdAt: new Date(),
+          expiresAt: new Date( Date.now() + this.verificationCodeService.codeDurationMin * 60 * 1000 ),
+          userId: userCreated.id
+        }
       })
 
-      if ( !emailSent ) throw CustomError.internalServerError( errorMessages.errorSendingEmail ) 
+      // if ( !emailSent ) throw CustomError.internalServerError( errorMessages.errorSendingEmail ) 
 
       return {
         user: restUserEntity,

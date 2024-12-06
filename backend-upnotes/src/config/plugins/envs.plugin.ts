@@ -16,4 +16,6 @@ export const envs = {
   MAILER_EMAIL: env.get('MAILER_EMAIL').required().asString(),
   MAILER_SECRET_KEY: env.get('MAILER_SECRET_KEY').required().asString(),
   SEND_EMAIL: env.get('SEND_EMAIL').required().asBool(),
+
+  VERIFICATION_CODE_DURATION_MIN: env.get('VERIFICATION_CODE_DURATION_MIN').required().asInt(),
 }
