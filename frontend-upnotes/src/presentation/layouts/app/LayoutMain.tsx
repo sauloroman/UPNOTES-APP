@@ -2,7 +2,7 @@ import React from "react";
 import { Header } from "./components/header/Header";
 import { Navigation } from "./components/navigation/Navigation";
 import { Location } from "./components/location/Location";
-import { useUISlice } from "../../shared/redux-hooks";
+import { useMenu } from "../../shared/redux-hooks";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ interface MainLayoutProps {
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children, titleView }) => {
   
-  const { isMenuAsideShown } = useUISlice();
+  const { isMenuAsideShown } = useMenu();
 
   return (
     <div>

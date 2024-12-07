@@ -10,8 +10,8 @@ const initialState: UIState = {
   isMenuAsideShown: true,
 }
 
-export const uiSlice = createSlice({
-  name: "ui",
+export const menuSlice = createSlice({
+  name: "menu",
   initialState,
   reducers: {
 
@@ -29,4 +29,4 @@ export const uiSlice = createSlice({
 export const { 
   setIsMenuOverShown,
   setIsMenuAsideShown,
-} = uiSlice.actions
+} = menuSlice.actions

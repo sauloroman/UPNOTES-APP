@@ -1,1 +1,1 @@
-export * from "./useUISlice"
+export * from "./useMenu"

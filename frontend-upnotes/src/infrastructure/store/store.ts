@@ -1,10 +1,10 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit"
-import { uiSlice } from "./slices/ui.slice";
+import { menuSlice } from "./slices/menu.slice";
 import { alertSlice } from "./slices/alert.slice";
 
 export const store = configureStore({
   reducer: {
-    ui: uiSlice.reducer,
+    menu: menuSlice.reducer,
     alert: alertSlice.reducer
   }
 })

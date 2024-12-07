@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../infrastructure/store/store";
-import { setIsMenuAsideShown, setIsMenuOverShown } from "../../../infrastructure/store/slices/ui.slice";
+import { setIsMenuAsideShown, setIsMenuOverShown } from "../../../infrastructure/store/slices/menu.slice";
 
-export const useUISlice = () => {
+export const useMenu = () => {
 
   const dispatch = useDispatch();
 
-  const { isMenuOverShown, isMenuAsideShown } = useSelector( (state: RootState) => state.ui )
+  const { isMenuOverShown, isMenuAsideShown } = useSelector( (state: RootState) => state.menu )
 
   const openMenuOver = () => {
     dispatch( setIsMenuOverShown( true ) )

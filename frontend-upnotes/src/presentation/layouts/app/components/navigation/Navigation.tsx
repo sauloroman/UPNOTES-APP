@@ -1,9 +1,9 @@
 import React from "react";
-import { useUISlice } from "../../../../shared/redux-hooks";
+import { useMenu } from "../../../../shared/redux-hooks";
 import { NavigationList } from "./NavigationList";
 
 export const Navigation: React.FC = () => {
-  const { isMenuAsideShown, closeMenuAside, openMenuAside } = useUISlice();
+  const { isMenuAsideShown, closeMenuAside, openMenuAside } = useMenu();
 
   return (
     <>

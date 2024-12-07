@@ -1,9 +1,9 @@
 import React from "react";
-import { useUISlice } from "../../../../shared/redux-hooks";
+import { useMenu } from "../../../../shared/redux-hooks";
 
 export const MenuOver: React.FC = () => {
 
-  const { openMenuOver, closeMenuOver, isMenuOverShown } = useUISlice()
+  const { openMenuOver, closeMenuOver, isMenuOverShown } = useMenu()
 
   return (
     <div className="flex flex-center u-relative">

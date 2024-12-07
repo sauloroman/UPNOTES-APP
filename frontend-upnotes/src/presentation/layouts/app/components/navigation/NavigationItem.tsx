@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useUISlice } from "../../../../shared/redux-hooks";
-import { NavigationItemProps } from "./types";
+import { useMenu } from "../../../../shared/redux-hooks";
+import { NavigationItemProps } from "../../../../../application";
 
 export const NavigationItem: React.FC<NavigationItemProps> = ({
   iconName,
@@ -9,7 +9,7 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
   page,
 }) => {
 
-  const { isMenuAsideShown } = useUISlice()
+  const { isMenuAsideShown } = useMenu()
 
   return (
     <NavLink
