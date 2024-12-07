@@ -14,8 +14,8 @@ export class ValidateUserUseCase {
   }
 
   public async create( validateUser: ValidateUser ) {
-    const { msg, user } = await this.userRepository.validate(validateUser)
-    return { msg, user }
+    const { msg, user, token } = await this.userRepository.validate(validateUser)
+    return { msg, user, token }
   }
 
 }

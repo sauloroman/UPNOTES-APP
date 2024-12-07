@@ -16,11 +16,11 @@
 }
 
 @mixin alertType( $color, $bgColor ) {
-  .alert__button {
+  [class$="__button"] {
     @include buttonOutline( $color, $bgColor );
   }
   
-  .alert__icon, .alert__title {
+  [class$="__icon"], [class$="__title"] {
     color: $color;
   }
 }

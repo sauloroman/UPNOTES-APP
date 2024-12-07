@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import { 
   Analitics,
   Course,
@@ -17,7 +17,6 @@ import {
 export const RoutesMain: React.FC = () => {
   return (
     <Routes>
-      <Route path='/*' element={<Navigate to="/upnotes/home" />} />
       <Route path='/home' element={<Home />} />
       <Route path='analitics' element={<Analitics />} />
       <Route path='course/:id' element={<Course />} />

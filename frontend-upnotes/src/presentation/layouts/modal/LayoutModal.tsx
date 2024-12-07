@@ -16,7 +16,6 @@ export const LayoutModal: React.FC<LayoutModalProps> = ({ width, closeModal, chi
             <img className='modal__image' src={logo} alt="Upnotes Logo" />
             <p className='modal__app'>UpNotes</p>
           </div>
-          <i onClick={ closeModal } className='bx bx-x modal__close'></i>
         </header>
         <div className="modal__content">
           {children}

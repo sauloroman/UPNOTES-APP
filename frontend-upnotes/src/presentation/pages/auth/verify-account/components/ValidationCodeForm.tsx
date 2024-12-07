@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { InputVerify } from './InputVerify';
 import { useForm } from '../../../../shared/hooks';
-import { useUser } from '../../../../shared/redux-hooks';
+import { useAuth, useUser } from '../../../../shared/redux-hooks';
+import { NewCode } from './NewCode';
 
 const formData = {
   box1: null,
@@ -20,13 +21,13 @@ export const ValidationCodeForm: React.FC<ValidationCodeFormProps> = ({email}) =
   const { formState, onInputChange } = useForm( formData )
   const [error, setError] = useState<string | null>(null)
   const { validateUser } = useUser()
+  const { generateVerificationCode } = useAuth()
 
   const onSubmitVerificationCode = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let code = ''  
 
     for( const valueBox of Object.values( formState )) {
-      console.log(valueBox)
       if ( !valueBox ) {
         return setError('El código no es válido')
       }
@@ -55,9 +56,10 @@ export const ValidationCodeForm: React.FC<ValidationCodeFormProps> = ({email}) =
       <div className='flex flex-end u-margin-bottom-medium'>
         <span className='form__span u-text-red'>{error}</span>
       </div>
-      <div>
+      <div className='u-margin-bottom-medium'>
         <button className="btn btn--green">Verificar</button>
       </div>
+      { generateVerificationCode && <NewCode email={email} /> }
     </form>
   );
 };

@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SliderAuth } from './components/SliderAuth';
 import logo from '../../assets/images/logo.png';
-import { useAlert, useLoading } from '../../shared/redux-hooks';
+import { useLoading } from '../../shared/redux-hooks';
 import { Loader } from '../../shared/components/loader/Loader';
-import { Alert } from '../../shared/components/alert/Alert';
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -26,7 +25,6 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
   page,
 }) => {
   const { isLoading } = useLoading();
-  const { isAlertShown } = useAlert()
 
   return (
     <div className="auth-layout">
@@ -67,7 +65,6 @@ export const AuthLayout: React.FC<AuthLayoutProps> = ({
           </div>
         </div>
       </div>
-      { isAlertShown && <Alert /> }
     </div>
   );
 };

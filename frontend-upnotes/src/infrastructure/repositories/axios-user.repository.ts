@@ -9,11 +9,12 @@ export class AxiosUserRepository implements UserRepository {
     return data.msg;
   }
 
-  async validate(validateUser: ValidateUser): Promise<{ msg: string; user: User; }> {
+  async validate(validateUser: ValidateUser): Promise<{ msg: string; user: User; token: string }> {
     const { data } = await axiosInstance.post('/users/validate-account', validateUser)
     return {
       msg: data.msg,
-      user: data.user
+      user: data.user,
+      token: data.token
     }
   }
 

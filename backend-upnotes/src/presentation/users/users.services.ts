@@ -91,12 +91,14 @@ export class UserService {
     });
 
     const profileId = await this.profileService.getProfileByUserId( user.id )
+    const token = await this.tokenService.generateToken({ id: user.id })
 
     const { password, ...restUserEntity } = UserEntity.fromObject({ ...userUpdated, profileId });
 
     return {
       msg: 'El usuario ha sido validado exitosamente',
       user: restUserEntity,
+      token,
     };
   }
 

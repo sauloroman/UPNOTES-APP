@@ -8,6 +8,7 @@ export const NavigationList: React.FC = () => {
     <ul className="main-layout-navigation__list">
       {navigationConfig['user'].map((item) => (
         <NavigationItem
+          key={item.name}
           iconName={item.iconName}
           name={item.name}
           page={item.page}

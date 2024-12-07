@@ -51,10 +51,8 @@ export class VerificationCodeService {
     })
 
     return {
-      msg: 'El nuevo código ha sido enviado al correo',
-      verificationCode,
+      msg: `El nuevo código ha sido enviado al correo. ${email}`,
     }
-
   }
 
   public async postVerificationCode( userId: string ) {
@@ -79,7 +77,7 @@ export class VerificationCodeService {
     const verificationCode = await this.getVerificationCode( code, userId ) 
 
     if (!verificationCode) {
-      throw CustomError.notFound(`No existe el codigo ${code} para el usuario ${userId}`)
+      throw CustomError.notFound(`No existe el codigo ${code} para el usuario actual`)
     }
 
     const currentDate = this.dateFormatter.convertToLocalTime( new Date().toString() )

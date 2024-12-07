@@ -5,6 +5,7 @@ type UseNavigation = {
   navigator: Location;
   getNamePage: () => string;
   getParams: () => ({ param: string, value: string });
+  getToken: () => string;
 }
 
 
@@ -27,10 +28,17 @@ export const useNavigationPage = (): UseNavigation => {
     return { param: param ? capitalizeWord( param ) : '', value }
   }
 
+  const getToken = (): string => {
+    const { pathname } = navigator
+    const token = pathname.split('/').at(-1)
+    return token
+  }
+
   return {
     navigator,
 
     getNamePage,
-    getParams
+    getParams,
+    getToken,
   }
 }

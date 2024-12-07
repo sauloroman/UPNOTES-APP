@@ -1,11 +1,14 @@
 import React from 'react'
 import { useNavigationPage } from '../../../shared/hooks';
 import { ValidationCodeForm } from './components/ValidationCodeForm';
+import { useLoading } from '../../../shared/redux-hooks';
+import { Loader } from '../../../shared/components/loader/Loader';
 
 export const VerifyAccount: React.FC = () => {
 
   const {getParams} = useNavigationPage()
   const { param, value } = getParams()
+  const { isLoading } = useLoading()
 
   return (
     <div className='verify-account flex flex-center'>
@@ -23,8 +26,16 @@ export const VerifyAccount: React.FC = () => {
           </div>
           <p>Por favor revisa tu bandeja de entrada e ingresa el código de verificación abajo para validar tu dirección de correo electrónico. El código expirará en <span className='verify-account__time'>10 minutos.</span></p>
 
-          <ValidationCodeForm email={value} />
-
+          {
+            isLoading
+            ? (
+              <div className='flex flex-center'>
+                <Loader />
+              </div>
+            )
+            : (<ValidationCodeForm email={value} />)
+          }
+          
         </div>
       </div>
     </div>

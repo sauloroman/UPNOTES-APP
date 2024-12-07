@@ -86,4 +86,10 @@
     border: 1px solid $color-green;
   }
 
+  &__link {
+    color: $color-green;
+    padding-bottom: 1px;
+    border-bottom: 1px solid currentColor;
+  }
+
 }
