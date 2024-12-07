@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
-import { RegisterUser } from "../../../domain/entities";
-import { registerUserThunk } from "../../../infrastructure/store/thunks/user.thunk";
+import { RegisterUser, ValidateUser } from "../../../domain/entities";
+import { registerUserThunk, validateUserThunk } from "../../../infrastructure/store/thunks/user.thunk";
 
 export const useUser = () => {
 
@@ -10,7 +10,12 @@ export const useUser = () => {
     dispatch(registerUserThunk( user ))
   }
 
+  const validateUser = ( validateUser: ValidateUser ) => {
+    dispatch(validateUserThunk( validateUser ))
+  }
+
   return {
-    registerUser
+    registerUser,
+    validateUser
   }
 }

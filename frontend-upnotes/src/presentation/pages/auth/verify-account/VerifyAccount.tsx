@@ -23,7 +23,7 @@ export const VerifyAccount: React.FC = () => {
           </div>
           <p>Por favor revisa tu bandeja de entrada e ingresa el código de verificación abajo para validar tu dirección de correo electrónico. El código expirará en <span className='verify-account__time'>10 minutos.</span></p>
 
-          <ValidationCodeForm />
+          <ValidationCodeForm email={value} />
 
         </div>
       </div>

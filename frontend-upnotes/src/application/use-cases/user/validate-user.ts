@@ -1,11 +1,11 @@
-import { RegisterUser } from "../../../domain/entities";
+import { ValidateUser } from '../../../domain/entities';
 import { UserRepository } from '../../../domain/repositories/user.repository';
 
 interface Options {
   userRepository: UserRepository
 }
 
-export class RegisterUserUseCase {
+export class ValidateUserUseCase {
 
   private readonly userRepository: UserRepository
 
@@ -13,9 +13,9 @@ export class RegisterUserUseCase {
     this.userRepository = userRepository
   }
 
-  public async create( user: RegisterUser): Promise<string> {
-    const message = await this.userRepository.register(user)
-    return message
+  public async create( validateUser: ValidateUser ) {
+    const { msg, user } = await this.userRepository.validate(validateUser)
+    return { msg, user }
   }
 
 }

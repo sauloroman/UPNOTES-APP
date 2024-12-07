@@ -7,8 +7,9 @@ export class ProfileService {
     return profile.id
   }
 
-  public async getAllProfiles() {
-
+  public async getProfileByUserId( userId: string ) {
+    const userProfile = await prisma.profile.findUnique({ where: {userId} })
+    return userProfile
   }
 
 }

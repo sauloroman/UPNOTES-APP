@@ -90,10 +90,12 @@ export class UserService {
       data: { isAccountVerified: true },
     });
 
-    const { password, ...restUserEntity } = UserEntity.fromObject(userUpdated);
+    const profileId = await this.profileService.getProfileByUserId( user.id )
+
+    const { password, ...restUserEntity } = UserEntity.fromObject({ ...userUpdated, profileId });
 
     return {
-      msg: 'El usuario ha sido validado',
+      msg: 'El usuario ha sido validado exitosamente',
       user: restUserEntity,
     };
   }
