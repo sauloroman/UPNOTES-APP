@@ -1,0 +1,49 @@
+.alert {
+
+  padding: 2rem;
+  transition: all .4s ease;
+
+  &__icon {
+    font-size: 4rem;
+  }
+
+  &__header {
+    margin-bottom: 2rem;
+    gap: 1rem;
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    font-family: $font-title;
+  }
+  
+  &__description {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__button {
+    width: 80%;
+    padding: .5rem;
+  }
+
+}
+
+.alert--app {
+  padding: 4rem;
+  border-radius: 10px;
+  border: 2px solid #ddd;
+}
+
+.alert--success {
+  @include alertType($color-success, $color-white)
+}
+
+.alert--error {
+  @include alertType($color-error, $color-white)
+}
+
+.alert--warn {
+  @include alertType($color-warn, $color-white)
+}

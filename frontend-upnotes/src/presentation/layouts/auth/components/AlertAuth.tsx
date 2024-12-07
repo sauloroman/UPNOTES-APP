@@ -19,15 +19,15 @@ export const AlertAuth: React.FC = () => {
   }
 
   return (
-    <LayoutModal closeModal={onClearAlert} width={50}>
-      <div className={`alert-auth alert-auth--${alert.type}`}>
-        <header className="alert-auth__header flex flex-center">
-          <i className="bx bx-info-circle alert-auth__icon"></i>
-          <p className="alert-auth__title">{alert.title}</p>
+    <LayoutModal width={50}>
+      <div className={`alert alert--${alert.type}`}>
+        <header className="alert__header flex flex-center">
+          <i className="bx bx-info-circle alert__icon"></i>
+          <p className="alert__title">{alert.title}</p>
         </header>
-        <p className='alert-auth__description'>{alert.description}</p>
+        <p className='alert__description'>{alert.description}</p>
         <div className="flex flex-center">
-          <button onClick={onClickButton} className="btn alert-auth__button">Aceptar</button>
+          <button onClick={onClickButton} className="btn alert__button">Aceptar</button>
         </div>
       </div>
     </LayoutModal>

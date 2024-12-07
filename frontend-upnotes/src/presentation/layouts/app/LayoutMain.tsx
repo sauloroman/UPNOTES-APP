@@ -2,7 +2,8 @@ import React from "react";
 import { Header } from "./components/header/Header";
 import { Navigation } from "./components/navigation/Navigation";
 import { Location } from "./components/location/Location";
-import { useMenu } from "../../shared/redux-hooks";
+import { useAlert, useMenu } from "../../shared/redux-hooks";
+import { AlertApp } from "./components/alert/AlertApp";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -12,8 +13,10 @@ interface MainLayoutProps {
 export const MainLayout: React.FC<MainLayoutProps> = ({ children, titleView }) => {
   
   const { isMenuAsideShown } = useMenu();
+  const { isAlertShown } = useAlert()
 
   return (
+    <>    
     <div>
       <header
         className={`main-layout-header flex flex-between ${
@@ -43,5 +46,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children, titleView }) =
         </div>
       </div>
     </div>
+    { isAlertShown && <AlertApp />}
+    </>
   );
 };

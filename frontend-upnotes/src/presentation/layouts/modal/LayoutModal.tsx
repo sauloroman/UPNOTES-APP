@@ -4,10 +4,9 @@ import logo from '../../assets/images/logo.png'
 interface LayoutModalProps {
   children: React.ReactNode,
   width: number,
-  closeModal: () => void;
 }
 
-export const LayoutModal: React.FC<LayoutModalProps> = ({ width, closeModal, children }) => {
+export const LayoutModal: React.FC<LayoutModalProps> = ({ width, children }) => {
   return (
     <div className='modal flex flex-center animate__animated animate__fadeIn'>
       <div className="modal__container" style={{ width: `${width}rem` }}>
