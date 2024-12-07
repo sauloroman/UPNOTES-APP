@@ -17,7 +17,7 @@ export const emailTemplateFactory: EmailTemplateFactory = {
     token: string,
   ): string {
 
-    const validationUrl = `${this.frontendUrl}/${token}?email=${email}`
+    const validationUrl = `${this.frontendUrl}/auth/verify-account/${token}?email=${email}`
 
     const html = `
     <div

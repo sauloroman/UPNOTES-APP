@@ -1,6 +1,7 @@
 import { prisma } from '../../data';
-import { RegenerateVerificationCodeDto } from '../../domain/dtos/verification-code/regenerate-verification-code.dto';
 import { CustomError } from '../../domain/errors/custom.error';
+import { EmailService, TokenService } from '../services';
+import { CreateVerificationCodeDto } from '../../domain/dtos';
 
 interface GeneratorCode {
   durationMin: number,
@@ -13,17 +14,23 @@ interface DateFormatter {
 
 interface VerificationCodeOptions {
   dateFormatter: DateFormatter,
-  generatorCode: GeneratorCode
+  generatorCode: GeneratorCode,
+  tokenService?: TokenService,
+  emailService?: EmailService,
 }
 
 export class VerificationCodeService {
 
   private readonly generatorCode: GeneratorCode 
   private readonly dateFormatter: DateFormatter 
+  private readonly tokenService?: TokenService 
+  private readonly emailService?: EmailService 
 
-  constructor( { generatorCode, dateFormatter }: VerificationCodeOptions ){
+  constructor( { generatorCode, dateFormatter, tokenService, emailService }: VerificationCodeOptions ){
     this.generatorCode = generatorCode
     this.dateFormatter = dateFormatter
+    this.tokenService = tokenService
+    this.emailService = emailService
   }
 
   private async getVerificationCode( code: string, userId: string ) {
@@ -31,8 +38,24 @@ export class VerificationCodeService {
     return codeByUser
   } 
 
-  public async regenerateVerificationCode( regenerateVerificationCodeDto: RegenerateVerificationCodeDto ) {
- 
+  public async generateVerificationCode( token: string, createVerificationCodeDto: CreateVerificationCodeDto ) {
+
+    const { id } = await this.tokenService?.decodeToken( token )
+    
+    const verificationCode = await this.postVerificationCode( id )
+    const newToken = await this.tokenService?.generateToken({ id })
+    const { email } = createVerificationCodeDto
+
+    await this.emailService?.sendEmailWithVerificationCode({
+      email: email,
+      code: verificationCode,
+      token: newToken!
+    })
+
+    return {
+      msg: 'El nuevo código ha sido enviado al correo',
+      verificationCode,
+    }
 
   }
 

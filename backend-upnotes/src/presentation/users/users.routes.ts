@@ -9,13 +9,13 @@ import {
 } from '../../config';
 import { UsersController } from './users.controllers';
 import { UserService } from './users.services';
-import { VerificationCodeService } from '../verification-code/verification-code.services';
 import {
   EmailService,
   EncriptionService,
   TokenService,
 } from '../services';
 import { ProfileService } from '../profile/profile.services';
+import { VerificationCodeService } from '../verification-code/verification-code.services';
 
 export class UserRoutes {
   public static get routes(): Router {

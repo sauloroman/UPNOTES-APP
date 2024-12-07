@@ -18,7 +18,15 @@ export const jwtGenerator = {
       })
 
     })
+  },
 
+  async validateToken( token: string ): Promise<any | null> {
+    return new Promise(( resolve, _) => {
+      jwt.verify( token, secretKey, (err, decoded) => {
+        if ( err ) return resolve( null )
+        resolve( decoded )
+      })
+    })
   }
 
 }

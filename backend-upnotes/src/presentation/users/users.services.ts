@@ -64,11 +64,11 @@ export class UserService {
       const verificationCode = await this.verificationCodeService.postVerificationCode(userCreated.id);
       const token = await this.tokenService.generateToken({ id: userCreated.id });
 
-      // await this.emailService.sendEmailWithVerificationCode({
-      //   email: userCreated.email,
-      //   code: verificationCode,
-      //   token: token,
-      // });
+      await this.emailService.sendEmailWithVerificationCode({
+        email: userCreated.email,
+        code: verificationCode,
+        token: token,
+      });
 
       const { password, ...restEntity } = UserEntity.fromObject({
         ...userCreated,
@@ -106,9 +106,7 @@ export class UserService {
     const isCodeActive = await this.verificationCodeService.isValidationCodeActive(code, user!.id);
 
     if (!isCodeActive) {
-      throw CustomError.badRequest(
-        `El codigo ya ha expirado. Vuelva a generar uno`
-      );
+      throw CustomError.badRequest(`El codigo ya ha expirado. Vuelva a generar uno`);
     }
 
     const userUpdated = await prisma.user.update({
@@ -125,4 +123,5 @@ export class UserService {
       user: restUserEntity,
     };
   }
+
 }
