@@ -39,9 +39,7 @@ export class VerificationCodeService {
   } 
 
   public async generateVerificationCode( token: string, createVerificationCodeDto: CreateVerificationCodeDto ) {
-
     const { id } = await this.tokenService?.decodeToken( token )
-    
     const verificationCode = await this.postVerificationCode( id )
     const newToken = await this.tokenService?.generateToken({ id })
     const { email } = createVerificationCodeDto

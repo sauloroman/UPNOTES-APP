@@ -4,7 +4,7 @@ type Validators = {
   [key: string]: [((value: string) => boolean), string];
 }
 
-export const useForm = <T extends Record<string, any>>( initialState: T, formValidations: Validators ) => {
+export const useForm = <T extends Record<string, any>>( initialState: T, formValidations?: Validators ) => {
 
   const [formState, setFormState] = useState<T>( initialState )
   const [formValidation, setFormValidation] = useState<any>({})

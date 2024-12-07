@@ -1,15 +1,29 @@
 import React, { useRef } from 'react';
 
-export const InputVerify: React.FC = () => {
+interface InputVerifyProps {
+  nameBox: string,
+  valueBox: any,
+  onInputChange: (e: React.ChangeEvent) => void
+}
+
+
+export const InputVerify: React.FC<InputVerifyProps> = ({ nameBox, valueBox, onInputChange }) => {
   let ref = useRef<HTMLInputElement | any>();
 
   const onChangeInputNumber = (e: React.ChangeEvent) => {
     const nextInput = e.target.nextSibling;
-    ref.current = nextInput;
-    ref.current.focus();
+    onInputChange( e )
+
+    if ( nextInput ) {
+      ref.current = nextInput;
+      ref.current.focus();
+    }
   };
+
   return (
     <input
+      value={valueBox}
+      name={nameBox}
       onChange={onChangeInputNumber}
       min={1}
       max={9}

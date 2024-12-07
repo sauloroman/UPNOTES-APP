@@ -40,7 +40,7 @@ export const SliderAuth: React.FC = () => {
     >
       {
         slidesAuth.map( item => (
-          <SwiperSlide>
+          <SwiperSlide key={item.id}>
             <div className='flex flex-column-center auth-layout__slider-card'>
               <img 
                 className='auth-layout__slider-img' 

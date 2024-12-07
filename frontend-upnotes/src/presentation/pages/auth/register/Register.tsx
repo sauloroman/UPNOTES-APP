@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { AuthLayout } from '../../../layouts';
 import { InputPassword } from '../../../shared/components/InputPassword';
 import { useForm } from '../../../shared/hooks';
+import { RegisterUser, UserGender } from '../../../../domain/entities';
 
 const formData = {
   email: '',
-  gender: '',
-  username: '',
+  gender: UserGender.M,
+  name: '',
   password: '',
 };
 
@@ -25,7 +26,7 @@ const formValidations = {
     (value: string) => ['M', 'F'].includes( value ),
     "El género es necesario"
   ],
-  username: [
+  name: [
     (value: string) => value.trim().length > 0,
     "El nombre es necesario"
   ]
@@ -34,20 +35,21 @@ const formValidations = {
 export const Register: React.FC = () => {
 
   const { 
+    formState,
     email, emailValid, 
     gender, genderValid,
     password, passwordValid,
-    username, usernameValid,
-    onInputChange, isFormValid } = useForm(formData, formValidations as any)
+    name, nameValid,
+    onInputChange, isFormValid } = useForm<RegisterUser>(formData, formValidations as any)
 
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false)
 
-  const onRegisterUser = ( e: React.FormEvent<HTMLFormElement>) => {
+  const onRegisterUserEvent = async ( e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsFormSubmitted( true )
     
     if (!isFormValid) return;
-    
+
 
     setIsFormSubmitted( false )
   }
@@ -61,15 +63,15 @@ export const Register: React.FC = () => {
       textLink="Ingresa aquí"
       page='login'
     >
-      <form onSubmit={ onRegisterUser } action="#" className="form u-margin-bottom-medium">
+      <form onSubmit={ onRegisterUserEvent } action="#" className="form u-margin-bottom-medium">
         <div className="flex flex-column form__container">
           <div className="form__field">
             <label htmlFor="user-name" className="form__label">
               Nombre
             </label>
             <input
-              name='username'
-              value={username}
+              name='name'
+              value={name}
               onChange={ onInputChange }
               className="form__input"
               id="user-name"
@@ -82,7 +84,7 @@ export const Register: React.FC = () => {
               isFormSubmitted && !isFormValid && 'u-text-red'
             } form__span`}
           >
-            {usernameValid}
+            {nameValid}
           </span>
 
           <div className="form__field">
@@ -96,7 +98,7 @@ export const Register: React.FC = () => {
               onChange={onInputChange}  
               id="user-gender"
             >
-              <option className='form__option' value="" disabled selected>Selecciona una opción</option>
+              <option className='form__option' value="" disabled defaultValue={''}>Selecciona una opción</option>
               <option className='form__option' value="F">Femeníno</option>
               <option className='form__option' value="M">Masculino</option>
             </select>
