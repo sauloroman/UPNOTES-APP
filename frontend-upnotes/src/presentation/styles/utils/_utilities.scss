@@ -11,7 +11,11 @@
 } 
 
 .u-text-red {
-  color: rgb(199, 38, 38);
+  color: $color-error;
+}
+
+.u-bg-red {
+  background-color: $color-error;
 }
 
 .u-relative {
@@ -20,6 +24,10 @@
 
 .u-text-center {
   text-align: center;
+}
+
+.u-h-100 {
+  height: 100px;
 }
 
 .u-hidden { 

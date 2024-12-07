@@ -15,6 +15,16 @@
     }
 }
 
+@mixin alertType( $color, $bgColor ) {
+  .alert__button {
+    @include buttonOutline( $color, $bgColor );
+  }
+  
+  .alert__icon, .alert__title {
+    color: $color;
+  }
+}
+
 @mixin responsive( $breakpoint ) {
 
   @if $breakpoint == "phone" {

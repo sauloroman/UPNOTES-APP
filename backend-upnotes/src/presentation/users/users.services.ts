@@ -43,7 +43,7 @@ export class UserService {
   }
 
   public async postUser(createUserDto: CreateUserDto) {
-    if (await this.getUserByEmail(createUserDto.email)) throw CustomError.badRequest('El correo ya existe. Intente con otro.');
+    if (await this.getUserByEmail(createUserDto.email)) throw CustomError.badRequest(`El correo ${createUserDto.email} ya existe. Intente con otro.`);
 
     try {
       const passwordHashed = this.encripterService.hashPassword( createUserDto.password );
@@ -66,7 +66,7 @@ export class UserService {
       });
 
       return {
-        msg: `Se ha enviado un correo con tu código de verificación a: ${userCreated.email}`,
+        msg: `Se ha enviado un correo con tu código de verificación a: ${userCreated.email}. El código es válido por 10 minutos. Revisa tu correo e ingresa el código.`,
       };
     } catch (error) {
       throw CustomError.internalServerError(`${error}`);

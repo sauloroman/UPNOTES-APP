@@ -4,6 +4,9 @@ $font-title: 'Poppins', sans-serif;
 $color-black: #263238;
 $color-black-light: #3c474c;
 $color-green: #5E9E70;
+$color-success: $color-green;
+$color-error: #be3a3a;
+$color-warn: #ffd43b;
 $color-green-light: #E6FEED;
 $color-gray: #DDDDDD;
 $color-white: #FAFFFB;
@@ -13,3 +16,6 @@ $gutter-horizontal: 5rem;
 $header-height: 7rem;
 $menu-aside-width: 30rem;
 $menu-aside-width-small: 10rem;
+
+$z-index-modal: 999;
+$z-index-modal-content: 9999;

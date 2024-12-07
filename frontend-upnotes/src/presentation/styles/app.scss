@@ -1,22 +1,29 @@
+// GLOBAL STYLES
 @import './utils/variables';
 @import './utils/animations';
 @import './utils/mixins';
 
 @import './base/globals';
+@import './base/helpers';
 @import './base/typography';
 
-@import './components/button';
-@import './components/card';
-@import './components/icon';
-@import './components/form';
+@import './helpers/btn';
+@import './helpers/flex';
+@import './helpers/form';
+@import './helpers/icon';
 
-@import './layout/flex-layout';
-
+// SITE STYLES
 @import '../layouts/auth/auth-layout';
 @import '../layouts/app/main-layout';
+@import '../layouts/modal/auth-modal';
+
+@import '../shared/components/alert/alert';
+@import '../shared/components/loader/loader';
 
 @import '../pages/auth/login/login';
 @import '../pages/auth/verify-account/verify-account';
+
 @import '../pages/dashboard/courses/courses';
 
+// UTILITIES
 @import './utils/utilities';

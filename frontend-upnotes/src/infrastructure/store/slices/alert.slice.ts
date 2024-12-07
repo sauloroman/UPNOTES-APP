@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Alert, AlertType } from "../../../application";
 
 interface InitialState {
@@ -8,8 +8,8 @@ interface InitialState {
 
 const initialState: InitialState = {
   alert: {
-    title: 'Alert Title',
-    description: 'Alert Description',
+    title: '',
+    description: '',
     type: AlertType.success
   },
   isAlertShown: false,
@@ -20,8 +20,22 @@ export const alertSlice = createSlice({
   name: 'alert',
   reducers: {
 
+    setAlert( state, { payload }: PayloadAction<InitialState> ) {
+      state.alert = payload.alert
+      state.isAlertShown = payload.isAlertShown
+    },
+
+    clearAlert( state ) {
+      state.alert = {
+        title: '',
+        description: '',
+        type: AlertType.success
+      }
+      state.isAlertShown = false
+    }
+
   }
 })
 
-const {} = alertSlice.actions
+export const { setAlert, clearAlert } = alertSlice.actions
 

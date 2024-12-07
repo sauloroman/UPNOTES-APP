@@ -1,5 +1,5 @@
 export enum AlertType {
-  success = 'sucess',
+  success = 'success',
   warn = 'warn',
   error = 'error'
 }
