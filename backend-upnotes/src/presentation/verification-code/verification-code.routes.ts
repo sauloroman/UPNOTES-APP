@@ -11,7 +11,6 @@ export class VerificationCodeRoutes {
     const router = Router()
 
     const emailService = new EmailService({
-      emailTemplateFactory: emailTemplateFactory,
       mailerEmail: envs.MAILER_EMAIL,
       mailerService: envs.MAILER_SERVICE,
       postToProvider: envs.SEND_EMAIL,
@@ -20,7 +19,7 @@ export class VerificationCodeRoutes {
 
     const verificationCodeService = new VerificationCodeService({
       dateFormatter: dateFormatter,
-      generatorCode: codeGenerator,
+      codeGenerator: codeGenerator,
       tokenService: new TokenService({ jwtGenerator }),
       emailService: emailService
     })

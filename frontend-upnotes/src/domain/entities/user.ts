@@ -15,10 +15,15 @@ export interface RegisterUser {
   password: string;
 }
 
+export interface LoginUser {
+  email: string;
+  password: string;
+}
+
 export interface User {
   id: string;
 	name: string;
 	email: string;
 	gender: UserGender;
-	profileId: string;
+	profile: string;
 }

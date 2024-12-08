@@ -23,14 +23,16 @@ export const authSlice = createSlice({
   name: 'auth',
   reducers: {
 
-    loginUser( state, { payload }: PayloadAction<User>) {
+    loginUserAuth( state, { payload }: PayloadAction<User>) {
       state.user = payload
       state.status = AuthStatus.authenticated
+      state.generateVerificationCode = initialState.generateVerificationCode
     },
-
-    logoutUser( state ) {
+    
+    logoutUserAuth( state ) {
       state.user = null
       state.status = AuthStatus.unauthenticated
+      state.generateVerificationCode = initialState.generateVerificationCode
     },
 
     setGenerateVerificationCode( state, {payload}: PayloadAction<boolean> ) {
@@ -41,7 +43,7 @@ export const authSlice = createSlice({
 })
 
 export const {
-  loginUser,
-  logoutUser,
+  loginUserAuth,
+  logoutUserAuth,
   setGenerateVerificationCode,
 } = authSlice.actions

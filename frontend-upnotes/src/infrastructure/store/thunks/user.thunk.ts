@@ -1,10 +1,11 @@
 import { AlertType, RegisterUserUseCase } from '../../../application';
+import { LoginUserUseCase } from '../../../application/use-cases/user/login-user';
 import { ValidateUserUseCase } from '../../../application/use-cases/user/validate-user';
-import { RegisterUser, ValidateUser } from '../../../domain/entities';
+import { LoginUser, RegisterUser, ValidateUser } from '../../../domain/entities';
 import { axiosError } from '../../errors/axios.error';
 import { AxiosUserRepository } from '../../repositories/axios-user.repository';
 import { setAlert } from '../slices/alert.slice';
-import { loginUser, setGenerateVerificationCode } from '../slices/auth.slice';
+import { loginUserAuth, setGenerateVerificationCode } from '../slices/auth.slice';
 import { setIsLoading } from '../slices/loading.slice';
 import { AppThunk } from '../store';
 
@@ -56,10 +57,10 @@ export const validateUserThunk = (validateUser: ValidateUser): AppThunk => {
       });
       const { msg, user, token } = await useCase.create(validateUser);
 
-      dispatch(loginUser(user));
-      localStorage.setItem('user', JSON.stringify(token));
+      dispatch(loginUserAuth(user));
       alert.title = 'Cuenta validada';
       alert.description = msg;
+      localStorage.setItem('user', JSON.stringify(token));
       
     } catch (error) {
       console.log(error);
@@ -80,3 +81,37 @@ export const validateUserThunk = (validateUser: ValidateUser): AppThunk => {
     dispatch(setAlert({ alert, isAlertShown: true }));
   };
 };
+
+export const loginUserThunk = ( loginUser: LoginUser ): AppThunk => {
+  return async ( dispatch ) => {
+
+    const alert = {
+      title: '',
+      description: '',
+      type: AlertType.success,
+    };
+
+    dispatch( setIsLoading( true ) )
+    
+    try {
+      
+      const useCase = new LoginUserUseCase({ userRepository: axiosUserRepository })
+      const { msg, token, user } = await useCase.create( loginUser )
+
+      dispatch( loginUserAuth( user ) )
+      localStorage.setItem('user', JSON.stringify(token));
+      alert.title = 'Inicio de sesión';
+      alert.description = msg;
+
+    } catch (error) {
+      console.log(`${error}`)
+      const errorMessage = axiosError( error )
+      alert.title = 'No se pudo iniciar sesión';
+      alert.description = errorMessage;
+      alert.type = AlertType.error
+    }
+    
+    dispatch( setIsLoading( false ) )
+    dispatch( setAlert({ alert, isAlertShown: true }))
+  }
+}

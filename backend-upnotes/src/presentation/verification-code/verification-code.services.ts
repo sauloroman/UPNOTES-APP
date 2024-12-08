@@ -3,7 +3,7 @@ import { CustomError } from '../../domain/errors/custom.error';
 import { EmailService, TokenService } from '../services';
 import { CreateVerificationCodeDto } from '../../domain/dtos';
 
-interface GeneratorCode {
+interface CodeGenerator {
   durationMin: number,
   onlyNumbers: ( quantityOfNumbers: number ) => string
 }
@@ -14,26 +14,26 @@ interface DateFormatter {
 
 interface VerificationCodeOptions {
   dateFormatter: DateFormatter,
-  generatorCode: GeneratorCode,
+  codeGenerator: CodeGenerator,
   tokenService?: TokenService,
   emailService?: EmailService,
 }
 
 export class VerificationCodeService {
 
-  private readonly generatorCode: GeneratorCode 
+  private readonly codeGenerator: CodeGenerator 
   private readonly dateFormatter: DateFormatter 
   private readonly tokenService?: TokenService 
   private readonly emailService?: EmailService 
 
-  constructor( { generatorCode, dateFormatter, tokenService, emailService }: VerificationCodeOptions ){
-    this.generatorCode = generatorCode
+  constructor( { codeGenerator, dateFormatter, tokenService, emailService }: VerificationCodeOptions ){
+    this.codeGenerator = codeGenerator
     this.dateFormatter = dateFormatter
     this.tokenService = tokenService
     this.emailService = emailService
   }
 
-  private async getVerificationCode( code: string, userId: string ) {
+  public async getVerificationCode( code: string, userId: string ) {
     const codeByUser = await prisma.verificacionCode.findFirst({ where: { userId, code } }) 
     return codeByUser
   } 
@@ -59,13 +59,13 @@ export class VerificationCodeService {
     let code = ''
 
     do {
-      code = this.generatorCode.onlyNumbers(5)
+      code = this.codeGenerator.onlyNumbers(5)
     } while ( await this.getVerificationCode( code, userId ) )
 
     const verificationCode = await prisma.verificacionCode.create({
       data: { 
         code: code,
-        expiresAt: new Date( Date.now() + this.generatorCode.durationMin * 60 * 1000 ),
+        expiresAt: new Date( Date.now() + this.codeGenerator.durationMin * 60 * 1000 ),
         userId: userId
       }
     })
@@ -73,13 +73,7 @@ export class VerificationCodeService {
     return verificationCode.code
   }
 
-  public async isValidationCodeActive( code: string, userId: string ): Promise<boolean> {
-    const verificationCode = await this.getVerificationCode( code, userId ) 
-
-    if (!verificationCode) {
-      throw CustomError.notFound(`No existe el codigo ${code} para el usuario actual`)
-    }
-
+  public async isValidationCodeActive( verificationCode: any ): Promise<boolean> {
     const currentDate = this.dateFormatter.convertToLocalTime( new Date().toString() )
     const currentTime = new Date( currentDate ).getTime()
 

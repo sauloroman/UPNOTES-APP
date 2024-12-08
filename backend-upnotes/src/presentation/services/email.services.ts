@@ -1,19 +1,11 @@
 import nodemailer, { Transporter } from 'nodemailer';
-
-interface EmailTemplateFactory {
-  generateVerificationEmailTemplate: (
-    email: string,
-    code: string,
-    token: string,
-  ) => string;
-}
+import { emailTemplateFactory } from '../../config';
 
 interface EmailServiceOptions {
   mailerService: string;
   mailerEmail: string;
   senderEmailPassword: string;
   postToProvider: boolean;
-  emailTemplateFactory: EmailTemplateFactory;
 }
 
 interface SendEmailVerificationCode {
@@ -37,7 +29,6 @@ interface Attachment {
 export class EmailService {
   private transporter: Transporter;
   private readonly postToProvider: boolean;
-  private readonly emailTemplateFactory: EmailTemplateFactory;
 
   constructor(emailServiceOptions: EmailServiceOptions) {
     const {
@@ -45,7 +36,6 @@ export class EmailService {
       mailerService,
       postToProvider,
       senderEmailPassword,
-      emailTemplateFactory,
     } = emailServiceOptions;
 
     this.transporter = nodemailer.createTransport({
@@ -57,7 +47,6 @@ export class EmailService {
     });
 
     this.postToProvider = postToProvider;
-    this.emailTemplateFactory = emailTemplateFactory;
   }
 
   public async sendEmail(sendEmailOptions: SendMailOptions): Promise<boolean> {
@@ -88,7 +77,7 @@ export class EmailService {
     token,
   }: SendEmailVerificationCode): Promise<boolean> {
 
-    const htmlEmail = this.emailTemplateFactory.generateVerificationEmailTemplate(
+    const htmlEmail = emailTemplateFactory.generateVerificationEmailTemplate(
       email,
       code,
       token,

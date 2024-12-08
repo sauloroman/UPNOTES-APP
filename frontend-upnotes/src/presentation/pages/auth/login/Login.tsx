@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { AuthLayout } from '../../../layouts';
 import { InputPassword } from '../../../shared/components/inputPasswod/InputPassword';
 import { useForm } from '../../../shared/hooks';
+import { useAuth, useUser } from '../../../shared/redux-hooks';
+import { AuthStatus } from '../../../../infrastructure/store/slices/auth.slice';
 
 const formData = {
   email: '',
@@ -21,15 +23,19 @@ const formValidations = {
 
 export const Login: React.FC = () => {
   const {
+    formState,
     email,
     emailValid,
     password,
     passwordValid,
     onInputChange,
     isFormValid,
+    onResetForm
   } = useForm(formData, formValidations as any);
 
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
+  const { loginUser } = useUser();
+  const { status } = useAuth()
 
   const onLoginUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,7 +43,11 @@ export const Login: React.FC = () => {
 
     if (!isFormValid) return;
 
-    // TODO: Mandar peticion HTTP al backend para logear al usuario
+    loginUser( formState )
+
+    if ( status === AuthStatus.authenticated ) {
+      onResetForm()
+    }
 
     setIsFormSubmitted(false);
   };
