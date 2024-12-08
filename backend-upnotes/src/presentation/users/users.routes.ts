@@ -53,6 +53,7 @@ export class UserRoutes {
     // PUBLIC ENDPOINTS
     router.post('/', userController.registerUser );
     router.post('/validate-account', userController.validateUserAccount )
+    router.post('/login', userController.loginUser )
 
     return router;
   }

@@ -1,5 +1,5 @@
 import { prisma } from '../../data';
-import { ValidateUserDto, CreateUserDto } from '../../domain/dtos';
+import { ValidateUserDto, CreateUserDto, LonginUserDto } from '../../domain/dtos';
 import { UserEntity } from '../../domain/entities/user.entity';
 import { CustomError } from '../../domain/errors/custom.error';
 
@@ -9,19 +9,19 @@ import { ProfileService } from '../profile/profile.services';
 import { User } from '@prisma/client';
 
 interface UserServiceOption {
-  emailService: EmailService;
-  verificationCodeService: VerificationCodeService;
-  tokenService: TokenService;
-  profileService: ProfileService;
-  encripterService: EncriptionService;
+  emailService?: EmailService;
+  verificationCodeService?: VerificationCodeService;
+  tokenService?: TokenService;
+  profileService?: ProfileService;
+  encripterService?: EncriptionService;
 }
 
 export class UserService {
-  private readonly tokenService: TokenService;
-  private readonly emailService: EmailService;
-  private readonly verificationCodeService: VerificationCodeService;
-  private readonly encripterService: EncriptionService;
-  private readonly profileService: ProfileService;
+  private readonly tokenService?: TokenService;
+  private readonly emailService?: EmailService;
+  private readonly verificationCodeService?: VerificationCodeService;
+  private readonly encripterService?: EncriptionService;
+  private readonly profileService?: ProfileService;
 
   constructor(userOptions: UserServiceOption) {
     const {
@@ -38,35 +38,37 @@ export class UserService {
     this.tokenService = tokenService;
   }
 
-  private async getUserByEmail(email: string): Promise<User | null> {
+  public async getUserByEmail(email: string): Promise<User | null> {
     return await prisma.user.findUnique({ where: { email } });
   }
 
   public async postUser(createUserDto: CreateUserDto) {
-    if (await this.getUserByEmail(createUserDto.email)) throw CustomError.badRequest(`El correo ${createUserDto.email} ya existe. Intente con otro.`);
+    if (await this.getUserByEmail(createUserDto.email)) 
+      throw CustomError.badRequest(`El correo ${createUserDto.email} ya existe. Intente con otro.`);
 
     try {
-      const passwordHashed = this.encripterService.hashPassword( createUserDto.password );
+      const passwordHashed = this.encripterService?.hashPassword( createUserDto.password );
       
       const userCreated = await prisma.user.create({
         data: {
           ...createUserDto,
-          password: passwordHashed,
+          password: passwordHashed!,
         },
       });
 
-      await this.profileService.postProfile(userCreated.id);
-      const verificationCode = await this.verificationCodeService.postVerificationCode(userCreated.id);
-      const token = await this.tokenService.generateToken({ id: userCreated.id });
+      await this.profileService?.postProfile(userCreated.id);
+      const verificationCode = await this.verificationCodeService?.postVerificationCode(userCreated.id);
+      const token = await this.tokenService?.generateToken({ id: userCreated.id });
 
-      await this.emailService.sendEmailWithVerificationCode({
+      await this.emailService?.sendEmailWithVerificationCode({
         email: userCreated.email,
-        code: verificationCode,
-        token: token,
+        code: verificationCode!,
+        token: token!,
       });
 
       return {
-        msg: `Se ha enviado un correo con tu código de verificación a: ${userCreated.email}. El código es válido por 10 minutos. Revisa tu correo e ingresa el código.`,
+        msg: `Se ha enviado un correo con tu código de verificación a: ${userCreated.email}. 
+        El código es válido por 10 minutos. Revisa tu correo e ingresa el código.`,
       };
     } catch (error) {
       throw CustomError.internalServerError(`${error}`);
@@ -81,7 +83,7 @@ export class UserService {
     if (!user.isActive) throw CustomError.badRequest('El usuario no está activo');
     if (user.isAccountVerified) throw CustomError.badRequest('El usuario ya está verificado. Inicie sesión');
     
-    const isCodeActive = await this.verificationCodeService.isValidationCodeActive(code, user!.id);
+    const isCodeActive = await this.verificationCodeService?.isValidationCodeActive(code, user!.id);
 
     if (!isCodeActive) throw CustomError.badRequest(`El codigo ya ha expirado. Vuelva a generar uno`);
     
@@ -90,8 +92,8 @@ export class UserService {
       data: { isAccountVerified: true },
     });
 
-    const profileId = await this.profileService.getProfileByUserId( user.id )
-    const token = await this.tokenService.generateToken({ id: user.id })
+    const profileId = await this.profileService?.getProfileByUserId( user.id )
+    const token = await this.tokenService?.generateToken({ id: user.id })
 
     const { password, ...restUserEntity } = UserEntity.fromObject({ ...userUpdated, profileId });
 
@@ -100,6 +102,28 @@ export class UserService {
       user: restUserEntity,
       token,
     };
+  }
+
+  public async loginUserByEmailAndPassword( loginUserDto: LonginUserDto ) {
+    const { email, password } = loginUserDto
+    
+    const user = await this.getUserByEmail( email )
+    if ( !user ) throw CustomError.notFound('El usuario o la contraseña no es correctos')
+  
+    const isPasswordCorrect = this.encripterService?.comparePaassword( password, user.password )
+    if (!isPasswordCorrect) throw CustomError.badRequest('El usuario o la contraseña no es correctos')
+
+    const token = await this.tokenService?.generateToken({ id: user.id })
+    
+    const profile = await this.profileService?.getProfileByUserId( user.id )
+
+    const { password: passwordUser, ...restUserEntity } = UserEntity.fromObject({ ...user, profileId: profile?.id })
+
+    return {
+      msg: `Bienvenido ${user.name}`,
+      user: restUserEntity,
+      token: token
+    }
   }
 
 }
