@@ -1,7 +1,4 @@
 import { prisma } from '../../data';
-import { CustomError } from '../../domain/errors/custom.error';
-import { EmailService, TokenService } from '../services';
-import { CreateVerificationCodeDto } from '../../domain/dtos';
 
 interface CodeGenerator {
   durationMin: number,
@@ -15,45 +12,22 @@ interface DateFormatter {
 interface VerificationCodeOptions {
   dateFormatter: DateFormatter,
   codeGenerator: CodeGenerator,
-  tokenService?: TokenService,
-  emailService?: EmailService,
 }
 
 export class VerificationCodeService {
 
   private readonly codeGenerator: CodeGenerator 
-  private readonly dateFormatter: DateFormatter 
-  private readonly tokenService?: TokenService 
-  private readonly emailService?: EmailService 
+  private readonly dateFormatter: DateFormatter  
 
-  constructor( { codeGenerator, dateFormatter, tokenService, emailService }: VerificationCodeOptions ){
+  constructor( { codeGenerator, dateFormatter}: VerificationCodeOptions ){
     this.codeGenerator = codeGenerator
     this.dateFormatter = dateFormatter
-    this.tokenService = tokenService
-    this.emailService = emailService
   }
 
   public async getVerificationCode( code: string, userId: string ) {
     const codeByUser = await prisma.verificacionCode.findFirst({ where: { userId, code } }) 
     return codeByUser
   } 
-
-  public async generateVerificationCode( token: string, createVerificationCodeDto: CreateVerificationCodeDto ) {
-    const { id } = await this.tokenService?.decodeToken( token )
-    const verificationCode = await this.postVerificationCode( id )
-    const newToken = await this.tokenService?.generateToken({ id })
-    const { email } = createVerificationCodeDto
-
-    await this.emailService?.sendEmailWithVerificationCode({
-      email: email,
-      code: verificationCode,
-      token: newToken!
-    })
-
-    return {
-      msg: `El nuevo código ha sido enviado al correo. ${email}`,
-    }
-  }
 
   public async postVerificationCode( userId: string ) {
     let code = ''

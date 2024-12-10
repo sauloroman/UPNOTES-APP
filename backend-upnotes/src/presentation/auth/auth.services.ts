@@ -48,7 +48,7 @@ export class AuthService {
       }
 
     } catch (error) {
-      throw CustomError.internalServerError(`Problemas en el servidor registrando cuenta: ${error}`)
+      throw error
     }
   }
 
@@ -78,7 +78,7 @@ export class AuthService {
         token,
       }; 
     } catch (error) {
-      throw CustomError.internalServerError(`Problemas en el servidor validando cuenta: ${error}`)
+      throw error
     }
   }
 
@@ -107,9 +107,20 @@ export class AuthService {
     token: string 
   ) {
 
-    const { id } = await jwtGenerator.validateToken( token )    
-    
+    const { email } = newVerificationCodeAccountDto
+    const { id } = await jwtGenerator.validateToken( token )  
+    const newVerificationCode = await this.verificationCodeService.postVerificationCode( id )    
+    const newToken = await jwtGenerator.generateToken({ id })
 
+    await this.emailService.sendEmailWithVerificationCode({
+      code: newVerificationCode,
+      email: email,
+      token: newToken
+    })
+
+    return {
+      msg: `El nuevo código ha sido enviado al correo. ${email}`,
+    }
   }
 
 }

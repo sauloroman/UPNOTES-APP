@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { AuthService } from "./auth.services";
-import { RegisterAccount, ValidateAccountDto, LonginUserDto, LonginAccountDto } from "../../domain/dtos";
+import { RegisterAccount, ValidateAccountDto, LonginAccountDto } from "../../domain/dtos";
 import { CustomError } from "../../domain/errors/custom.error";
 import { NewVerificationCodeAccountDto } from "../../domain/dtos/auth/new-verification-code-account.dto";
 
@@ -15,7 +15,7 @@ export class AuthController {
     }
 
     console.log(`${error}`)
-    res.status(500).json({ error: 'Internal Server Error' })
+    res.status(500).json({ error })
 
   }
 

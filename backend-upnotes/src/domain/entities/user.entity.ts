@@ -7,8 +7,10 @@ export class UserEntity {
     public name: string,
     public email: string,
     public gender: string,
-    public password: string,
     public profile: string,
+    public password: string,
+    public isAccountVerified: boolean,
+    public isActive: boolean,
   ){}
 
   private static sendErrorForStringTypes= (prop: string): CustomError => {
@@ -21,9 +23,11 @@ export class UserEntity {
       id,
       name, 
       email, 
-      password,
       gender,
-      profile
+      profile,
+      isAccountVerified,
+      isActive, 
+      password
     } = userObj
 
     for( const [key, value] of Object.entries( userObj ) ) {
@@ -32,7 +36,7 @@ export class UserEntity {
       }
     }
 
-    return new UserEntity( id, name, email, gender, password, profile )
+    return new UserEntity( id, name, email, gender, profile, password, isAccountVerified, isActive )
 
   } 
 }

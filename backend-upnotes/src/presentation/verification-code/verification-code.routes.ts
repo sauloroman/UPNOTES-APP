@@ -20,8 +20,6 @@ export class VerificationCodeRoutes {
     const verificationCodeService = new VerificationCodeService({
       dateFormatter: dateFormatter,
       codeGenerator: codeGenerator,
-      tokenService: new TokenService({ jwtGenerator }),
-      emailService: emailService
     })
 
     const verificationCodeController = new VerificationCodeController({

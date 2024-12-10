@@ -10,8 +10,6 @@ export class RouterApp {
     const router = Router();
 
     router.use('/api/auth', AuthRoutes.routes )
-    router.use('/api/users', UserRoutes.routes )
-    router.use('/api/verification-code', VerificationCodeRoutes.routes )
 
     return router;
 

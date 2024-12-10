@@ -10,7 +10,7 @@ export class UserMiddleware {
     const { token } = req.params
 
     const decode = await jwtGenerator.validateToken( token )
-    const { id } = decode.payload
+    const { id } = decode
 
     const user = await prisma.user.findUnique({ where: { id } } )
 
