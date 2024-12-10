@@ -5,6 +5,7 @@ import { bcryptAdapter, jwtGenerator } from "../../config";
 import { CustomError } from "../../domain/errors/custom.error";
 import { NewVerificationCodeAccountDto } from "../../domain/dtos/auth/new-verification-code-account.dto";
 import { AuthEntity } from "../../domain/entities/auth.entity";
+import { ForgotPasswordDto } from "../../domain/dtos/auth/forgot-password.dto";
 
 interface ServiceOption {
   emailService: EmailService
@@ -123,6 +124,22 @@ export class AuthService {
     return {
       msg: `El nuevo código ha sido enviado al correo. ${email}`,
     }
+  }
+
+  public async forgotPassword( forgotPasswordDto: ForgotPasswordDto ) {
+
+    const { email } = forgotPasswordDto
+
+    const user = await this.userService.getUserByEmail( email )
+    if ( !user ) throw CustomError.badRequest('El usuario ingresado no existe')
+
+    const token = await jwtGenerator.generateToken({ id: user.id })
+    await this.emailService.sendEmailToChangePassword({email, token})
+
+    return {
+      msg: `Se ha enviado un email al correo: ${email}`
+    }
+
   }
 
 }

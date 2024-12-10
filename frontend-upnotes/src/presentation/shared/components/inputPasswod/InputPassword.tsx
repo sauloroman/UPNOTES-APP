@@ -25,7 +25,7 @@ export const InputPassword: React.FC<InputPasswordProps> = ({
           className="form__input form__input--password"
           id="user-password"
           type={`${isPasswordShown ? 'text' : 'password'}`}
-          placeholder="Ingresa tu contraseña"
+          placeholder="Ingresa la contraseña"
         />
         <i
           onClick={() => setIsPasswordShown(!isPasswordShown)}

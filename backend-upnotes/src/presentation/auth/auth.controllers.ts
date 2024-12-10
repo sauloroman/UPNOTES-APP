@@ -3,6 +3,7 @@ import { AuthService } from "./auth.services";
 import { RegisterAccount, ValidateAccountDto, LonginAccountDto } from "../../domain/dtos";
 import { CustomError } from "../../domain/errors/custom.error";
 import { NewVerificationCodeAccountDto } from "../../domain/dtos/auth/new-verification-code-account.dto";
+import { ForgotPasswordDto } from "../../domain/dtos/auth/forgot-password.dto";
 
 export class AuthController {
 
@@ -71,6 +72,20 @@ export class AuthController {
     }
 
     this.authService.newVerificationCodeAccount( newVerificationCodeAccountDto!, token )
+      .then( data => res.status(200).json( data ) )
+      .catch( err => this.handleErrorResponse( err, res ) )
+
+  }
+
+  public forgotPassword = ( req: Request, res: Response ): any => {
+
+    const [ forgotPasswordDto, errorMessage ] = ForgotPasswordDto.create( req.body )
+
+    if ( errorMessage ) {
+      return res.status(400).json({ error: errorMessage })
+    }
+
+    this.authService.forgotPassword( forgotPasswordDto! )
       .then( data => res.status(200).json( data ) )
       .catch( err => this.handleErrorResponse( err, res ) )
 

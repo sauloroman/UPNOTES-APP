@@ -14,6 +14,11 @@ interface SendEmailVerificationCode {
   token: string;
 }
 
+interface SendEmailToChangePassword {
+  email: string;
+  token: string;
+}
+
 interface SendMailOptions {
   to: string | string[];
   subject: string;
@@ -88,6 +93,19 @@ export class EmailService {
       subject: 'Upnotes - Confirma tu cuenta',
       htmlBody: htmlEmail,
     });
+
+    return emailSent
+  }
+
+  public async sendEmailToChangePassword({ email, token }: SendEmailToChangePassword) {
+
+    const htmlEmail = emailTemplateFactory.forgotPasswordEmailTemplate(token)
+
+    const emailSent = await this.sendEmail({
+      to: email,
+      htmlBody: htmlEmail,
+      subject: 'Upnotes - Recupera tu contraseña'
+    })
 
     return emailSent
   }

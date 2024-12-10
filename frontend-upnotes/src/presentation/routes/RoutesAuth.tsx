@@ -4,7 +4,8 @@ import {
   Login,
   ForgotPassword,
   Register,
-  VerifyAccount 
+  VerifyAccount, 
+  ChangePassword
 } from '../pages/auth'
 import { AlertAuth } from '../layouts/auth/components/AlertAuth'
 import { useAlert } from '../shared/redux-hooks'
@@ -20,6 +21,7 @@ export const RoutesAuth: React.FC = () => {
         <Route path='register' element={<Register />} />
         <Route path='forgot-password' element={<ForgotPassword />} />
         <Route path='verify-account/:token' element={<VerifyAccount />} />
+        <Route path='change-password/:token' element={<ChangePassword />} />
         <Route path='/*' element={<Navigate to={'/auth/login'} />} />
       </Routes>
       { isAlertShown && <AlertAuth /> }
