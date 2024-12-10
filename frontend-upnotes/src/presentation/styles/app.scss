@@ -17,11 +17,11 @@
 @import '../layouts/auth/auth-layout';
 @import '../layouts/app/main-layout';
 @import '../layouts/modal/auth-modal';
+@import '../layouts/auth-actions/auth-actions-layout';
 
 @import '../shared/components/loader/loader';
 
 @import '../pages/auth/login/login';
-@import '../pages/auth/verify-account/verify-account';
 
 @import '../pages/dashboard/courses/courses';
 

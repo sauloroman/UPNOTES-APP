@@ -19,7 +19,6 @@ export const RoutesApp: React.FC = () => {
   return (
     <Routes>
       <Route path="/auth/*" element={<RoutesAuth />} />
-      <Route path='/*' element={<Navigate to="/auth/login" />} />
     </Routes>
   );
 };

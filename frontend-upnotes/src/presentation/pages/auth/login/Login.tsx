@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthStatus } from '../../../../infrastructure/store/slices/auth.slice';
 import { AuthLayout } from '../../../layouts';
 import { InputPassword } from '../../../shared/components/inputPasswod/InputPassword';
@@ -63,7 +64,7 @@ export const Login: React.FC = () => {
       <form
         onSubmit={onLoginUser}
         action="#"
-        className="form u-margin-bottom-medium"
+        className="form u-margin-bottom-small"
       >
         <div className="flex flex-column form__container">
           <div className="form__field">
@@ -96,6 +97,10 @@ export const Login: React.FC = () => {
           >
             {passwordValid}
           </span>
+
+          <div className="flex">
+            <Link className='form__forgot-password' to={'/auth/forgot-password'}>Olvidé mi contraseña</Link>
+          </div>
 
           <div className="form__buttons">
             <button type="submit" className="btn btn--black">

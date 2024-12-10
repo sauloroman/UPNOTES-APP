@@ -61,6 +61,13 @@
     margin-top: 2rem;
   }
 
+  &__forgot-password {
+    color: $color-green;
+    font-size: 1.6rem;
+    padding-bottom: 2px;
+    border-bottom: 2px solid currentColor;
+  }
+
 }
 
 .form-verify {
