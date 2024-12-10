@@ -1,6 +1,6 @@
 import { CustomError } from "../errors/custom.error"
 
-export class UserEntity {
+export class AuthEntity {
 
   constructor(
     public id: string,
@@ -8,16 +8,13 @@ export class UserEntity {
     public email: string,
     public gender: string,
     public profile: string,
-    public password: string,
-    public isAccountVerified: boolean,
-    public isActive: boolean,
   ){}
 
   private static sendErrorForStringTypes= (prop: string): CustomError => {
     throw CustomError.badRequest(`No existe ${prop}`)
   }
 
-  public static fromObject( userObj: {[key: string]: any} ): UserEntity {
+  public static fromObject( userObj: {[key: string]: any} ): AuthEntity {
 
     const {
       id,
@@ -25,9 +22,6 @@ export class UserEntity {
       email, 
       gender,
       profile,
-      isAccountVerified,
-      isActive, 
-      password
     } = userObj
 
     for( const [key, value] of Object.entries( userObj ) ) {
@@ -36,9 +30,9 @@ export class UserEntity {
       }
     }
 
-    const userEntity = new UserEntity( id, name, email, gender, profile, password, isAccountVerified, isActive )
+    const authEntity = new AuthEntity( id, name, email, gender, profile) 
 
-    return userEntity
+    return authEntity
 
   } 
 }

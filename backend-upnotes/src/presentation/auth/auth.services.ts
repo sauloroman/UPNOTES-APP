@@ -5,6 +5,7 @@ import { EmailService } from "../services";
 import { bcryptAdapter, jwtGenerator } from "../../config";
 import { CustomError } from "../../domain/errors/custom.error";
 import { NewVerificationCodeAccountDto } from "../../domain/dtos/auth/new-verification-code-account.dto";
+import { AuthEntity } from "../../domain/entities/auth.entity";
 
 interface ServiceOption {
   emailService: EmailService
@@ -69,12 +70,13 @@ export class AuthService {
       if (!isCodeActive) throw CustomError.badRequest(`El código de verificación ya ha expirado. Vuelva a generar uno`)
   
       const userUpdated = await this.userService.updateUser( user.id, { isAccountVerified: true } )
-  
+
+      const authEntity = AuthEntity.fromObject({ ...userUpdated })
       const token = await jwtGenerator.generateToken({ id: user.id })
   
       return {
         msg: 'El usuario ha sido validado exitosamente',
-        user: userUpdated,
+        user: authEntity,
         token,
       }; 
     } catch (error) {
@@ -93,10 +95,11 @@ export class AuthService {
     if ( !isPasswordCorrect ) throw CustomError.badRequest('El usuario o la contraseña no son correctos')
 
     const token = await jwtGenerator.generateToken({ id: user.id })
+    const authEntity = AuthEntity.fromObject({ ...user })
 
     return {
       msg: `Bienvenido ${user.name}`,
-      user: user,
+      user: authEntity,
       token: token
     }
 

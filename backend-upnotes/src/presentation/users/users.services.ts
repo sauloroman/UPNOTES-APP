@@ -23,7 +23,7 @@ export class UserService {
 
   public async postUser( registerAuth: RegisterAccount ) {
     const user = await prisma.user.create({ data: registerAuth })
-    const profile = await prisma.profile.findUnique({ where: { userId: user.id } })
+    const profile = await prisma.profile.create({ data: { userId: user.id } })
     const userEntity = UserEntity.fromObject({ ...user, profile });
     return userEntity
   }
