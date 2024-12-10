@@ -1,12 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../infrastructure/store/store';
 import {
+  ChangePassword,
+  ForgotPassword,
   LoginAccount,
   NewVerificationCode,
   RegisterAccount,
   ValidateAccount,
 } from '../../../domain/entities';
 import {
+  changePasswordThunk,
+  forgotPasswordThunk,
   loginAccountThunk,
   newVerificationCodeThunk,
   registerAccountThunk,
@@ -38,6 +42,14 @@ export const useAuth = () => {
     dispatch(validateAccountThunk(validateAccount));
   };
 
+  const forgotPassword = ( forgotPassword: ForgotPassword ) => {
+    dispatch( forgotPasswordThunk(forgotPassword) )
+  }
+
+  const changePassword = ( changePassword: ChangePassword, token: string ) => {
+    dispatch( changePasswordThunk( changePassword, token ) )
+  }
+
   return {
     status,
     user,
@@ -47,5 +59,7 @@ export const useAuth = () => {
     loginAccount,
     registerAccount,
     validateAccount,
+    forgotPassword,
+    changePassword
   };
 };

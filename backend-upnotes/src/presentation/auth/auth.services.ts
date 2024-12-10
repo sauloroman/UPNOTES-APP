@@ -6,6 +6,7 @@ import { CustomError } from "../../domain/errors/custom.error";
 import { NewVerificationCodeAccountDto } from "../../domain/dtos/auth/new-verification-code-account.dto";
 import { AuthEntity } from "../../domain/entities/auth.entity";
 import { ForgotPasswordDto } from "../../domain/dtos/auth/forgot-password.dto";
+import { ChangePasswordDto } from "../../domain/dtos/auth/change-password.dto";
 
 interface ServiceOption {
   emailService: EmailService
@@ -138,6 +139,22 @@ export class AuthService {
 
     return {
       msg: `Se ha enviado un email al correo: ${email}`
+    }
+
+  }
+
+  public async changePassword( changePasswordDto: ChangePasswordDto, token: string ) {
+
+    const { password } = changePasswordDto
+    const { id } = await jwtGenerator.validateToken( token )
+
+    const newPasswordHash = bcryptAdapter.hash( password )
+    const userUpdated = await this.userService.updateUser( id, { password: newPasswordHash })
+
+    if ( !userUpdated ) throw CustomError.notFound('El usuario no existe')
+
+    return {
+      msg: `Se ha actualizado la contraseña para el usuario ${userUpdated.email}`
     }
 
   }

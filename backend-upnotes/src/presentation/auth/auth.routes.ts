@@ -34,6 +34,7 @@ export class AuthRoutes {
     router.post('/register-account', authController.registerAccount )
     router.post('/validate-account', authController.validateAccount )
     router.post('/forgot-password', authController.forgotPassword )
+    router.post('/change-password/:token', authController.changePassword )
     router.post('/new-verification-code/:token', 
       [ UserMiddleware.validateUserEmailToken ], 
       authController.newVerificationCodeAccount

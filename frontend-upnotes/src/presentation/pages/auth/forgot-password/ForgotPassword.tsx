@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LayoutAuthActions } from '../../../layouts/auth-actions/LayoutAuthActions';
-import { useForm } from '../../../shared/hooks';
+import { useForm, useNavigation } from '../../../shared/hooks';
+import { useAuth } from '../../../shared/redux-hooks';
 
 const formValidations = {
   email: [
@@ -10,20 +11,19 @@ const formValidations = {
 };
 
 export const ForgotPassword: React.FC = () => {
-  const { formState, email, isFormValid, onInputChange, emailValid } = useForm(
+  const { email, isFormValid, onInputChange, emailValid } = useForm(
     { email: '' },
     formValidations as any
   );
   const [isFormSubmitted, setIsFormSubmitted] = useState(false)
+  const { forgotPassword } = useAuth()
+  const { onGoPage } = useNavigation()
 
   const onChangePassword = ( e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsFormSubmitted( true )
-
     if ( !isFormValid ) return
-  
-    
-
+    forgotPassword({email})
     setIsFormSubmitted( false )
   }
 

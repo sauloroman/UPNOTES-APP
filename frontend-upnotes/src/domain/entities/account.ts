@@ -24,6 +24,14 @@ export interface NewVerificationCode {
   email: string
 }
 
+export interface ForgotPassword {
+  email: string
+}
+
+export interface ChangePassword {
+  password: string
+}
+
 export interface Account {
   id: string;
   name: string;

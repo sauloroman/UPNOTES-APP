@@ -1,4 +1,4 @@
-import { LoginAccount, AccountResponse, RegisterAccount, ValidateAccount, NewVerificationCode, MessageResponse } from "../../domain/entities/account";
+import { LoginAccount, AccountResponse, RegisterAccount, ValidateAccount, NewVerificationCode, MessageResponse, ForgotPassword, ChangePassword } from "../../domain/entities/account";
 import { AuthRepository } from "../../domain/repositories/auth.repository";
 import { axiosInstance } from "../http/axiosInstance";
 
@@ -21,6 +21,16 @@ export class AxiosAuthRepository implements AuthRepository  {
 
   async newVerificationCode(newVerificationCode: NewVerificationCode, token: string ): Promise<MessageResponse> {
     const { data } = await axiosInstance.post<MessageResponse>(`/auth/new-verification-code/${token}`, newVerificationCode )
+    return data
+  }
+
+  async forgotPassword(forgotPassword: ForgotPassword): Promise<MessageResponse> {
+    const { data } = await axiosInstance.post<MessageResponse>('auth/forgot-password', forgotPassword )
+    return data
+  }
+
+  async changePassword(changePassword: ChangePassword, token: string ): Promise<MessageResponse> {
+    const { data } = await axiosInstance.post(`/auth/change-password/${token}`, changePassword )
     return data
   }
 

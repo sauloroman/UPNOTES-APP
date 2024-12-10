@@ -4,6 +4,7 @@ import { RegisterAccount, ValidateAccountDto, LonginAccountDto } from "../../dom
 import { CustomError } from "../../domain/errors/custom.error";
 import { NewVerificationCodeAccountDto } from "../../domain/dtos/auth/new-verification-code-account.dto";
 import { ForgotPasswordDto } from "../../domain/dtos/auth/forgot-password.dto";
+import { ChangePasswordDto } from "../../domain/dtos/auth/change-password.dto";
 
 export class AuthController {
 
@@ -89,6 +90,20 @@ export class AuthController {
       .then( data => res.status(200).json( data ) )
       .catch( err => this.handleErrorResponse( err, res ) )
 
+  }
+
+  public changePassword = ( req: Request, res: Response ): any => {
+
+    const { token } = req.params
+    const [ changePasswordDto, errorMessage ] = ChangePasswordDto.create( req.body )
+
+    if ( errorMessage ) {
+      return res.status(400).json({ error: errorMessage })
+    }
+
+    this.authService.changePassword( changePasswordDto!, token )
+      .then( data => res.status(200).json( data ) )
+      .catch( err => this.handleErrorResponse( err, res ) )
   }
 
 }

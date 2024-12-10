@@ -29,7 +29,7 @@ export class UserService {
   }
 
   public async updateUser( userId: string, newData: {[key: string]: any} ): Promise<UserEntity | null> {
-    const { password, isActive, ...restNewData } = newData
+    const { isActive, ...restNewData } = newData
     
     if ( !(await this.isUserInDataBase( userId )) ) return null;
 
