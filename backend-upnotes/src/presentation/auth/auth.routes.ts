@@ -5,6 +5,7 @@ import { UserService } from "../users/users.services";
 import { EmailService, VerificationCodeService } from "../services";
 import { dateFormatter, codeGenerator, envs } from "../../config";
 import { UserMiddleware } from "../middlewares/user.middleware";
+import { AuthMiddleware } from "../middlewares/auth.middleware";
 
 export class AuthRoutes {
 
@@ -41,7 +42,7 @@ export class AuthRoutes {
     )
 
     // PRIVATE ENDPOINTS
-    // router.get('/renew-token')
+    router.get('/renew-token', [ AuthMiddleware.validateJWT ], authController.renewToken )
 
     return router;
   }

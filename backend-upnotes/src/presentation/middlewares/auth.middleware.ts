@@ -5,7 +5,7 @@ import { UserEntity } from "../../domain/entities/user.entity";
 
 export class AuthMiddleware {
 
-  public static async validateJWT( req: Request, res: Response, next: NextFunction ) {
+  public static async validateJWT( req: Request, res: Response, next: NextFunction ): Promise<any | undefined> {
 
     const authorization = req.header('Authorization')
 

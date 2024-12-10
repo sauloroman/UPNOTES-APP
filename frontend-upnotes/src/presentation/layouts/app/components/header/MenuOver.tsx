@@ -1,9 +1,19 @@
 import React from "react";
-import { useMenu } from "../../../../shared/redux-hooks";
+import { useAlert, useAuth, useMenu } from "../../../../shared/redux-hooks";
+import { useNavigation } from "../../../../shared/hooks";
 
 export const MenuOver: React.FC = () => {
 
   const { openMenuOver, closeMenuOver, isMenuOverShown } = useMenu()
+  const { logoutAccount } = useAuth()
+  const { onGoPage } = useNavigation()
+  const { onShowAlert } = useAlert()
+
+  const onLogoutAccount = () => {
+    logoutAccount()
+    onGoPage('/auth/login')
+    onShowAlert('Hasta la próxima', 'Gracias por usar UpNotes. Tu organizador de tareas por excelencia.')
+  }
 
   return (
     <div className="flex flex-center u-relative">
@@ -28,7 +38,7 @@ export const MenuOver: React.FC = () => {
             <i className='bx bx-moon icon icon--menu-over'></i>
             Tema Oscuro
           </li>
-          <li className="main-layout-menu__item">
+          <li onClick={ onLogoutAccount } className="main-layout-menu__item">
             <i className='bx bx-log-out icon icon--menu-over'></i>
             Cerrar Sesión
           </li>

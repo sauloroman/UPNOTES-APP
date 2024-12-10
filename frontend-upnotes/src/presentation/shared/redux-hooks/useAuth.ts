@@ -14,11 +14,15 @@ import {
   loginAccountThunk,
   newVerificationCodeThunk,
   registerAccountThunk,
+  renewTokenThunk,
   validateAccountThunk,
 } from '../../../infrastructure/store/thunks/auth';
+import { logoutUserAuth } from '../../../infrastructure/store/slices/auth.slice';
 
 export const useAuth = () => {
+  
   const dispatch = useDispatch<any>();
+
   const { status, user, generateVerificationCode } = useSelector(
     (state: RootState) => state.auth
   );
@@ -33,6 +37,11 @@ export const useAuth = () => {
   const loginAccount = (loginAccount: LoginAccount) => {
     dispatch(loginAccountThunk(loginAccount));
   };
+
+  const logoutAccount = () => {
+    dispatch( logoutUserAuth() )
+    localStorage.removeItem('user')
+  }
 
   const registerAccount = (registerAccount: RegisterAccount) => {
     dispatch(registerAccountThunk(registerAccount));
@@ -50,6 +59,10 @@ export const useAuth = () => {
     dispatch( changePasswordThunk( changePassword, token ) )
   }
 
+  const renewToken = () => {
+    dispatch( renewTokenThunk() )
+  }
+
   return {
     status,
     user,
@@ -57,9 +70,11 @@ export const useAuth = () => {
 
     generateNewVerificationCode,
     loginAccount,
+    logoutAccount,
     registerAccount,
     validateAccount,
     forgotPassword,
-    changePassword
+    changePassword,
+    renewToken
   };
 };

@@ -159,4 +159,19 @@ export class AuthService {
 
   }
 
+  public async renewToken( userId: string ) {
+
+    const newToken = await jwtGenerator.generateToken({ id: userId })
+    
+    const user = await this.userService.getUserById( userId )
+    if ( !user ) throw CustomError.notFound('El usuario no fue encontrado')
+    
+    const authEntity = AuthEntity.fromObject({ ...user })
+
+    return {
+      user: authEntity,
+      token: newToken
+    }
+  }
+
 }

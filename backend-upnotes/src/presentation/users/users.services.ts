@@ -15,6 +15,17 @@ export class UserService {
     return userEntity
   } 
 
+  public async getUserById( userId: string ): Promise<UserEntity | null> {
+    const user = await prisma.user.findUnique({ where: { id: userId } }); 
+    if ( !user ) return null
+
+    const profile = await prisma.profile.findUnique({ where: { userId: user.id } })
+    if ( !profile ) return null
+
+    const userEntity = UserEntity.fromObject({ ...user, profile: profile.id });
+    return userEntity
+  }
+
   public async isUserInDataBase( userId: string ): Promise<boolean> {
     const user = await prisma.user.findUnique({ where: { id: userId } });
     if ( !user ) return false

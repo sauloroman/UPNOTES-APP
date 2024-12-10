@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { RoutesAuth, RoutesMain } from "./";
 import { useAuth } from "../shared/redux-hooks";
 import { AuthStatus } from "../../infrastructure/store/slices/auth.slice";
 
 export const RoutesApp: React.FC = () => {
-  const { status } = useAuth()
+  const { status, renewToken } = useAuth()
+
+  useEffect(() => {
+    renewToken()
+  }, [])
 
   if ( status === AuthStatus.authenticated ) {
     return (
@@ -19,6 +23,7 @@ export const RoutesApp: React.FC = () => {
   return (
     <Routes>
       <Route path="/auth/*" element={<RoutesAuth />} />
+      <Route path='/*' element={<Navigate to="/auth/login" />} />
     </Routes>
   );
 };
