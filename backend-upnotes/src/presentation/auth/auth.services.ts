@@ -1,7 +1,6 @@
 import { RegisterAccount, ValidateAccountDto, LonginAccountDto } from "../../domain/dtos"
 import { UserService } from "../users/users.services";
-import { VerificationCodeService } from "../verification-code/verification-code.services";
-import { EmailService } from "../services";
+import { EmailService, VerificationCodeService } from "../services";
 import { bcryptAdapter, jwtGenerator } from "../../config";
 import { CustomError } from "../../domain/errors/custom.error";
 import { NewVerificationCodeAccountDto } from "../../domain/dtos/auth/new-verification-code-account.dto";

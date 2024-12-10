@@ -20,10 +20,8 @@ export interface ValidateAccount {
   email: string;
 }
 
-export interface ValidateAccountResponse {
-  msg: string;
-  user: Account;
-  token: string;
+export interface NewVerificationCode {
+  email: string
 }
 
 export interface Account {
@@ -32,4 +30,14 @@ export interface Account {
   email: string;
   gender: GenderAccount
   profile: string;
+}
+
+export interface AccountResponse {
+  msg: string;
+  user: Account;
+  token: string;
+}
+
+export interface MessageResponse {
+  msg: string;
 }

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User } from "../../../domain/entities";
+import { Account } from "../../../domain/entities";
 
 export enum AuthStatus {
   authenticated = 'authenticated',
@@ -7,7 +7,7 @@ export enum AuthStatus {
 }
 
 interface InitialState {
-  user: User | null,
+  user: Account | null,
   status: AuthStatus,
   generateVerificationCode: boolean
 }
@@ -23,7 +23,7 @@ export const authSlice = createSlice({
   name: 'auth',
   reducers: {
 
-    loginUserAuth( state, { payload }: PayloadAction<User>) {
+    loginUserAuth( state, { payload }: PayloadAction<Account>) {
       state.user = payload
       state.status = AuthStatus.authenticated
       state.generateVerificationCode = initialState.generateVerificationCode

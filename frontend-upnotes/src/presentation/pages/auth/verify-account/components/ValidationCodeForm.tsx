@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { InputVerify } from './InputVerify';
 import { useForm } from '../../../../shared/hooks';
-import { useAuth, useUser } from '../../../../shared/redux-hooks';
+import { useAuth } from '../../../../shared/redux-hooks';
 import { NewCode } from './NewCode';
 
 const formData = {
@@ -20,8 +20,7 @@ export const ValidationCodeForm: React.FC<ValidationCodeFormProps> = ({email}) =
 
   const { formState, onInputChange } = useForm( formData )
   const [error, setError] = useState<string | null>(null)
-  const { validateUser } = useUser()
-  const { generateVerificationCode } = useAuth()
+  const { generateVerificationCode, validateAccount } = useAuth()
 
   const onSubmitVerificationCode = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,8 +33,7 @@ export const ValidationCodeForm: React.FC<ValidationCodeFormProps> = ({email}) =
       code += valueBox
     }
 
-    validateUser({code, email})
-
+    validateAccount({code, email})
     setError(null)
   }
 

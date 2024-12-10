@@ -2,8 +2,7 @@ import { Router } from "express";
 import { AuthController } from './auth.controllers';
 import { AuthService } from "./auth.services";
 import { UserService } from "../users/users.services";
-import { VerificationCodeService } from "../verification-code/verification-code.services";
-import { EmailService } from "../services";
+import { EmailService, VerificationCodeService } from "../services";
 import { dateFormatter, codeGenerator, envs } from "../../config";
 import { UserMiddleware } from "../middlewares/user.middleware";
 

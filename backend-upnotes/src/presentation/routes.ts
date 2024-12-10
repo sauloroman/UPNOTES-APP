@@ -1,6 +1,4 @@
 import { Router } from "express";
-import { UserRoutes } from "./users/users.routes";
-import { VerificationCodeRoutes } from "./verification-code/verification-code.routes";
 import { AuthRoutes } from "./auth/auth.routes";
 
 export class RouterApp {

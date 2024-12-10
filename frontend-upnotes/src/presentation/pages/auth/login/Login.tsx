@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { AuthStatus } from '../../../../infrastructure/store/slices/auth.slice';
 import { AuthLayout } from '../../../layouts';
 import { InputPassword } from '../../../shared/components/inputPasswod/InputPassword';
 import { useForm } from '../../../shared/hooks';
-import { useAuth, useUser } from '../../../shared/redux-hooks';
-import { AuthStatus } from '../../../../infrastructure/store/slices/auth.slice';
+import { useAuth } from '../../../shared/redux-hooks';
 
 const formData = {
   email: '',
@@ -34,8 +34,7 @@ export const Login: React.FC = () => {
   } = useForm(formData, formValidations as any);
 
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
-  const { loginUser } = useUser();
-  const { status } = useAuth()
+  const { loginAccount, status } = useAuth();
 
   const onLoginUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,7 +42,7 @@ export const Login: React.FC = () => {
 
     if (!isFormValid) return;
 
-    loginUser( formState )
+    loginAccount( formState )
 
     if ( status === AuthStatus.authenticated ) {
       onResetForm()

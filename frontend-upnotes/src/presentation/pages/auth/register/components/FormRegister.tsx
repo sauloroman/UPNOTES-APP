@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from '../../../../shared/hooks';
-import { RegisterUser, UserGender } from '../../../../../domain/entities';
-import { useUser } from '../../../../shared/redux-hooks';
+import { RegisterAccount, GenderAccount } from '../../../../../domain/entities';
+import { useAuth } from '../../../../shared/redux-hooks';
 import { InputPassword } from '../../../../shared/components/inputPasswod/InputPassword';
 
 const formData = {
   email: '',
-  gender: UserGender.M,
+  gender: GenderAccount.M,
   name: '',
   password: '',
 };
@@ -42,10 +42,10 @@ export const FormRegister: React.FC = () => {
     nameValid,
     onInputChange,
     isFormValid,
-  } = useForm<RegisterUser>(formData, formValidations as any);
+  } = useForm<RegisterAccount>(formData, formValidations as any);
 
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
-  const { registerUser } = useUser();
+  const { registerAccount } = useAuth();
 
   const onRegisterUserEvent = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ export const FormRegister: React.FC = () => {
 
     if (!isFormValid) return;
 
-    registerUser({ ...formState });
+    registerAccount({ ...formState });
 
     setIsFormSubmitted(false);
   };
