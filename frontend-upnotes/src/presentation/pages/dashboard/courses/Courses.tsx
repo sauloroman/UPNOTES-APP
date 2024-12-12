@@ -1,29 +1,28 @@
 import React from 'react'
 import { MainLayout } from '../../../layouts'
+import { FilterButtons } from './components/FilterButtons'
+import { AddButton } from './components/AddButton'
+import { CoursesList } from './components/CoursesList'
+import { Pagination } from '../../../shared/components/pagination/Pagination'
 
 export const Courses: React.FC = () => {
   return (
     <MainLayout titleView="Materias">
-      <div className="courses">
+      <main className="courses">
 
-        <header className="courses-header flex flex-between">
-          <div className="courses-filter flex">
-            <span className="courses-filter__span">Todo</span>
-          </div>
-          <div className="courses-buttons">
-            <button className='btn btn--filter'>
-              <i className='bx bx-filter-alt icon icon--button'></i>
-              <p>Filter</p>
-            </button>
-            <button className='btn btn--add'>
-              <i className='bx bx-plus icon icon--button'></i>
-              Agregar
-            </button>
+        <header className="courses-header">
+          <div className="flex flex-between">
+            <AddButton />
           </div>
         </header>
         
+        <div className='courses-container'>
+          <FilterButtons />
+          <CoursesList />
+          <Pagination />
+        </div>
 
-      </div>
+      </main>
     </MainLayout>
   )
 }

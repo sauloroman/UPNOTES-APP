@@ -3,6 +3,7 @@ import { menuSlice } from "./slices/menu.slice";
 import { alertSlice } from "./slices/alert.slice";
 import { loadingSlice } from "./slices/loading.slice";
 import { authSlice } from "./slices/auth.slice";
+import { paginationSlice } from "./slices/pagination.slice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     loading: loadingSlice.reducer,
     menu: menuSlice.reducer,
     alert: alertSlice.reducer,
+    pagination: paginationSlice.reducer
   }
 })
 

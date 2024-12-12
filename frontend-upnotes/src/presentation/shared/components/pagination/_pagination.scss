@@ -1,0 +1,21 @@
+.pagination {
+
+  border-radius: 100px;
+  padding: 0 2rem;
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__controls {
+    gap: 2rem;
+  }
+
+  &__current {
+    border: 1px solid #ddd;
+    padding: .2rem 1rem;
+    border-radius: 50%;
+    font-weight: 700;
+  }
+
+}

@@ -4,25 +4,135 @@
 }
 
 .courses-filter {
-  border: 1px solid #ddd;
-
-  &__span {
-    transition: all .4s ease;
-    padding: .5rem 2rem;
-  }
-
-  &__span:not(:last-child) {
-    border-right: 1px solid #ddd;
-  }
-
-  &__span:hover {
-    cursor: pointer;
-    font-weight: 700;
-  }
-}
-
-.courses-buttons {
   display: flex;
   align-items: center;
   gap: 2rem;
+  background-color: #F6F6F8;
+  padding: .4rem 1rem;
+  border-radius: 100px;
+  margin-bottom: 4rem;
 }
+
+.courses-header {
+  margin-bottom: 2rem;
+}
+
+.courses-container {
+  padding: 5rem;
+  padding-top: 1rem;
+  margin-inline: auto;
+}
+
+.courses-grid {
+  @include grid( 4, 2rem );
+  margin-bottom: 5rem;
+}
+
+.courses-card {
+  padding: .5rem;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, .25);
+  
+  &__content {
+    background-color: #FFE1CC;
+    border-radius: inherit;
+    padding: 2rem;
+  }
+  
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  &__date {
+    background-color: $color-white;
+    font-weight: 600;
+    padding: .3rem 1rem;
+    border-radius: 100px;
+  }
+
+  &__period {
+    background-color: $color-period;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 50%;
+    color: $color-white
+  }
+
+  &__name {
+    font-weight: 900;
+    font-family: $font-title;
+    font-size: 3.2rem;
+    @include textToLines(2);
+    line-height: 1.5;    
+    margin-bottom: 2rem; 
+  }
+
+  &__icon {
+    background-color: $color-white;
+    padding: 1rem;
+    border-radius: 50%;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  &__categories {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__category {
+    padding: .3rem 2rem;
+    border: 1px solid #aaa;
+    border-radius: 100px;
+  }
+
+  &__footer {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__footer-icon {
+    font-size: 3rem;
+  }
+
+  &__professor {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+
+    p { 
+      font-weight: 700; 
+    }
+    
+    span { 
+      color: #555; 
+      font-weight: 500; 
+      @include textToLines(1)
+    }
+  }
+
+  &__button {
+    width: fit-content;
+  }
+
+  &__circle {
+    width: 2rem;
+    height: 2rem;
+    background-color: $color-period;
+    border-radius: 50%;
+  }
+
+}
+
+

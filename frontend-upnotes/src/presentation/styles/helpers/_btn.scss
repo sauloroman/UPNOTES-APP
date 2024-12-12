@@ -27,17 +27,36 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    font-weight: 500;
-    padding: 1rem 2rem;
-    border: 1px solid #ddd;
+    font-size: 1.4rem;
+    font-weight: 400;
+    padding: .5rem 2rem;
+    border-radius: 100px;
+    color: #555;
+  }
+
+  &--filter:hover, &--filter-active {
+    box-shadow: 0 3px 3px rgba(0, 0, 0, .15);
+    background-color: $color-green-light;
+    color: #000;
   }
 
   &--add {
-    background-color: $color-black;
-    color: $color-white;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    @include buttonOutline( $color-green, $color-white );
+  }
+  
+  &--pagination {
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, .25);
+    @include buttonOutline( $color-green, $color-white );
   }
 }
