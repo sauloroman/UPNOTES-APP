@@ -7,7 +7,7 @@ export class AuthEntity {
     public name: string,
     public email: string,
     public gender: string,
-    public profile: string,
+    public profile: any,
   ){}
 
   private static sendErrorForStringTypes= (prop: string): CustomError => {

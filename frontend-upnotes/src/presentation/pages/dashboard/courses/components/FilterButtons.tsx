@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const filters: string[] = [
+  'Todas',
   'Matemáticas',
   'Ciencias',
   'Idiomas',

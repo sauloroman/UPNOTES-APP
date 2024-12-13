@@ -40,7 +40,7 @@ export const navigationConfig: Record <string, NavigationItemProps[]> = {
       page: "/upnotes/scores",
     },
     {
-      name: "Professors",
+      name: "Profesores",
       iconName: "ruler",
       page: "/upnotes/professors",
     },

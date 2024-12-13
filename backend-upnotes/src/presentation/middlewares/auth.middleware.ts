@@ -42,7 +42,7 @@ export class AuthMiddleware {
       }
 
       const profile = await prisma.profile.findUnique({ where: { userId: user.id } })
-      const { password, ...restUserEntity } = UserEntity.fromObject({ ...user, profileId: profile?.id })
+      const { password, ...restUserEntity } = UserEntity.fromObject({ ...user, profile })
 
       req.body.user = restUserEntity
 

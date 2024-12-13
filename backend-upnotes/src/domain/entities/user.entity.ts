@@ -7,7 +7,7 @@ export class UserEntity {
     public name: string,
     public email: string,
     public gender: string,
-    public profile: string,
+    public profile: any,
     public password: string,
     public isAccountVerified: boolean,
     public isActive: boolean,

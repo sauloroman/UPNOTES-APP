@@ -1,4 +1,5 @@
 import React from 'react'
+import { FavoriteIconButton } from './FavoriteIconButton'
 
 export const CourseCard: React.FC = () => {
   return (
@@ -6,7 +7,7 @@ export const CourseCard: React.FC = () => {
       <div className="courses-card__content">
         <div className="courses-card__header">
           <p className="courses-card__date">20 Mayo, 2024</p>
-          <i className='bx bx-bookmark courses-card__icon'></i>
+          <FavoriteIconButton />
         </div>
         <div className="flex flex-end">
           <p className="courses-card__period">1</p>

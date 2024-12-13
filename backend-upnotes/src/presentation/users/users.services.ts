@@ -10,8 +10,9 @@ export class UserService {
 
     const profile = await prisma.profile.findUnique({ where: { userId: user.id } })
     if ( !profile ) return null
+    const { userId, ...restProfile } = profile
 
-    const userEntity = UserEntity.fromObject({ ...user, profile: profile.id });
+    const userEntity = UserEntity.fromObject({ ...user, profile: restProfile });
     return userEntity
   } 
 
@@ -21,8 +22,9 @@ export class UserService {
 
     const profile = await prisma.profile.findUnique({ where: { userId: user.id } })
     if ( !profile ) return null
+    const { userId: userI, ...restProfile } = profile
 
-    const userEntity = UserEntity.fromObject({ ...user, profile: profile.id });
+    const userEntity = UserEntity.fromObject({ ...user, profile: restProfile });
     return userEntity
   }
 
@@ -51,8 +53,9 @@ export class UserService {
 
     const profile = await prisma.profile.findUnique({ where: { userId }})
     if (!profile) return null
+    const { userId: user, ...restProfile } = profile
 
-    const userEntity = UserEntity.fromObject({ ...userUpdated, profile: profile.id });
+    const userEntity = UserEntity.fromObject({ ...userUpdated, profile: restProfile });
 
     return userEntity
   } 

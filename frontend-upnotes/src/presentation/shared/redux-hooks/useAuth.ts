@@ -66,6 +66,7 @@ export const useAuth = () => {
   return {
     status,
     user,
+    profile: user?.profile,
     generateVerificationCode,
 
     generateNewVerificationCode,

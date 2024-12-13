@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "populate:category-courses": "tsnd src/data/postgresql/populate-course-category.ts",
+    "populate:periods": "tsnd src/data/postgresql/populate-periods.ts",
+    "populate:database": "npm run populate:category-courses && npm run populate:periods",
     "dev": "tsnd --respawn src/app.ts",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js"

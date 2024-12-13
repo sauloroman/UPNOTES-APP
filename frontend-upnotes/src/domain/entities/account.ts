@@ -1,3 +1,5 @@
+import { Profile } from "./profile";
+
 export enum GenderAccount {
   M = 'M',
   F = 'F'
@@ -37,7 +39,7 @@ export interface Account {
   name: string;
   email: string;
   gender: GenderAccount
-  profile: string;
+  profile: Profile;
 }
 
 export interface AccountResponse {
