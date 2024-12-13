@@ -1,5 +1,5 @@
 import React from 'react'
-import { FavoriteIconButton } from './FavoriteIconButton'
+import { FavoriteIconButton } from './buttons/FavoriteIconButton'
 
 export const CourseCard: React.FC = () => {
   return (

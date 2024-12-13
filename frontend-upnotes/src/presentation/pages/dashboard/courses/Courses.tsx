@@ -1,14 +1,14 @@
 import React from 'react'
 import { MainLayout } from '../../../layouts'
-import { FilterButtons } from './components/FilterButtons'
-import { AddButton } from './components/AddButton'
+import { FilterButtons } from './components/buttons/FilterButtons'
 import { CoursesList } from './components/CoursesList'
 import { Pagination } from '../../../shared/components/pagination/Pagination'
-import { FavoriteButton } from './components/FavoriteButton'
-import { PeriodSelect } from './components/PeriodSelect'
+import { FavoriteButton } from './components/buttons/FavoriteButton'
+import { PeriodSelect } from './components/inputs/PeriodSelect'
 import { CreateCourseModal } from './components/CreateCourseModal'
 import { useModal } from '../../../shared/redux-hooks/useModal'
 import { ModalNames } from '../../../../infrastructure/store/slices/modal.slice'
+import { AddButton } from './components/buttons/AddButton'
 
 export const Courses: React.FC = () => {
   const { isOpen, name } = useModal()

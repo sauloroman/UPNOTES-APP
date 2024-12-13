@@ -22,6 +22,11 @@
     @include buttonOutline( $color-black, $color-white );
   }
 
+  &--white {
+    border-color: $color-green;
+    @include buttonOutline( $color-white, $color-green );
+  }
+
   &--filter {
     display: flex;
     justify-content: center;
