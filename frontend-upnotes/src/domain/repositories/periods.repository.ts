@@ -1,5 +1,5 @@
-import { Periods } from "../entities/period";
+import { PeriodsResponse } from '../entities/period';
 
 export abstract class PeriodsRepository {
-  abstract getAllPeriods(): Promise<Periods>
+  abstract getAllPeriods(): Promise<PeriodsResponse>
 }

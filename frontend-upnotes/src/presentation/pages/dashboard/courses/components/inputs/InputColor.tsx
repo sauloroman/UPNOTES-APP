@@ -10,13 +10,26 @@ const optionColors = [
   '#FFD276',
 ]
 
-export const InputColor: React.FC = () => {
+interface Props {
+  selectedColor: string;
+  onChange: ( target: any ) => void
+}
+
+export const InputColor: React.FC<Props> = ({ selectedColor, onChange }) => {
+  
+  const onChangeColor = ( color: string ) => {
+    onChange({ target: { name: 'color', value: color }})
+  }
+  
   return (
     <div className='form__circle'>
       {
         optionColors.map( optionColor => (
-          <div className='form__circle-color' 
-          style={{ backgroundColor: `${optionColor}` }}></div>
+          <div 
+            key={optionColor}
+            onClick={ () => onChangeColor(optionColor) }
+            className={`form__circle-color ${selectedColor === optionColor && 'form__circle-color--active'}`} 
+            style={{ backgroundColor: `${optionColor}` }}></div>
         ))
       }
     </div>

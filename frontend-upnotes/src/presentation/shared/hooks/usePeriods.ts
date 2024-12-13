@@ -4,7 +4,7 @@ import { axiosPeriodsRepository } from "../../../infrastructure/repositories/axi
 
 export const usePeriods = () => {
 
-  const [periods, setPeriods] = useState<number[]>()
+  const [periods, setPeriods] = useState<number[]>([])
 
   useEffect(() => {
     getAllPeriods()
@@ -13,8 +13,8 @@ export const usePeriods = () => {
   const getAllPeriods = async () => {
     try {
       const useCase = new GetAllPeriodsUseCase({ periodsRepository: axiosPeriodsRepository })
-      const periods = await useCase.apply()
-      setPeriods(periods.periods)
+      const { periods } = await useCase.apply()
+      setPeriods( periods )
     } catch (error) {
       console.log(`${error}`)
     }

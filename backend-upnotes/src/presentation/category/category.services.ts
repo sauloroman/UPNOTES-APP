@@ -3,14 +3,14 @@ import { CategoryEntities } from "../middlewares/categories.middleware";
 
 export class CategoryService {
 
-  public async getCategories( entity: CategoryEntities ): Promise<string[]> {
+  public async getCategories( entity: CategoryEntities ): Promise<{ categories: string[] }> {
 
     switch( entity ) {
       case CategoryEntities.courses:
         const coursesCategory = await prisma.courseCategory.findMany()
-        return coursesCategory.map( courseCategory => courseCategory.name )
+        return { categories: coursesCategory.map( courseCategory => courseCategory.name ) }
       default:
-        return []
+        return { categories: [] }
     }
     
   }

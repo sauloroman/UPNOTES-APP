@@ -5,7 +5,7 @@ export const CreateCourseModal = () => {
   return (
     <LayoutModal width={80}>
       <div className="create-course">
-        <header className="u-margin-bottom-medium">
+        <header className="u-margin-bottom-small">
           <p className="create-course__title">Crear Nuevo Curso</p>
         </header>
         <div className="create-course__container">

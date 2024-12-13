@@ -1,3 +1,3 @@
-export interface Periods {
+export interface PeriodsResponse {
   periods: number[]
 }
