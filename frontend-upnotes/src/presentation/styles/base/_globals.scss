@@ -14,6 +14,7 @@ body {
   background-color: $color-white;
   scroll-behavior: smooth;
   overflow-x: hidden;
+  position: relative;
 }
 
 a:link, a:visited {

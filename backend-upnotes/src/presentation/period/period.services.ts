@@ -8,4 +8,11 @@ export class PeriodService {
     return period.id
   }
 
+  public async getPeriods(): Promise<{ periods: Number[] }> {
+    const periods = await prisma.period.findMany()
+    const numberPeriods = periods.map( period => period.numberPeriod )
+    return {
+      periods: numberPeriods
+    }
+  }
 } 

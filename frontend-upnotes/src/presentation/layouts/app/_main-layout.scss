@@ -1,6 +1,4 @@
 .main-layout {
-  position: relative;
-
   &__container {
     width: calc( 100% - $menu-aside-width - 5rem );
     position: absolute;
@@ -28,12 +26,13 @@
   width: calc(100% - $menu-aside-width);
   padding: 0.5rem 3rem;
   transition: all 0.4s ease;
-
+  z-index: $z-index-header;
+  
   &--aside {
     width: calc(100% - $menu-aside-width-small);
     left: $menu-aside-width-small;
   }
-
+  
   &__img {
     height: $header-height;
   }
@@ -46,6 +45,7 @@
   width: $menu-aside-width;
   height: 100vh;
   transition: all 0.4s ease;
+  z-index: $z-index-aside;
 
   &--closed {
     width: $menu-aside-width-small;

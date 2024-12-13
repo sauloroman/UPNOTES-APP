@@ -6,8 +6,13 @@ import { CoursesList } from './components/CoursesList'
 import { Pagination } from '../../../shared/components/pagination/Pagination'
 import { FavoriteButton } from './components/FavoriteButton'
 import { PeriodSelect } from './components/PeriodSelect'
+import { CreateCourseModal } from './components/CreateCourseModal'
+import { useModal } from '../../../shared/redux-hooks/useModal'
+import { ModalNames } from '../../../../infrastructure/store/slices/modal.slice'
 
 export const Courses: React.FC = () => {
+  const { isOpen, name } = useModal()
+
   return (
     <MainLayout titleView="Materias">
       <main className="courses">
@@ -29,6 +34,10 @@ export const Courses: React.FC = () => {
         </div>
 
       </main>
+      {
+        (isOpen && name === ModalNames.createCourse)
+        && <CreateCourseModal />
+      }
     </MainLayout>
   )
 }

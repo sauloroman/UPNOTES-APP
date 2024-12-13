@@ -13,10 +13,20 @@ $color-white: #FAFFFB;
 $color-period: #6F34FF;
 $color-favorite: #fcc419;
 
+$course-color-1: #FBDBD4;
+$course-color-2: #DAEAE5;
+$course-color-3: #DADFE9;
+$course-color-4: #ECF4EF;
+$course-color-5: #FFCDCF;
+$course-color-6: #E6E9EE;
+$course-color-7: #FFD276;
+
 $gutter-horizontal: 5rem;
 
 $header-height: 6rem;
 $menu-aside-width: 30rem;
 $menu-aside-width-small: 10rem;
 
-$z-index-modal: 999;
+$z-index-modal: 9999;
+$z-index-header: 1;
+$z-index-aside: 1;

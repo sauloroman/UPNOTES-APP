@@ -1,7 +1,8 @@
 import { prisma } from '../../data';
 import { CreateCourseDto } from '../../domain/dtos/courses/create-course.dto';
 import { CustomError } from '../../domain/errors/custom.error';
-import { CourseCategoryService, PeriodService, CategoriesOnCoursesService } from '../services';
+import { PeriodService } from '../period/period.services';
+import { CourseCategoryService, CategoriesOnCoursesService } from '../services';
 
 interface ServiceOptions {
   periodService: PeriodService;

@@ -157,4 +157,40 @@
 
 }
 
+.create-course {
+
+  padding: 2rem;
+
+  &__title {
+    font-size: 2rem;
+    font-family: $font-title;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $color-green;
+    position: relative;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      width: 65%;
+      height: 2px;
+      top: 50%;
+      right: 0;
+      background-color: #ddd;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__container {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
 

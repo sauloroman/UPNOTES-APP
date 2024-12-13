@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { CourseService } from "./courses.services";
 import { CoursesController } from "./courses.controllers";
-import { CategoriesOnCoursesService, CourseCategoryService, PeriodService } from "../services";
+import { PeriodService } from "../period/period.services";
+import { CategoriesOnCoursesService, CourseCategoryService } from "../services";
 
 export class CoursesRoutes {
   public static get routes(): Router {
