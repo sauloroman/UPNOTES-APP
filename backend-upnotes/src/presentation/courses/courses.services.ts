@@ -22,28 +22,33 @@ export class CourseService {
   }
 
   public async postCourse( createCourseDto: CreateCourseDto, userId: string ) {
-
     const { name, color, categories, period } = createCourseDto
-    const periodId = await this.periodService.postPeriod( period )
-    if ( !periodId ) throw CustomError.badRequest('No se pudo crear el periodo')
 
-    const newCourse = await prisma.course.create({
-      data: {
-        name: name,
-        color: color,
-        userId: userId,
-        periodId: periodId
+    try {
+      
+      const periodId = await this.periodService.getPeriodByName( period )
+      if ( !periodId ) throw CustomError.notFound('El periodo no existe')
+  
+      const newCourse = await prisma.course.create({
+        data: {
+          name: name,
+          color: color,
+          userId: userId,
+          periodId: periodId
+        }
+      })
+  
+      for( const category of categories ) {
+        const courseCategoryId = await this.courseCategoryService.getCourseCategoryByName( category )
+        if ( !courseCategoryId ) throw CustomError.notFound('La categoria del curso no existe en la Base de Datos')
+        await this.categoriesOnCoursesService.postCategoryOnCourse( courseCategoryId, newCourse.id )
       }
-    })
-
-    for( const category of categories ) {
-      const courseCategoryId = await this.courseCategoryService.getCourseCategoryByName( category )
-      if ( !courseCategoryId ) throw CustomError.notFound('La categoria del curso no existe en la Base de Datos')
-      await this.categoriesOnCoursesService.postCategoryOnCourse( courseCategoryId, newCourse.id )
-    }
-
-    return {
-      msg: `La materia "${name}" ha sido creada exitosamente.`
+  
+      return {
+        msg: `La materia "${name}" ha sido creada exitosamente.`
+      }
+    } catch (error) {
+      return error
     }
 
   }
