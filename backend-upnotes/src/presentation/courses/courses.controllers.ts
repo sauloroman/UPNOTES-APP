@@ -48,7 +48,7 @@ export class CoursesController {
     }
 
     this.courseService.getCoursesByUser( paginationDto!, user.id )
-      .then( courses => res.status(200).json({ courses })) 
+      .then( courses => res.status(200).json( courses )) 
       .catch( err => this.handleErrorResponse( err, res ) )
 
   }

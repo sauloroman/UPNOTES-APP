@@ -28,7 +28,7 @@ export class CourseService {
   public async getCoursesByUser( 
     paginationDto: PaginationDto, 
     userId: string 
-  ): Promise<CourseEntity[]> {
+  ): Promise<any> {
 
     const { page, limit } = paginationDto
 
@@ -48,9 +48,17 @@ export class CourseService {
         }
       })
 
+      const totalCourses = await prisma.course.count()
+      const maxQuantityPages = Math.ceil( totalCourses / limit)
       const formattedCourses = courses.map( CourseEntity.fromObject )
       
-      return formattedCourses
+      return {
+        page: page,
+        totalCourses: totalCourses,
+        coursesInThisPage: courses.length,
+        totalPages: maxQuantityPages,
+        courses: formattedCourses
+      }
     } catch (error) {
       throw error
     }

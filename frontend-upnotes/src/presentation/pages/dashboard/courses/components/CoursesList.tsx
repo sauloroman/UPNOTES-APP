@@ -1,17 +1,19 @@
 import React from 'react';
 import { CourseCard } from './CourseCard';
+import { Course } from '../../../../../domain/entities/course';
 
-export const CoursesList: React.FC = () => {
+interface Props {
+  courses: Course[]
+}
+
+export const CoursesList: React.FC<Props> = ({ courses }) => {
   return (
     <div className="courses-grid">
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
-      <CourseCard />
+      {
+        courses.map( course => (
+          <CourseCard key={ course.id } course={course} />
+        ))
+      }
     </div>
   );
 };

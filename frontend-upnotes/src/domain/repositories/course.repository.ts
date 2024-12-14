@@ -1,8 +1,9 @@
 import { MessageResponse } from "../entities";
-import { CreateCourse } from "../entities/course";
+import { CoursesResponse, CreateCourse } from "../entities/course";
 
 export abstract class CourseRepository {
 
   abstract createCourse( createCourse: CreateCourse ): Promise<MessageResponse>
+  abstract getCoursesByUser(): Promise<CoursesResponse>
 
 }

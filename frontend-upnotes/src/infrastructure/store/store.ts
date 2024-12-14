@@ -5,10 +5,12 @@ import { loadingSlice } from "./slices/loading.slice";
 import { authSlice } from "./slices/auth.slice";
 import { paginationSlice } from "./slices/pagination.slice";
 import { modalSlice } from "./slices/modal.slice";
+import { userSlice } from "./slices/user.slice";
 
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
+    user: userSlice.reducer,
     loading: loadingSlice.reducer,
     menu: menuSlice.reducer,
     alert: alertSlice.reducer,

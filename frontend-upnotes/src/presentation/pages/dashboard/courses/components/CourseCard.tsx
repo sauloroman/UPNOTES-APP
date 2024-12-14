@@ -1,34 +1,42 @@
-import React from 'react'
-import { FavoriteIconButton } from './buttons/FavoriteIconButton'
+import React from 'react';
+import { FavoriteIconButton } from './buttons/FavoriteIconButton';
+import { Course } from '../../../../../domain/entities/course';
+import { dateFormatter } from '../../../../shared/utils/format-date';
 
-export const CourseCard: React.FC = () => {
+interface Props {
+  course: Course;
+}
+
+export const CourseCard: React.FC<Props> = ({ course }) => {
   return (
-    <div className='courses-card'>
+    <div className="courses-card">
       <div className="courses-card__content">
         <div className="courses-card__header">
-          <p className="courses-card__date">20 Mayo, 2024</p>
+          <p className="courses-card__date">{ dateFormatter.convertToLocalTime( new Date(course.createdAt).toString() ) }</p>
           <FavoriteIconButton />
         </div>
         <div className="flex flex-end">
-          <p className="courses-card__period">1</p>
+          <p className="courses-card__period">{course.period.numberPeriod}</p>
         </div>
         <div className="flex flex-between">
-          <p className='courses-card__name'>Cálculo Diferencial</p>
+          <p className="courses-card__name">{course.name}</p>
         </div>
         <div className="courses-card__categories">
-          <p className='courses-card__category'>Matemáticas</p>
-          <p className='courses-card__category'>Ciencias</p>
+          <p className="courses-card__category">Matemáticas</p>
+          <p className="courses-card__category">Ciencias</p>
         </div>
       </div>
       <footer className="courses-card__footer">
         <div className="courses-card__professor">
           <div className="courses-card__professor-info">
             <p>Profesor</p>
-            <span>Danna Janeth Sánchez Carreón</span>
+            <span>{course.professor || 'Sin Profesor'}</span>
           </div>
         </div>
-        <button className="btn btn--black courses-card__button">Detalles</button>
+        <button className="btn btn--black courses-card__button">
+          Detalles
+        </button>
       </footer>
     </div>
-  )
-}
+  );
+};
