@@ -1,8 +1,11 @@
+import { Course } from '@prisma/client';
 import { prisma } from '../../data';
 import { CreateCourseDto } from '../../domain/dtos/courses/create-course.dto';
 import { CustomError } from '../../domain/errors/custom.error';
 import { PeriodService } from '../period/period.services';
 import { CourseCategoryService, CategoriesOnCoursesService } from '../services';
+import { PaginationDto } from '../../domain/dtos/shared/pagination.dto';
+import { CourseEntity } from '../../domain/entities/corse.entity';
 
 interface ServiceOptions {
   periodService: PeriodService;
@@ -20,6 +23,38 @@ export class CourseService {
     this.periodService = periodService
     this.courseCategoryService = courseCategoryService
     this.categoriesOnCoursesService = categoriesOnCoursesService
+  }
+
+  public async getCoursesByUser( 
+    paginationDto: PaginationDto, 
+    userId: string 
+  ): Promise<CourseEntity[]> {
+
+    const { page, limit } = paginationDto
+
+    try {
+
+      const courses = await prisma.course.findMany({ 
+        skip: (page - 1) * limit, 
+        take: limit, 
+        where: { userId },
+        include: {
+          period: {
+            select: { numberPeriod: true }
+          },
+          professor: {
+            select: { name: true }
+          }
+        }
+      })
+
+      const formattedCourses = courses.map( CourseEntity.fromObject )
+      
+      return formattedCourses
+    } catch (error) {
+      throw error
+    }
+    
   }
 
   public async postCourse( createCourseDto: CreateCourseDto, userId: string ) {
@@ -49,7 +84,7 @@ export class CourseService {
         msg: `La materia "${name}" ha sido creada exitosamente.`
       }
     } catch (error) {
-      return error
+      throw error
     }
 
   }

@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useCategories } from '../../../../../shared/hooks/useCategories';
 
 interface Props {
+  isFormSubmitted: boolean;
   onChange: (target: any) => void;
 }
 
-export const InputCourseCategories: React.FC<Props> = ({ onChange }) => {
+export const InputCourseCategories: React.FC<Props> = ({ isFormSubmitted, onChange }) => {
   const { courseCategories } = useCategories();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
@@ -25,6 +26,12 @@ export const InputCourseCategories: React.FC<Props> = ({ onChange }) => {
   useEffect(() => {
     onChange({ target: { name: 'categories', value: selectedCategories } });
   }, [selectedCategories]);
+
+  useEffect(() => {
+    if ( !isFormSubmitted ) {
+      setSelectedCategories([])
+    }
+  }, [isFormSubmitted])
 
   return (
     <div className="create-course__categories">

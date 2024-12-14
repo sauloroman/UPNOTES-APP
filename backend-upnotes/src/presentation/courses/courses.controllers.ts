@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
 import { CourseService } from "./courses.services";
 import { CreateCourseDto } from "../../domain/dtos";
+import { PaginationDto } from "../../domain/dtos/shared/pagination.dto";
 
 export class CoursesController {
 
@@ -32,6 +33,23 @@ export class CoursesController {
     this.courseService.postCourse( createCourseDto!, user.id )
       .then( data => res.status(201).json( data ) )
       .catch( err => this.handleErrorResponse( err, res ))
+
+  }
+
+  public getCoursesOfUser = ( req: Request, res: Response ): any => {
+
+    const { page = 1, limit = 8 } = req.query
+    const { user } = req.body
+
+    const [ paginationDto, errorMessage ] = PaginationDto.create( +page, +limit )
+
+    if ( errorMessage ) {
+      return res.status(400).json({ error: errorMessage })
+    }
+
+    this.courseService.getCoursesByUser( paginationDto!, user.id )
+      .then( courses => res.status(200).json({ courses })) 
+      .catch( err => this.handleErrorResponse( err, res ) )
 
   }
 

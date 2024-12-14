@@ -19,6 +19,7 @@ export class CoursesRoutes {
     const courseController = new CoursesController( courseService )
 
     router.post('/', courseController.createCourse )
+    router.get('/', courseController.getCoursesOfUser )
 
     return router
   }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { InputColor } from './inputs/InputColor';
 import { InputPeriod } from './inputs/InputPeriod';
-import { useModal } from '../../../../shared/redux-hooks/useModal';
 import { InputCourseCategories } from './inputs/InputCourseCategories';
+import { useCourses, useModal } from '../../../../shared/redux-hooks';
 import { useForm } from '../../../../shared/hooks';
 
 const formData = {
@@ -32,13 +32,20 @@ export const FormCreateCourse: React.FC = () => {
     onInputChange,
     isFormValid,
     categoriesValid,
+    onResetForm,
   } = useForm(formData, formValidations as any);
+  const { createCourse } = useCourses()
 
   const onCreateCourse = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsFormSubmitted(true)
 
-    console.log(formState);
+    if ( !isFormValid ) return 
+
+    createCourse({ ...formState, period: Number(formState.period)})
+    setIsFormSubmitted( false )
+    onCloseModal()
+    onResetForm()
   };
 
   return (
@@ -96,7 +103,7 @@ export const FormCreateCourse: React.FC = () => {
         <label htmlFor="period" className="form__label">
           Categorias:{' '}
         </label>
-        <InputCourseCategories onChange={onInputChange} />
+        <InputCourseCategories isFormSubmitted={isFormSubmitted} onChange={onInputChange} />
         <span
           className={`${
             isFormSubmitted && !isFormValid && 'u-text-red'
