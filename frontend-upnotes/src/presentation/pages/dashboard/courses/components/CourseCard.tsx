@@ -9,11 +9,11 @@ interface Props {
 
 export const CourseCard: React.FC<Props> = ({ course }) => {
   return (
-    <div className="courses-card">
+    <div className="courses-card" style={{ backgroundColor: `${course.color}`}}>
       <div className="courses-card__content">
         <div className="courses-card__header">
           <p className="courses-card__date">{ dateFormatter.convertToLocalTime( new Date(course.createdAt).toString() ) }</p>
-          <FavoriteIconButton />
+          <FavoriteIconButton isFavorite={course.isFavorite} courseId={course.id} />
         </div>
         <div className="flex flex-end">
           <p className="courses-card__period">{course.period.numberPeriod}</p>

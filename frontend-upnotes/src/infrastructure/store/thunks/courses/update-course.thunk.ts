@@ -1,7 +1,7 @@
 import { AlertType } from "../../../../application";
-import { CreateCourseUseCase } from "../../../../application/use-cases/course/create-course";
 import { GetCoursesByUserUseCase } from "../../../../application/use-cases/course/get-courses-by-user";
-import { CreateCourse } from "../../../../domain/entities/course";
+import { UpdateCourseUseCase } from "../../../../application/use-cases/course/update-course";
+import { UpdateCourse } from "../../../../domain/entities/course";
 import { axiosError } from "../../../errors/axios.error";
 import { axiosCourseRepository } from "../../../repositories/axios-course.repository";
 import { setAlert } from "../../slices/alert.slice";
@@ -10,36 +10,36 @@ import { setTotalOfPages } from "../../slices/pagination.slice";
 import { setCourses } from "../../slices/user.slice";
 import { AppThunk } from "../../store";
 
-export const createCourseThunk = ( createCourse: CreateCourse ): AppThunk => {
-  return async ( dispatch ) => {
-    
+export const updateCourseThunk = ( courseId: string, updateCourse: UpdateCourse ): AppThunk => {
+  return async ( dispatch ) => {    
     const alert = {
       title: '',
       description: '',
       type: AlertType.success,
     };
-
-    dispatch( setIsLoading(true) )
-
+    dispatch( setIsLoading( true ) )
+    
     try {
       
-      const successMessage = await new CreateCourseUseCase({ courseRepository: axiosCourseRepository }).apply( createCourse )
+      const { msg } = await new UpdateCourseUseCase({ courseRepository: axiosCourseRepository }).apply(courseId, updateCourse)
       const { courses, totalPages } = await new GetCoursesByUserUseCase({ courseRepository: axiosCourseRepository }).apply()
 
-      alert.title = 'Curso creado'
-      alert.description = successMessage.msg
+      alert.title = 'Curso actualizado'
+      alert.description = msg
 
+      dispatch( setCourses(courses) )
       dispatch( setTotalOfPages( totalPages ) )
-      dispatch( setCourses( courses ) )
+
     } catch (error) {
       console.log(`${error}`)
       const errorMessage = axiosError( error )
-      alert.title = 'No fue posible crear el curso';
+      alert.title = 'No fue posible actualizar el curso';
       alert.description = errorMessage;
-      alert.type = AlertType.error  
+      alert.type = AlertType.error        
     }
-
-    dispatch( setIsLoading(false) )
-    dispatch( setAlert({ alert, isAlertShown: true }) )
+    
+    dispatch( setIsLoading( false ) )
+    dispatch( setAlert({ alert, isAlertShown: true }))
   }
-} 
+
+}

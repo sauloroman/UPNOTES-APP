@@ -3,6 +3,7 @@ import { CourseService } from "./courses.services";
 import { CoursesController } from "./courses.controllers";
 import { PeriodService } from "../period/period.services";
 import { CategoriesOnCoursesService, CourseCategoryService } from "../services";
+import { CategoriesMiddleware } from "../middlewares/categories.middleware";
 
 export class CoursesRoutes {
   public static get routes(): Router {
@@ -19,7 +20,7 @@ export class CoursesRoutes {
     const courseController = new CoursesController( courseService )
 
     router.post('/', courseController.createCourse )
-    router.get('/', courseController.getCoursesOfUser )
+    router.get('/', [ CategoriesMiddleware.validateCourseCategory ], courseController.getCoursesOfUser )
     router.put('/:id', courseController.updateCourse )
 
     return router

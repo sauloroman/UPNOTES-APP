@@ -1,27 +1,26 @@
-import React, { useRef } from 'react'
+import React from 'react';
+import { useCourses } from '../../../../../shared/redux-hooks';
 
-export const FavoriteIconButton: React.FC = () => {
+interface Props {
+  isFavorite: boolean;
+  courseId: string;
+}
 
-  const ref = useRef<any>()
+export const FavoriteIconButton: React.FC<Props> = ({ isFavorite, courseId }) => {
+  const { updateCourse } = useCourses();
 
-  const onFavorite = () => {
-    ref.current.classList.remove('bx-bookmark')
-    ref.current.classList.add('bxs-bookmark')
-    ref.current.classList.add('u-color-favorite')
-  }
-  
-  const onNoFavorite = () => {
-    ref.current.classList.remove('bxs-bookmark')
-    ref.current.classList.remove('u-color-favorite')
-    ref.current.classList.add('bx-bookmark')
+  const onToggleFavorite = () => {
+    if ( !isFavorite ) {
+      updateCourse(courseId, { isFavorite: true })
+    } else {
+      updateCourse(courseId, { isFavorite: false })
+    }
   }
 
   return (
-    <i  
-      onMouseEnter={ onFavorite }
-      onMouseLeave={ onNoFavorite }
-      ref={ref} 
-      className='bx bx-bookmark courses-card__icon'>    
-    </i>
-  )
-}
+    <i
+      onClick={onToggleFavorite}
+      className={`bx ${isFavorite ? 'bxs-bookmark' : 'bx-bookmark'} courses-card__icon ${isFavorite && 'u-color-favorite'}`}
+    ></i>
+  );
+};

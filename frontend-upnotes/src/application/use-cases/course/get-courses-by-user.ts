@@ -12,8 +12,8 @@ export class GetCoursesByUserUseCase {
     this.courseRepository = courseRepository
   }
 
-  public async apply() {
-    const coursesRes = await this.courseRepository.getCoursesByUser()
+  public async apply( category: string ) {
+    const coursesRes = await this.courseRepository.getCoursesByUser( category )
     return coursesRes
   }
 

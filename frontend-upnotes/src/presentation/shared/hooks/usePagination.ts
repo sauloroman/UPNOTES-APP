@@ -5,7 +5,7 @@ import { nextPage, prevPage } from "../../../infrastructure/store/slices/paginat
 export const usePagination = () => {
 
   const dispatch = useDispatch();
-  const { currentPage } = useSelector( (state: RootState) => state.pagination )
+  const { currentPage, totalOfPages } = useSelector( (state: RootState) => state.pagination )
 
   const onNextPage = ( quantity: number = 1 ) => {
     dispatch( nextPage(quantity) )
@@ -17,6 +17,7 @@ export const usePagination = () => {
 
   return {
     currentPage,
+    totalOfPages,
 
     onNextPage,
     onPrevPage

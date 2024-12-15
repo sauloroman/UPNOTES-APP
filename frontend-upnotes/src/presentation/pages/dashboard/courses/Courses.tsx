@@ -11,15 +11,16 @@ import { ModalNames } from '../../../../infrastructure/store/slices/modal.slice'
 import { AddButton } from './components/buttons/AddButton';
 import { useCourses, useLoading } from '../../../shared/redux-hooks';
 import { Loader } from '../../../shared/components/loader/Loader';
+import { DefaultCoursesView } from './components/default/DefaultCoursesView';
 
 export const Courses: React.FC = () => {
   const { isOpen, name } = useModal();
   const { isLoading } = useLoading();
-  const { getCoursesByUser, courses } = useCourses()
+  const { getCoursesByUser, courses, filter } = useCourses()
 
   useEffect(() => {
-    getCoursesByUser()
-  }, [])
+    getCoursesByUser( filter )
+  }, [ filter ])
 
   return (
     <MainLayout titleView="Materias">
@@ -33,18 +34,26 @@ export const Courses: React.FC = () => {
             <header className="courses-header">
               <div className="flex flex-between">
                 <AddButton />
-                <div className="courses-buttons flex flex-center">
-                  <FavoriteButton />
-                  <PeriodSelect />
-                </div>
+                {
+                  courses.length > 0 && (
+                    <div className="courses-buttons flex flex-center">
+                      <FavoriteButton />
+                      <PeriodSelect />
+                    </div>
+                  )
+                }
               </div>
             </header>
 
-            <div className="courses-container">
-              <FilterButtons />
-              <CoursesList courses={courses} />
-              <Pagination />
-            </div>
+            {
+              courses.length > 0 ? (
+                <div className="courses-container">
+                  <FilterButtons />
+                  <CoursesList courses={courses} />
+                  <Pagination />
+                </div>
+              ) : (<DefaultCoursesView />)
+            }
           </>
         )}
       </main>

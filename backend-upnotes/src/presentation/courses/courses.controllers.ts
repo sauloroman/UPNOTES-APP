@@ -3,6 +3,7 @@ import { CustomError } from "../../domain/errors/custom.error";
 import { CourseService } from "./courses.services";
 import { CreateCourseDto } from "../../domain/dtos";
 import { PaginationDto } from "../../domain/dtos/shared/pagination.dto";
+import { CourseCategories } from "../middlewares/categories.middleware";
 
 export class CoursesController {
 
@@ -39,7 +40,7 @@ export class CoursesController {
   public getCoursesOfUser = ( req: Request, res: Response ): any => {
 
     const { page = 1, limit = 8 } = req.query
-    const { user } = req.body
+    const { user, courseCategory } = req.body
 
     const [ paginationDto, errorMessage ] = PaginationDto.create( +page, +limit )
 
@@ -47,7 +48,7 @@ export class CoursesController {
       return res.status(400).json({ error: errorMessage })
     }
 
-    this.courseService.getCoursesByUser( paginationDto!, user.id )
+    this.courseService.getCoursesByUser( paginationDto!, courseCategory as CourseCategories, user.id )
       .then( courses => res.status(200).json( courses )) 
       .catch( err => this.handleErrorResponse( err, res ) )
 

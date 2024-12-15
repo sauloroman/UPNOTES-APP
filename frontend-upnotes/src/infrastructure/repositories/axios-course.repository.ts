@@ -1,5 +1,5 @@
 import { MessageResponse } from "../../domain/entities";
-import { CoursesResponse, CreateCourse } from "../../domain/entities/course";
+import { CourseAction, CoursesResponse, CreateCourse, UpdateCourse } from "../../domain/entities/course";
 import { CourseRepository } from "../../domain/repositories/course.repository"
 import { axiosInstanceProtected } from "../http/axiosInstance";
 
@@ -10,8 +10,13 @@ export class AxiosCourseRepository implements CourseRepository {
     return data
   }
 
-  async getCoursesByUser(): Promise<CoursesResponse> {
-    const { data } = await axiosInstanceProtected.get<CoursesResponse>('/courses?page=1&limit=8')
+  async getCoursesByUser( category: string ): Promise<CoursesResponse> {
+    const { data } = await axiosInstanceProtected.get<CoursesResponse>(`/courses?page=1&limit=8&category=${category}`)
+    return data
+  }
+
+  async updateCourse(courseId: string, updateCourse: UpdateCourse): Promise<CourseAction> {
+    const { data } = await axiosInstanceProtected.put<CourseAction>(`/courses/${courseId}`, updateCourse)
     return data
   }
 
