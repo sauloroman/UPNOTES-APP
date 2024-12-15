@@ -53,4 +53,14 @@ export class CoursesController {
 
   }
 
+  public updateCourse = ( req: Request, res: Response ): any => {
+
+    const { id } = req.params
+
+    this.courseService.updateCourse( req.body, id )
+      .then( data => res.status(200).json(data))
+      .catch( err => this.handleErrorResponse( err, res ))
+
+  }
+
 } 

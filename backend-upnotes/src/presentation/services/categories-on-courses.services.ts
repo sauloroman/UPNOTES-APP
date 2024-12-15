@@ -12,4 +12,22 @@ export class CategoriesOnCoursesService {
     return categoryOnCourse
   }
 
+  public async getCategoriesOnCourse( courseId: string ) {
+    const categoriesOnCourse = await prisma.categoriesOnCourses.findMany({
+      where: {
+        courseId
+      }
+    })
+
+    let categoriesOnCourseNames = []
+
+    for( const categoryOnCourse of categoriesOnCourse ) {
+      const { courseCategoryId } = categoryOnCourse
+      const category = await prisma.courseCategory.findUnique({ where: { id: courseCategoryId }})
+      categoriesOnCourseNames.push( category?.name )
+    }
+
+    return categoriesOnCourseNames
+  }
+
 }

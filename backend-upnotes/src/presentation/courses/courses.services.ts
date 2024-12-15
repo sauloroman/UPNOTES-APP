@@ -1,4 +1,3 @@
-import { Course } from '@prisma/client';
 import { prisma } from '../../data';
 import { CreateCourseDto } from '../../domain/dtos/courses/create-course.dto';
 import { CustomError } from '../../domain/errors/custom.error';
@@ -23,6 +22,47 @@ export class CourseService {
     this.periodService = periodService
     this.courseCategoryService = courseCategoryService
     this.categoriesOnCoursesService = categoriesOnCoursesService
+  }
+
+  private async isCourseInDataBase( courseId: string ): Promise<boolean> {
+    const course = await prisma.course.findUnique({ where: { id: courseId }})
+    if ( !course ) return false
+    return true
+  }
+
+  private async getCourseCategories( courseId: string ) {
+    const courseCategories = await this.categoriesOnCoursesService.getCategoriesOnCourse( courseId )
+    return courseCategories
+  }
+
+  public async updateCourse( newInformation: any, courseId: string ) {
+
+    const { id, createdAt, userId, user, ...restNewInformation } = newInformation
+
+    if ( !this.isCourseInDataBase(courseId) ) throw CustomError.notFound('El curso no existe')
+
+    const courseUpdated = await prisma.course.update({
+      where: { id: courseId },
+      data: {
+        ...restNewInformation
+      },
+      include: {
+        period: {
+          select: { numberPeriod: true }
+        },
+        professor: {
+          select: { name: true }
+        }
+      }
+    })
+
+    const courseEntity = CourseEntity.fromObject( courseUpdated )
+
+    return {
+      msg: 'El curso ha sido actualizado',
+      courseUpdated: courseEntity
+    }
+
   }
 
   public async getCoursesByUser( 
@@ -50,8 +90,17 @@ export class CourseService {
 
       const totalCourses = await prisma.course.count()
       const maxQuantityPages = Math.ceil( totalCourses / limit)
-      const formattedCourses = courses.map( CourseEntity.fromObject )
       
+      let formattedCourses = []
+      for( const course of courses ) {
+        const categoriesOnCourse = await this.getCourseCategories( course.id )
+        const courseEntity = CourseEntity.fromObject({ 
+          ...course, 
+          categories: categoriesOnCourse 
+        })
+        formattedCourses.push( courseEntity )
+      }
+
       return {
         page: page,
         totalCourses: totalCourses,

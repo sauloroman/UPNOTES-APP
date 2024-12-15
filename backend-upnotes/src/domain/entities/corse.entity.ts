@@ -11,6 +11,7 @@ export class CourseEntity {
     public readonly image: string,
     public readonly description: string,
     public readonly period: number,
+    public readonly categories: string[],
     public readonly professor?: string,
   ){}
 
@@ -33,7 +34,8 @@ export class CourseEntity {
       image,
       description,
       period,
-      professor
+      professor,
+      categories
     } = courseObj
 
     for( const [key, value] of Object.entries( courseObj ) ) {
@@ -45,7 +47,7 @@ export class CourseEntity {
       }
     }
 
-    const courseEntity = new CourseEntity(id, name, color, isFavorite, createdAt, image, description, period, professor )
+    const courseEntity = new CourseEntity(id, name, color, isFavorite, createdAt, image, description, period, categories, professor )
 
     return courseEntity
 

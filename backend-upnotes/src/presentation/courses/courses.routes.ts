@@ -20,6 +20,7 @@ export class CoursesRoutes {
 
     router.post('/', courseController.createCourse )
     router.get('/', courseController.getCoursesOfUser )
+    router.put('/:id', courseController.updateCourse )
 
     return router
   }

@@ -17,6 +17,7 @@ export interface Course {
     numberPeriod: number;
   }
   professor: string | null;
+  categories: string[]
 }
 
 export interface CoursesResponse {

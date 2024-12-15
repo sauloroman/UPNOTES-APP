@@ -22,8 +22,11 @@ export const CourseCard: React.FC<Props> = ({ course }) => {
           <p className="courses-card__name">{course.name}</p>
         </div>
         <div className="courses-card__categories">
-          <p className="courses-card__category">Matemáticas</p>
-          <p className="courses-card__category">Ciencias</p>
+          {
+            course.categories.map( category => (
+              <p key={category} className="courses-card__category">{category}</p>
+            ))
+          }
         </div>
       </div>
       <footer className="courses-card__footer">
