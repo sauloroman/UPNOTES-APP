@@ -3,7 +3,8 @@ import { Course } from "../../../domain/entities/course";
 
 interface Courses {
   filter: string;
-  courses: Course[]
+  courses: Course[];
+  period: string | undefined
 }
 
 interface InitialState {
@@ -13,7 +14,8 @@ interface InitialState {
 const initialState: InitialState = {
   courses: {
     filter: 'Todos',
-    courses: []
+    courses: [],
+    period: undefined,
   }
 }
 
@@ -28,9 +30,13 @@ export const userSlice = createSlice({
 
     setFilterCourses( state, {payload}: PayloadAction<string> ) {
       state.courses.filter = payload
+    },
+
+    setPeriodCourses( state, { payload }: PayloadAction<string | undefined>) {
+      state.courses.period = payload  
     }
 
   }
 })
 
-export const { setFilterCourses, setCourses } = userSlice.actions
+export const { setPeriodCourses, setFilterCourses, setCourses } = userSlice.actions

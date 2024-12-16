@@ -38,8 +38,8 @@ export interface CourseAction {
 
 export interface CoursesResponse {
   page: number;
-  totalCourses: number;
+  totalCoursesForThisCategory: number;
+  totalPagesForThisCategory: number;
   coursesInThisPage: number;
-  totalPages: number;
   courses: Course[]
 }

@@ -16,11 +16,11 @@ import { DefaultCoursesView } from './components/default/DefaultCoursesView';
 export const Courses: React.FC = () => {
   const { isOpen, name } = useModal();
   const { isLoading } = useLoading();
-  const { getCoursesByUser, courses, filter } = useCourses()
+  const { getCoursesByUser, courses, filter, period } = useCourses();
 
   useEffect(() => {
-    getCoursesByUser( filter )
-  }, [ filter ])
+    getCoursesByUser(filter, period);
+  }, [filter, period]);
 
   return (
     <MainLayout titleView="Materias">
@@ -34,26 +34,23 @@ export const Courses: React.FC = () => {
             <header className="courses-header">
               <div className="flex flex-between">
                 <AddButton />
-                {
-                  courses.length > 0 && (
-                    <div className="courses-buttons flex flex-center">
-                      <FavoriteButton />
-                      <PeriodSelect />
-                    </div>
-                  )
-                }
+
+                <div className="courses-buttons flex flex-center">
+                  <FavoriteButton />
+                  <PeriodSelect />
+                </div>
               </div>
             </header>
 
-            {
-              courses.length > 0 ? (
-                <div className="courses-container">
-                  <FilterButtons />
-                  <CoursesList courses={courses} />
-                  <Pagination />
-                </div>
-              ) : (<DefaultCoursesView />)
-            }
+            <div className="courses-container">
+              <FilterButtons />
+              {courses.length > 0 ? (
+                <CoursesList courses={courses} />
+              ) : (
+                <DefaultCoursesView />
+              )}
+              <Pagination />
+            </div>
           </>
         )}
       </main>

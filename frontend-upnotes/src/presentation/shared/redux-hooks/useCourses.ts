@@ -4,13 +4,13 @@ import { createCourseThunk } from "../../../infrastructure/store/thunks/courses/
 import { getCoursesByUserThunk } from "../../../infrastructure/store/thunks/courses/get-courses-by-user.thunk"
 import { RootState } from "../../../infrastructure/store/store"
 import { updateCourseThunk } from "../../../infrastructure/store/thunks/courses/update-course.thunk"
-import { setFilterCourses } from "../../../infrastructure/store/slices/user.slice"
+import { setFilterCourses, setPeriodCourses } from "../../../infrastructure/store/slices/user.slice"
 
 export const useCourses = () => {
 
   const dispatch = useDispatch<any>()
 
-  const { courses: {courses, filter} } = useSelector( (state: RootState) => state.user)
+  const { courses: {courses, filter, period} } = useSelector( (state: RootState) => state.user)
 
   const createCourse = ( createCourse: CreateCourse ) => {
     dispatch( createCourseThunk( createCourse ) ) 
@@ -20,22 +20,28 @@ export const useCourses = () => {
     dispatch( updateCourseThunk( courseId, updateCourse ) )
   }
 
-  const getCoursesByUser = ( category: string ) => {
-    dispatch( getCoursesByUserThunk( category ) )
+  const getCoursesByUser = ( category: string, period?: string ) => {
+    dispatch( getCoursesByUserThunk( category, period ) )
   }
 
   const setFilter = ( category: string ) => {
     dispatch( setFilterCourses(category) )
   }
 
+  const setPeriod = ( period: string ) => {
+    dispatch( setPeriodCourses(period) )
+  }
+
   return {
     courses, 
     filter,
+    period,
     
     createCourse,
     getCoursesByUser,
     updateCourse,
     setFilter,
+    setPeriod,
   }
 
 }

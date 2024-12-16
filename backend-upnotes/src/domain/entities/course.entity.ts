@@ -10,7 +10,7 @@ export class CourseEntity {
     public readonly createdAt: Date,
     public readonly image: string,
     public readonly description: string,
-    public readonly period: number,
+    public readonly period: any,
     public readonly categories: string[],
     public readonly professor?: string,
   ){}

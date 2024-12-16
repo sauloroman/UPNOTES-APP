@@ -4,8 +4,7 @@ import { CustomError } from '../../domain/errors/custom.error';
 import { PeriodService } from '../period/period.services';
 import { CourseCategoryService, CategoriesOnCoursesService } from '../services';
 import { PaginationDto } from '../../domain/dtos/shared/pagination.dto';
-import { CourseEntity } from '../../domain/entities/corse.entity';
-import { Course } from '@prisma/client';
+import { CourseEntity } from '../../domain/entities/course.entity';
 import { CourseCategories } from '../middlewares/categories.middleware';
 
 interface ServiceOptions {
@@ -48,6 +47,10 @@ export class CourseService {
     return courses
   }
 
+  private filterCoursesByPeriod( courses: CourseEntity[], period: number ) {
+    return courses.filter( course => course.period.numberPeriod === period )
+  }
+
   public async updateCourse(newInformation: any, courseId: string) {
     try {
       const { id, createdAt, userId, user, ...restNewInformation } =
@@ -67,7 +70,7 @@ export class CourseService {
           },
           professor: {
             select: { name: true },
-          },
+        },
         },
       });
 
@@ -84,15 +87,14 @@ export class CourseService {
 
   public async getCoursesByUser(
     paginationDto: PaginationDto,
+    userId: string,
     category: CourseCategories,
-    userId: string
+    period: number,
   ): Promise<any> {
     const { page, limit } = paginationDto;
 
     try {
       const courses = await prisma.course.findMany({
-        skip: (page - 1) * limit,
-        take: limit,
         where: { userId },
         include: {
           period: {
@@ -104,8 +106,6 @@ export class CourseService {
         },
       });
 
-      const totalCourses = await prisma.course.count();
-
       let formattedCourses = [];
       for (const course of courses) {
         const categoriesOnCourse = await this.getCourseCategories(course.id);
@@ -116,15 +116,21 @@ export class CourseService {
         formattedCourses.push(courseEntity);
       }
 
-      const coursesByCategory = this.filterCoursesByCategory( formattedCourses, category )
-      const maxQuantityPages = Math.ceil(coursesByCategory.length / limit);
+      let finalCourses = this.filterCoursesByCategory( formattedCourses, category )
 
-      return {
+      if ( period ) {
+        finalCourses = this.filterCoursesByPeriod(finalCourses, period)
+      }
+
+      const coursesInPage = finalCourses.slice( (page - 1) * limit, limit * page )
+      const maxQuantityPages = Math.ceil(finalCourses.length / limit);
+
+      return {  
         page: page,
-        totalCourses: totalCourses,
-        coursesInThisPage: coursesByCategory.length,
-        totalPages: maxQuantityPages,
-        courses: coursesByCategory,
+        totalCoursesForThisCategory: finalCourses.length,
+        totalPagesForThisCategory: maxQuantityPages,
+        coursesInThisPage: coursesInPage.length,
+        courses: coursesInPage,
       };
     } catch (error) {
       throw error;

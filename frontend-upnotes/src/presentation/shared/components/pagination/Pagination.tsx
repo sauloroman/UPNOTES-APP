@@ -17,9 +17,11 @@ export const Pagination: React.FC = () => {
             </button>
           )
         }
-        <span className='pagination__current'>{currentPage}</span>
         {
-          currentPage !== totalOfPages &&
+          totalOfPages !== 0 && (<span className='pagination__current'>{currentPage}</span>)
+        }
+        {
+          (currentPage !== totalOfPages) && (totalOfPages !== 0) &&
           (
             <button className="btn btn--pagination">
               <i className='bx bx-chevron-right pagination__icon'></i>

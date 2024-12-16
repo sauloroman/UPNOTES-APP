@@ -5,6 +5,6 @@ export abstract class CourseRepository {
 
   abstract createCourse( createCourse: CreateCourse ): Promise<MessageResponse>
   abstract updateCourse( courseId: string, updateCourse: UpdateCourse ): Promise<CourseAction>
-  abstract getCoursesByUser( category: string ): Promise<CoursesResponse>
+  abstract getCoursesByUser( category: string, period?: string ): Promise<CoursesResponse>
 
 }
