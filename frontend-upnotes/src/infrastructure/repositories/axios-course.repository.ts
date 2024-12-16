@@ -3,6 +3,7 @@ import {
   CourseAction,
   CoursesResponse,
   CreateCourse,
+  GetCoursesByUser,
   UpdateCourse,
 } from '../../domain/entities/course';
 import { CourseRepository } from '../../domain/repositories/course.repository';
@@ -17,13 +18,9 @@ export class AxiosCourseRepository implements CourseRepository {
     return data;
   }
 
-  async getCoursesByUser(
-    category: string,
-    period?: string, 
-    favorites?: string,
-  ): Promise<CoursesResponse> {
+  async getCoursesByUser( { page, category, favorites, period}: GetCoursesByUser ): Promise<CoursesResponse> {
     const { data } = await axiosInstanceProtected.get<CoursesResponse>(
-      `/courses?page=1&limit=8&category=${category}&period=${period}&favorites=${favorites}`
+      `/courses?page=${page}&limit=8&category=${category}&period=${period}&favorites=${favorites}`
     );
     return data;
   }

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { CreateCourse, UpdateCourse } from "../../../domain/entities/course"
+import { CreateCourse, UpdateCourse, GetCoursesByUser } from '../../../domain/entities/course';
 import { createCourseThunk } from "../../../infrastructure/store/thunks/courses/create-course.thunk"
 import { getCoursesByUserThunk } from "../../../infrastructure/store/thunks/courses/get-courses-by-user.thunk"
 import { RootState } from "../../../infrastructure/store/store"
@@ -17,11 +17,16 @@ export const useCourses = () => {
   }
 
   const updateCourse = ( courseId: string, updateCourse: UpdateCourse ) => {
-    dispatch( updateCourseThunk( courseId, updateCourse ) )
+    dispatch( updateCourseThunk( courseId, updateCourse, {
+      page: 1,
+      category: filter,
+      favorites: favorites, 
+      period: period
+    }))
   }
 
-  const getCoursesByUser = ( category: string, period?: string, favorites?: string ) => {
-    dispatch( getCoursesByUserThunk( category, period, favorites ) )
+  const getCoursesByUser = ( getCoursesByUser: GetCoursesByUser ) => {
+    dispatch( getCoursesByUserThunk( getCoursesByUser ) )
   }
 
   const setFilter = ( category: string ) => {
@@ -32,8 +37,8 @@ export const useCourses = () => {
     dispatch( setPeriodCourses(period) )
   }
 
-  const setFavorites = ( favorites: string ) => {
-    dispatch( setFavoritesCourses(favorites) )
+  const setFavorites = ( favorites: string | null ) => {
+    dispatch( setFavoritesCourses(favorites!) )
   }
 
   return {

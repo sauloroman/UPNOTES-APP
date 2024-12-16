@@ -16,6 +16,13 @@ export interface UpdateCourse {
   description?: string;
 }
 
+export interface GetCoursesByUser {
+  page: number;
+  category: string;
+  period?: string;
+  favorites?: string;
+}
+
 export interface Course {
   id: string;
   name: string;

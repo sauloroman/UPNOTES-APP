@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { usePagination } from '../../hooks/usePagination'
 
 export const Pagination: React.FC = () => {
@@ -10,9 +10,9 @@ export const Pagination: React.FC = () => {
       <p className="pagination__title">Páginas</p>
       <div className="pagination__controls flex flex-between">
         {
-          currentPage !== 1 &&
+          currentPage !== 1  && (totalOfPages !== 0)  &&
           (
-            <button className="btn btn--pagination">
+            <button onClick={ () => onPrevPage() } className="btn btn--pagination">
               <i className='bx bx-chevron-left pagination__icon'></i>
             </button>
           )
@@ -23,7 +23,7 @@ export const Pagination: React.FC = () => {
         {
           (currentPage !== totalOfPages) && (totalOfPages !== 0) &&
           (
-            <button className="btn btn--pagination">
+            <button onClick={ () => onNextPage() } className="btn btn--pagination">
               <i className='bx bx-chevron-right pagination__icon'></i>
             </button>
           ) 

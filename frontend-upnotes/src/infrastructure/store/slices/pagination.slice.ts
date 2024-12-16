@@ -15,6 +15,10 @@ export const paginationSlice = createSlice({
   name: 'pagination',
   reducers: {
 
+    setCurrentPage( state, { payload }: PayloadAction<number>) {
+      state.currentPage = payload
+    },
+
     setTotalOfPages( state, { payload }: PayloadAction<number> ) {
       state.totalOfPages = payload
     },
@@ -24,15 +28,14 @@ export const paginationSlice = createSlice({
     },
 
     prevPage( state, { payload }: PayloadAction<number> ) {
-      if ( state.currentPage > 1 ) {
-        state.currentPage -= payload
-      }
+      state.currentPage -= payload
     },
 
   }
 })
 
 export const {
+  setCurrentPage,
   setTotalOfPages,
   nextPage,
   prevPage,

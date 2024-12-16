@@ -7,7 +7,7 @@ export const FavoriteButton: React.FC = () => {
 
   const onToggleFavorites = () => {
     if ( favorites ) {
-      setFavorites('')
+      setFavorites(null)
       return
     }
     setFavorites('true')

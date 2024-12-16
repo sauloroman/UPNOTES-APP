@@ -1,3 +1,4 @@
+import { GetCoursesByUser } from "../../../domain/entities/course";
 import { CourseRepository } from "../../../domain/repositories/course.repository";
 
 interface Options {
@@ -12,8 +13,8 @@ export class GetCoursesByUserUseCase {
     this.courseRepository = courseRepository
   }
 
-  public async apply( category: string, period?: string, favorites?: string ) {
-    const coursesRes = await this.courseRepository.getCoursesByUser( category, period, favorites )
+  public async apply( getCoursesByUser: GetCoursesByUser ) {
+    const coursesRes = await this.courseRepository.getCoursesByUser( getCoursesByUser )
     return coursesRes
   }
 

@@ -11,9 +11,15 @@ export const FavoriteIconButton: React.FC<Props> = ({ isFavorite, courseId }) =>
 
   const onToggleFavorite = () => {
     if ( !isFavorite ) {
-      updateCourse(courseId, { isFavorite: true })
+      updateCourse(
+        courseId, 
+        { isFavorite: true }
+      )
     } else {
-      updateCourse(courseId, { isFavorite: false })
+      updateCourse(
+        courseId, 
+        { isFavorite: false }
+      )
     }
   }
 

@@ -12,15 +12,31 @@ import { AddButton } from './components/buttons/AddButton';
 import { useCourses, useLoading } from '../../../shared/redux-hooks';
 import { Loader } from '../../../shared/components/loader/Loader';
 import { DefaultCoursesView } from './components/default/DefaultCoursesView';
+import { usePagination } from '../../../shared/hooks/usePagination';
 
 export const Courses: React.FC = () => {
   const { isOpen, name } = useModal();
   const { isLoading } = useLoading();
+  const { currentPage, setCurrentPageAc } = usePagination();
   const { getCoursesByUser, courses, filter, period, favorites } = useCourses();
 
   useEffect(() => {
-    getCoursesByUser(filter, period, favorites );
+    getCoursesByUser({
+      page: 1,
+      category: filter,
+      period,
+      favorites,
+    });
   }, [filter, period, favorites]);
+
+  useEffect(() => {
+    getCoursesByUser({
+      page: currentPage,
+      category: filter,
+      period,
+      favorites,
+    });
+  }, [currentPage])
 
   return (
     <MainLayout titleView="Materias">

@@ -123,7 +123,7 @@ export class CourseService {
 
       let finalCourses = this.filterCoursesByCategory( formattedCourses, category )
       if ( period ) finalCourses = this.filterCoursesByPeriod(finalCourses, period)
-      if ( favorites ) finalCourses = this.filterByFavorites( finalCourses )
+      if ( favorites === 'true' ) finalCourses = this.filterByFavorites( finalCourses )
     
       const coursesInPage = finalCourses.slice( (page - 1) * limit, limit * page )
       const maxQuantityPages = Math.ceil(finalCourses.length / limit);
