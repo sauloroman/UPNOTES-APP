@@ -32,7 +32,7 @@ export class CoursesController {
   };
 
   public getCoursesOfUser = (req: Request, res: Response): any => {
-    const { page = 1, limit = 8, period } = req.query;
+    const { page = 1, limit = 8, period, favorites } = req.query;
     const { user, courseCategory } = req.body;
 
     const [paginationDto, errorMessage] = PaginationDto.create(+page, +limit);
@@ -46,7 +46,8 @@ export class CoursesController {
         paginationDto!,
         user.id,
         courseCategory as CourseCategories,
-        +period!
+        +period!,
+        favorites as string,
       )
       .then((courses) => res.status(200).json(courses))
       .catch((err) => this.handleErrorResponse(err, res));

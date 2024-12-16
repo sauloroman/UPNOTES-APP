@@ -73,4 +73,10 @@
     }
     font-weight: normal;
   }
+
+  &--favorite-active {
+    font-weight: bold;
+    background-color: $color-favorite;
+    i { color: inherit }
+  }
 }

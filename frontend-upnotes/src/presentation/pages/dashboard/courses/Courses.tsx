@@ -16,11 +16,11 @@ import { DefaultCoursesView } from './components/default/DefaultCoursesView';
 export const Courses: React.FC = () => {
   const { isOpen, name } = useModal();
   const { isLoading } = useLoading();
-  const { getCoursesByUser, courses, filter, period } = useCourses();
+  const { getCoursesByUser, courses, filter, period, favorites } = useCourses();
 
   useEffect(() => {
-    getCoursesByUser(filter, period);
-  }, [filter, period]);
+    getCoursesByUser(filter, period, favorites );
+  }, [filter, period, favorites]);
 
   return (
     <MainLayout titleView="Materias">

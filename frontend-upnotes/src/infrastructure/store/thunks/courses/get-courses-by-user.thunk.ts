@@ -5,7 +5,7 @@ import { setTotalOfPages } from "../../slices/pagination.slice";
 import { setCourses } from "../../slices/user.slice";
 import { AppThunk } from "../../store";
 
-export const getCoursesByUserThunk = ( category: string, period?: string ): AppThunk => {
+export const getCoursesByUserThunk = ( category: string, period?: string, favorites?: string ): AppThunk => {
   return async ( dispatch ) => {
 
     dispatch( setIsLoading(true) )
@@ -13,7 +13,7 @@ export const getCoursesByUserThunk = ( category: string, period?: string ): AppT
     try {
       
       const useCase = new GetCoursesByUserUseCase({ courseRepository: axiosCourseRepository })
-      const { courses, totalPagesForThisCategory, totalCoursesForThisCategory } = await useCase.apply( category, period )
+      const { courses, totalPagesForThisCategory, totalCoursesForThisCategory } = await useCase.apply( category, period, favorites )
 
       dispatch( setTotalOfPages( totalPagesForThisCategory ) )
       dispatch( setCourses(courses) )

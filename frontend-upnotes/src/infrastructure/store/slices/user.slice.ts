@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Course } from "../../../domain/entities/course";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Course } from '../../../domain/entities/course';
 
 interface Courses {
   filter: string;
   courses: Course[];
-  period: string | undefined
+  period?: string;
+  favorites?: string;
 }
 
 interface InitialState {
@@ -16,27 +17,35 @@ const initialState: InitialState = {
     filter: 'Todos',
     courses: [],
     period: undefined,
-  }
-}
+    favorites: undefined,
+  },
+};
 
 export const userSlice = createSlice({
   initialState: initialState,
   name: 'user',
   reducers: {
-
-    setCourses( state, { payload }: PayloadAction<Course[]> ) {
-      state.courses.courses = payload
+    setCourses(state, { payload }: PayloadAction<Course[]>) {
+      state.courses.courses = payload;
     },
 
-    setFilterCourses( state, {payload}: PayloadAction<string> ) {
-      state.courses.filter = payload
+    setFilterCourses(state, { payload }: PayloadAction<string>) {
+      state.courses.filter = payload;
     },
 
-    setPeriodCourses( state, { payload }: PayloadAction<string | undefined>) {
-      state.courses.period = payload  
-    }
+    setPeriodCourses(state, { payload }: PayloadAction<string | undefined>) {
+      state.courses.period = payload;
+    },
 
-  }
-})
+    setFavoritesCourses(state, { payload }: PayloadAction<string | undefined>) {
+      state.courses.favorites = payload;
+    },
+  },
+});
 
-export const { setPeriodCourses, setFilterCourses, setCourses } = userSlice.actions
+export const {
+  setFavoritesCourses,
+  setPeriodCourses,
+  setFilterCourses,
+  setCourses,
+} = userSlice.actions;

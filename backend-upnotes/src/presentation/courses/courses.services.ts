@@ -51,6 +51,10 @@ export class CourseService {
     return courses.filter( course => course.period.numberPeriod === period )
   }
 
+  private filterByFavorites( courses: CourseEntity[] ) {
+    return courses.filter( course => course.isFavorite )
+  }
+
   public async updateCourse(newInformation: any, courseId: string) {
     try {
       const { id, createdAt, userId, user, ...restNewInformation } =
@@ -90,6 +94,7 @@ export class CourseService {
     userId: string,
     category: CourseCategories,
     period: number,
+    favorites: string,
   ): Promise<any> {
     const { page, limit } = paginationDto;
 
@@ -117,11 +122,9 @@ export class CourseService {
       }
 
       let finalCourses = this.filterCoursesByCategory( formattedCourses, category )
-
-      if ( period ) {
-        finalCourses = this.filterCoursesByPeriod(finalCourses, period)
-      }
-
+      if ( period ) finalCourses = this.filterCoursesByPeriod(finalCourses, period)
+      if ( favorites ) finalCourses = this.filterByFavorites( finalCourses )
+    
       const coursesInPage = finalCourses.slice( (page - 1) * limit, limit * page )
       const maxQuantityPages = Math.ceil(finalCourses.length / limit);
 

@@ -19,10 +19,11 @@ export class AxiosCourseRepository implements CourseRepository {
 
   async getCoursesByUser(
     category: string,
-    period?: string
+    period?: string, 
+    favorites?: string,
   ): Promise<CoursesResponse> {
     const { data } = await axiosInstanceProtected.get<CoursesResponse>(
-      `/courses?page=1&limit=8&category=${category}&period=${period}`
+      `/courses?page=1&limit=8&category=${category}&period=${period}&favorites=${favorites}`
     );
     return data;
   }
