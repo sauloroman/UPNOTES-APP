@@ -1,18 +1,24 @@
-import React, { useEffect } from 'react';
-import { MainLayout } from '../../../layouts';
-import { FilterButtons } from './components/buttons/FilterButtons';
-import { CoursesList } from './components/CoursesList';
-import { FavoriteButton } from './components/buttons/FavoriteButton';
-import { PeriodSelect } from './components/inputs/PeriodSelect';
-import { CreateCourseModal } from './components/CreateCourseModal';
-import { useModal } from '../../../shared/redux-hooks/useModal';
-import { ModalNames } from '../../../../infrastructure/store/slices/modal.slice';
-import { AddButton } from './components/buttons/AddButton';
-import { useCourses, useLoading } from '../../../shared/redux-hooks';
-import { Loader } from '../../../shared/components/loader/Loader';
-import { DefaultCoursesView } from './components/default/DefaultCoursesView';
-import { CoursesPagination } from './components/CoursesPagination';
-import { usePagination } from '../../../shared/hooks/usePagination';
+import React, { useEffect } from "react";
+
+import { ModalNames } from "../../../../infrastructure/store/slices/modal.slice";
+
+import { MainLayout } from "../../../layouts";
+
+import { useCourses, useLoading } from "../../../shared/redux-hooks";
+import { useModal } from "../../../shared/redux-hooks/useModal";
+import { usePagination } from "../../../shared/hooks/usePagination";
+
+import { Loader } from "../../../shared/components";
+import {
+  AddButton,
+  CoursesList,
+  CreateCourseModal,
+  DefaultCoursesView,
+  FavoriteButton,
+  FilterButtons,
+  PeriodSelect,
+  CoursesPagination
+} from "./components";
 
 export const Courses: React.FC = () => {
   const { isOpen, name } = useModal();
