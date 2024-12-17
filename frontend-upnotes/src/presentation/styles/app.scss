@@ -12,6 +12,7 @@
 @import './helpers/form';
 @import './helpers/icon';
 @import './helpers/alert';
+@import './helpers/pagination';
 
 // SITE STYLES
 @import '../layouts/auth/auth-layout';
@@ -20,7 +21,6 @@
 @import '../layouts/auth-actions/auth-actions-layout';
 
 @import '../shared/components/loader/loader';
-@import '../shared/components/pagination/pagination';
 
 @import '../pages/auth/login/login';
 

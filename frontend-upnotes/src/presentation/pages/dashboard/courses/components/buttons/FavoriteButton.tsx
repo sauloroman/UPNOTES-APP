@@ -1,11 +1,14 @@
 import React from 'react'
 import { useCourses } from '../../../../../shared/redux-hooks'
+import { usePagination } from '../../../../../shared/hooks/usePagination'
 
 export const FavoriteButton: React.FC = () => {
 
   const { setFavorites, favorites } = useCourses()
+  const { setCurrentPageAc } = usePagination('courses')
 
   const onToggleFavorites = () => {
+    setCurrentPageAc(1)
     if ( favorites ) {
       setFavorites(null)
       return

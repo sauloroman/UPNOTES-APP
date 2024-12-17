@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCategories } from '../../../../../shared/hooks/useCategories';
 import { useCourses } from '../../../../../shared/redux-hooks';
+import { usePagination } from '../../../../../shared/hooks/usePagination';
 
 interface FilterElement {
   icon: string,
@@ -64,13 +65,19 @@ const filterElements: ({ [ key: string ]: FilterElement }) = {
 export const FilterButtons: React.FC = () => {
   const { courseCategories: filters } = useCategories()
   const { filter, setFilter } = useCourses()
+  const { setCurrentPageAc } = usePagination('courses')
+
+  const onChangeFilter = ( name: string ) => {
+    setFilter( name )
+    setCurrentPageAc(1)
+  }
 
   return (
     <div className="courses-filter">
       <button
-        onClick={() => setFilter('todo')}
+        onClick={() => onChangeFilter('Todos')}
         className={`btn btn--filter ${
-          filter === 'todo' && 'btn--filter-active'
+          filter === 'Todos' && 'btn--filter-active'
         }`}
         >
           <i className='bx bx-info-circle' />
@@ -79,7 +86,7 @@ export const FilterButtons: React.FC = () => {
       {filters.map((filterEl) => (
         <button
         key={filterEl}
-        onClick={() => setFilter( filterElements[filterEl].name ) }
+        onClick={() => onChangeFilter( filterElements[filterEl].name ) }
         className={`btn btn--filter ${
           filterElements[filterEl].name === filter && 'btn--filter-active'
         }`}

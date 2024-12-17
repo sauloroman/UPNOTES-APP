@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { MainLayout } from '../../../layouts';
 import { FilterButtons } from './components/buttons/FilterButtons';
 import { CoursesList } from './components/CoursesList';
-import { Pagination } from '../../../shared/components/pagination/Pagination';
 import { FavoriteButton } from './components/buttons/FavoriteButton';
 import { PeriodSelect } from './components/inputs/PeriodSelect';
 import { CreateCourseModal } from './components/CreateCourseModal';
@@ -12,31 +11,23 @@ import { AddButton } from './components/buttons/AddButton';
 import { useCourses, useLoading } from '../../../shared/redux-hooks';
 import { Loader } from '../../../shared/components/loader/Loader';
 import { DefaultCoursesView } from './components/default/DefaultCoursesView';
+import { CoursesPagination } from './components/CoursesPagination';
 import { usePagination } from '../../../shared/hooks/usePagination';
 
 export const Courses: React.FC = () => {
   const { isOpen, name } = useModal();
   const { isLoading } = useLoading();
-  const { currentPage, setCurrentPageAc } = usePagination();
-  const { getCoursesByUser, courses, filter, period, favorites } = useCourses();
-
-  useEffect(() => {
-    getCoursesByUser({
-      page: 1,
-      category: filter,
-      period,
-      favorites,
-    });
-  }, [filter, period, favorites]);
+  const { courses, getCoursesByUser, filter, period, favorites } = useCourses();
+  const { currentPage } = usePagination('courses')
 
   useEffect(() => {
     getCoursesByUser({
       page: currentPage,
       category: filter,
-      period,
-      favorites,
+      period: period,
+      favorites: favorites,
     });
-  }, [currentPage])
+  }, [filter, period, favorites, currentPage ]);
 
   return (
     <MainLayout titleView="Materias">
@@ -65,7 +56,7 @@ export const Courses: React.FC = () => {
               ) : (
                 <DefaultCoursesView />
               )}
-              <Pagination />
+              <CoursesPagination />
             </div>
           </>
         )}

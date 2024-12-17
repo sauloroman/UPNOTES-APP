@@ -16,7 +16,11 @@ export const getCoursesByUserThunk = ( getCoursesByUser: GetCoursesByUser ): App
       const useCase = new GetCoursesByUserUseCase({ courseRepository: axiosCourseRepository })
       const { courses, totalPagesForThisCategory } = await useCase.apply( getCoursesByUser )
 
-      dispatch( setTotalOfPages( totalPagesForThisCategory ) )
+      dispatch( setTotalOfPages({ 
+        name: 'courses', 
+        totalOfPages: totalPagesForThisCategory 
+      }))
+      
       dispatch( setCourses(courses) )
 
     } catch (error) {
