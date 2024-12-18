@@ -2,12 +2,16 @@ import React from 'react';
 import { FavoriteIconButton } from './buttons/FavoriteIconButton';
 import { Course } from '../../../../../domain/entities/course';
 import { dateFormatter } from '../../../../shared/utils/format-date';
+import { useNavigation } from '../../../../shared/hooks';
 
 interface Props {
   course: Course;
 }
 
 export const CourseCard: React.FC<Props> = ({ course }) => {
+
+  const { onGoPage } = useNavigation()
+
   return (
     <div className="courses-card" style={{ backgroundColor: `${course.color}`}}>
       <div className="courses-card__content">
@@ -36,7 +40,7 @@ export const CourseCard: React.FC<Props> = ({ course }) => {
             <span>{course.professor || 'Sin Profesor'}</span>
           </div>
         </div>
-        <button className="btn btn--black courses-card__button">
+        <button onClick={ () => onGoPage(`/upnotes/course/${course.id}`)}  className="btn btn--black courses-card__button">
           Detalles
         </button>
       </footer>

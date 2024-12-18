@@ -157,8 +157,7 @@ export class CourseService {
       });
 
       for (const category of categories) {
-        const courseCategoryId =
-          await this.courseCategoryService.getCourseCategoryByName(category);
+        const courseCategoryId = await this.courseCategoryService.getCourseCategoryByName(category);
         if (!courseCategoryId)
           throw CustomError.notFound(
             'La categoria del curso no existe en la Base de Datos'

@@ -39,7 +39,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             <Navigation />
           </aside>
           <div
-            className={`main-layout__container ${
+            className={`main-layout__container animate__animated animate__fadeIn ${
               !isMenuAsideShown && 'main-layout__container--small'
             }`}
           >

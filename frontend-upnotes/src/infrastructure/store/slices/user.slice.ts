@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Course } from '../../../domain/entities/course';
+import { Professor } from '../../../domain/entities/professor';
 
 interface Courses {
   filter: string;
@@ -8,8 +9,13 @@ interface Courses {
   favorites?: string;
 }
 
+interface Professors {
+  professors: Professor[]
+}
+
 interface InitialState {
   courses: Courses;
+  professors: Professors
 }
 
 const initialState: InitialState = {
@@ -19,6 +25,9 @@ const initialState: InitialState = {
     period: undefined,
     favorites: undefined,
   },
+  professors: {
+    professors: []
+  }
 };
 
 export const userSlice = createSlice({
@@ -40,6 +49,10 @@ export const userSlice = createSlice({
     setFavoritesCourses(state, { payload }: PayloadAction<string | undefined>) {
       state.courses.favorites = payload;
     },
+
+    setProfessors( state, { payload }: PayloadAction<Professor[]>) {
+      state.professors.professors = payload
+    }
   },
 });
 
@@ -48,4 +61,5 @@ export const {
   setPeriodCourses,
   setFilterCourses,
   setCourses,
+  setProfessors,
 } = userSlice.actions;
