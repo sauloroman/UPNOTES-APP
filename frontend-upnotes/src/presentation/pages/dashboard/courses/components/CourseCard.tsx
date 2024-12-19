@@ -37,7 +37,7 @@ export const CourseCard: React.FC<Props> = ({ course }) => {
         <div className="courses-card__professor">
           <div className="courses-card__professor-info">
             <p>Profesor</p>
-            <span>{course.professor || 'Sin Profesor'}</span>
+            <span>{course.professor?.name || 'Sin Profesor'}</span>
           </div>
         </div>
         <button onClick={ () => onGoPage(`/upnotes/course/${course.id}`)}  className="btn btn--black courses-card__button">

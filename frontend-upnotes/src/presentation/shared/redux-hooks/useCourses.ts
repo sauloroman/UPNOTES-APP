@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
-import { CreateCourse, UpdateCourse, GetCoursesByUser } from '../../../domain/entities/course';
-import { createCourseThunk } from "../../../infrastructure/store/thunks/courses/create-course.thunk"
-import { getCoursesByUserThunk } from "../../../infrastructure/store/thunks/courses/get-courses-by-user.thunk"
 import { RootState } from "../../../infrastructure/store/store"
-import { updateCourseThunk } from "../../../infrastructure/store/thunks/courses/update-course.thunk"
+import { CreateCourse, UpdateCourse, GetCoursesByUser } from '../../../domain/entities/course';
 import { setFavoritesCourses, setFilterCourses, setPeriodCourses } from "../../../infrastructure/store/slices/user.slice"
+import { createCourseThunk, getCoursesByUserThunk, updateCourseThunk } from "../../../infrastructure/store/thunks/courses";
 
 export const useCourses = () => {
 

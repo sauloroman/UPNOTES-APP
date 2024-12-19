@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export enum ModalNames {
-  createCourse
+  createCourse,
+  professors
 }
 
 interface InitialState {

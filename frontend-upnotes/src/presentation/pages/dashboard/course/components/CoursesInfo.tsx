@@ -1,5 +1,6 @@
 import React from 'react';
 import { dateFormatter } from '../../../../shared/utils/format-date';
+import { CourseSelectProfessors } from './CourseSelectProfessors';
 
 interface CourseInfoProps {
   categories: string[];
@@ -48,7 +49,9 @@ export const CoursesInfo: React.FC<CourseInfoProps> = ({
           </div>
           <div className="course-info__tag">
             <p className="course-info__key">Profesor</p>
-            <p className="course-info__value">{professor || 'Sin Asignar'}</p>
+            <div className="course-info__value">
+              <CourseSelectProfessors professorOfCourse={professor!} />
+            </div>
           </div>
         </div>
         <div

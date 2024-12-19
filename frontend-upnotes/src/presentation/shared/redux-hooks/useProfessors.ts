@@ -1,17 +1,27 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { CreateProfessor } from "../../../domain/entities/professor"
-import { CreateProfessorThunk } from "../../../infrastructure/store/thunks/professor/create-professor.thunk"
+import { createProfessorThunk, getProfessorByUserThunk } from "../../../infrastructure/store/thunks/professor"
+import { RootState } from "../../../infrastructure/store/store"
 
 export const useProfessors = () => {
 
   const dispatch = useDispatch<any>()
 
+  const { professors: {professors} } = useSelector( (state: RootState) => state.user )
+
   const createProfessor = ( createProfessor: CreateProfessor ) => {
-    dispatch( CreateProfessorThunk(createProfessor) )
+    dispatch( createProfessorThunk(createProfessor) )
+  }
+
+  const getProfessorsByUser = () => {
+    dispatch( getProfessorByUserThunk() )
   }
 
   return {
-    createProfessor
+    professors, 
+
+    createProfessor,
+    getProfessorsByUser
   }
 
 }

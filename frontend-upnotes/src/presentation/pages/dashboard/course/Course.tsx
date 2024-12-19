@@ -1,14 +1,16 @@
 import React from 'react';
 import { LayoutCourse } from '../../../layouts';
-import { useCourses } from '../../../shared/redux-hooks';
+import { useCourses, useModal } from '../../../shared/redux-hooks';
 import { useNavigationPage } from '../../../shared/hooks';
-import { CourseCover, CoursesInfo } from './components';
+import { CourseCover, CourseProfessorsModal, CoursesInfo } from './components';
+import { ModalNames } from '../../../../infrastructure/store/slices/modal.slice';
 
 export const Course: React.FC = () => {
   const { courses } = useCourses();
   const { getToken } = useNavigationPage();
   const id = getToken();
   const course = courses.find((course) => course.id === id);
+  const { isOpen, name } = useModal()
 
   return (
     <LayoutCourse>
@@ -53,6 +55,7 @@ export const Course: React.FC = () => {
         </main>
 
       </div>
+      { (isOpen && name === ModalNames.professors) && <CourseProfessorsModal courseId={course?.id!} />}
     </LayoutCourse>
   );
 };

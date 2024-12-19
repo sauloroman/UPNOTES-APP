@@ -10,7 +10,7 @@ export interface UpdateCourse {
   color?: string;
   period?: number;
   categories?: string[];
-  professor?: string[];
+  professorId?: string;
   isFavorite?: boolean;
   image?: string;
   description?: string;
@@ -34,7 +34,9 @@ export interface Course {
   period: {
     numberPeriod: number;
   }
-  professor: string | null;
+  professor: {
+    name: string | null;
+  };
   categories: string[]
 }
 

@@ -98,6 +98,15 @@
     }
   }
 
+  &--professor {
+    padding: .1rem 1rem;
+    font-family: inherit;
+    font-size: 1.2rem;
+    border-radius: 100px;
+    font-weight: 300;
+    @include buttonOutline( $color-black, $color-white )
+  }
+
   &--disable, &--enable {
     width: fit-content;
     gap: 1rem;

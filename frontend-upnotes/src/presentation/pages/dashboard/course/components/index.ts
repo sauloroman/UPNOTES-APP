@@ -1,3 +1,7 @@
 export * from './CourseCover'
 export * from './CourseButtonFavorite'
 export * from './CoursesInfo'
+export * from './CourseProfessorsLists'
+export * from './CourseProfessorsModal'
+export * from './CourseSelectProfessors'
+export * from './CourseCreateProfessorForm'

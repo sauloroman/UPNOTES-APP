@@ -107,7 +107,11 @@
   }
 
   &__category {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 0 1rem;
+    font-size: 1.2rem;
     border-radius: 100px;
     background-color: $color-favorite;
     color: $color-black;
@@ -131,6 +135,29 @@
     text-align: right;
   }
 
+  &__professor {
+    font-size: 1.4rem;
+    margin-right: 1rem;
+    padding-bottom: 2px;
+    padding: 2px 1rem;
+    font-family: inherit;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    border-radius: 100px;
+  }
+  
+  &__initial {
+    margin-right: 1rem;
+    background-color: $color-period;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-white;
+    font-size: 1.2rem;
+  }
 }
 
 .course-buttons {
@@ -148,6 +175,28 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
+
+}
+
+.course-modal {
+
+  padding: 2rem;
+
+  &__text {
+    text-align: left;
+    span { 
+      color: $color-green;
+      padding-bottom: 2px;
+      border-bottom: 2px solid currentColor;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+
+  &__buttons {
+    gap: 1rem;
+    margin-top: 2rem;
   }
 
 }
