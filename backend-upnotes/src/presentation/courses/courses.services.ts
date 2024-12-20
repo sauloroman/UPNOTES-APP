@@ -40,6 +40,20 @@ export class CourseService {
     return courseCategories;
   }
 
+  private async createCategoriesOfCourse( courseId: string, categories: string[] ) {
+    for (const category of categories) {
+      const courseCategoryId = await this.courseCategoryService.getCourseCategoryByName(category);
+      if (!courseCategoryId)
+        throw CustomError.notFound(
+          'La categoria del curso no existe en la Base de Datos'
+        );
+      await this.categoriesOnCoursesService.postCategoryOnCourse(
+        courseCategoryId,
+        courseId
+      );
+    }
+  }
+
   private filterCoursesByCategory( courses: CourseEntity[], filter: CourseCategories ) {
     if ( filter !== CourseCategories.todo ) {
       return courses.filter( course => course.categories.includes( filter ) )
@@ -57,11 +71,16 @@ export class CourseService {
 
   public async updateCourse(newInformation: any, courseId: string) {
     try {
-      const { id, createdAt, userId, user, ...restNewInformation } =
+      const { id, createdAt, userId, user, categories, ...restNewInformation } =
         newInformation;
 
       if (!this.isCourseInDataBase(courseId))
         throw CustomError.notFound('El curso no existe');
+
+      if ( categories ) {
+        await this.categoriesOnCoursesService.deleteCategoriesOnCourse( courseId )
+        await this.createCategoriesOfCourse(courseId, categories )
+      }
 
       const courseUpdated = await prisma.course.update({
         where: { id: courseId },
@@ -84,6 +103,7 @@ export class CourseService {
         msg: 'El curso ha sido actualizado',
         course: courseEntity,
       };
+
     } catch (error) {
       throw error;
     }
@@ -156,17 +176,7 @@ export class CourseService {
         },
       });
 
-      for (const category of categories) {
-        const courseCategoryId = await this.courseCategoryService.getCourseCategoryByName(category);
-        if (!courseCategoryId)
-          throw CustomError.notFound(
-            'La categoria del curso no existe en la Base de Datos'
-          );
-        await this.categoriesOnCoursesService.postCategoryOnCourse(
-          courseCategoryId,
-          newCourse.id
-        );
-      }
+      await this.createCategoriesOfCourse( newCourse.id, categories )
 
       return {
         msg: `La materia "${name}" ha sido creada exitosamente.`,

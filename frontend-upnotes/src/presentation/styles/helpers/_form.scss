@@ -45,6 +45,7 @@
   &__label {
     margin-bottom: 1rem;
     font-weight: 700;
+    font-size: 1.4rem;
   }
 
   &__input {
@@ -54,10 +55,10 @@
     width: 100%;
     border: 1px solid $color-gray;
     padding: 1rem;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
-  &__input:focus {
+  &__input:focus, &__textarea:focus {
     outline: none;
     border: 1px solid $color-green;
   }
@@ -87,6 +88,13 @@
     font-size: 1.6rem;
     padding-bottom: 2px;
     border-bottom: 2px solid currentColor;
+  }
+
+  &__textarea {
+    height: 10rem;
+    border: 1px solid #ddd;
+    font-family: inherit;
+    padding: 1rem;
   }
 
 }

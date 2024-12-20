@@ -1,5 +1,8 @@
 import React from 'react';
 import { CourseButtonFavorite } from './';
+import { useModal } from '../../../../shared/redux-hooks';
+import { ModalNames } from '../../../../../infrastructure/store/slices/modal.slice';
+import { useNavigation } from '../../../../shared/hooks';
 
 interface CourseCoverProps {
   color: string;
@@ -14,6 +17,10 @@ export const CourseCover: React.FC<CourseCoverProps> = ({
   name,
   favorite,
 }) => {
+
+  const { onOpenModal } = useModal()
+  const { onGoPage } = useNavigation()
+
   return (
     <div className="course-cover">
       <div
@@ -29,13 +36,18 @@ export const CourseCover: React.FC<CourseCoverProps> = ({
       </div>
       <CourseButtonFavorite isFavorite={favorite} />
       <div className="course-cover__actions">
-        <button className="btn btn--cover btn--cover-edit">
+        <button onClick={ () => onOpenModal(ModalNames.editCourse) } className="btn btn--cover btn--cover-edit">
           <i className="bx bx-pencil"></i>
           <p>Editar</p>
         </button>
         <button className="btn btn--cover btn--cover-delete">
           <i className="bx bx-trash"></i>
           <p>Eliminar</p>
+        </button>
+      </div>
+      <div className="course-cover__return">
+        <button onClick={ () => onGoPage('/upnotes/courses') } className='btn btn--return'>
+          <i className="bx bx-chevron-left"></i>
         </button>
       </div>
     </div>

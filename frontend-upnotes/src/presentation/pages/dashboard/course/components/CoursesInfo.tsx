@@ -8,7 +8,7 @@ interface CourseInfoProps {
   createdAt: Date;
   period: { numberPeriod: number };
   color: string;
-  professor?: string;
+  professor?: { name: string | null };
   description?: string;
 }
 

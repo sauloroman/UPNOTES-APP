@@ -106,7 +106,7 @@
     font-weight: 300;
     @include buttonOutline( $color-black, $color-white )
   }
-
+  
   &--disable, &--enable {
     width: fit-content;
     gap: 1rem;
@@ -127,6 +127,13 @@
       color: $color-favorite;
     }
   }
-
+  
+  &--return {
+    padding: .3rem;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    @include buttonOutline( $color-black, $color-white )
+  }
 
 }

@@ -52,6 +52,12 @@
     justify-content: flex-end;
   }
 
+  &__return {
+    position: absolute;
+    left: 1%;
+    top: 7%;
+  }
+
 }
 
 .course-main {

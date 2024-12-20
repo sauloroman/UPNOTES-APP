@@ -12,6 +12,10 @@ export class CategoriesOnCoursesService {
     return categoryOnCourse
   }
 
+  public async deleteCategoriesOnCourse( courseId: string ) {
+    await prisma.categoriesOnCourses.deleteMany({ where: { courseId }})
+  }
+
   public async getCategoriesOnCourse( courseId: string ) {
     const categoriesOnCourse = await prisma.categoriesOnCourses.findMany({
       where: {
