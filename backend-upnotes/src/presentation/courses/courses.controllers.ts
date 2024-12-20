@@ -61,4 +61,12 @@ export class CoursesController {
       .then((data) => res.status(200).json(data))
       .catch((err) => this.handleErrorResponse(err, res));
   };
+
+  public deleteCourse = (req: Request, res: Response): any => {
+    const { id } = req.params
+
+    this.courseService.deleteCourse( id )
+      .then( data => res.status(203).json(data))
+      .catch( err => this.handleErrorResponse(err, res) )
+  }
 }

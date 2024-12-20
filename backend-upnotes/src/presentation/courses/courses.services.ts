@@ -40,9 +40,13 @@ export class CourseService {
     return courseCategories;
   }
 
-  private async createCategoriesOfCourse( courseId: string, categories: string[] ) {
+  private async createCategoriesOfCourse(
+    courseId: string,
+    categories: string[]
+  ) {
     for (const category of categories) {
-      const courseCategoryId = await this.courseCategoryService.getCourseCategoryByName(category);
+      const courseCategoryId =
+        await this.courseCategoryService.getCourseCategoryByName(category);
       if (!courseCategoryId)
         throw CustomError.notFound(
           'La categoria del curso no existe en la Base de Datos'
@@ -54,42 +58,68 @@ export class CourseService {
     }
   }
 
-  private filterCoursesByCategory( courses: CourseEntity[], filter: CourseCategories ) {
-    if ( filter !== CourseCategories.todo ) {
-      return courses.filter( course => course.categories.includes( filter ) )
+  private filterCoursesByCategory(
+    courses: CourseEntity[],
+    filter: CourseCategories
+  ) {
+    if (filter !== CourseCategories.todo) {
+      return courses.filter((course) => course.categories.includes(filter));
     }
-    return courses
+    return courses;
   }
 
-  private filterCoursesByPeriod( courses: CourseEntity[], period: number ) {
-    return courses.filter( course => course.period.numberPeriod === period )
+  private filterCoursesByPeriod(courses: CourseEntity[], period: number) {
+    return courses.filter((course) => course.period.numberPeriod === period);
   }
 
-  private filterByFavorites( courses: CourseEntity[] ) {
-    return courses.filter( course => course.isFavorite )
+  private filterByFavorites(courses: CourseEntity[]) {
+    return courses.filter((course) => course.isFavorite);
   }
 
-  public async deleteCourse() {
-    
+  public async deleteCourse(courseId: string) {
+    if (!this.isCourseInDataBase(courseId))
+      throw CustomError.notFound(`El curso con id: ${courseId} no existe`);
+
+    try {
+      await this.categoriesOnCoursesService.deleteCategoriesOnCourse(courseId);
+      const courseDeleted = await prisma.course.delete({
+        where: { id: courseId },
+      });
+
+      return {
+        msg: `El curso ${courseDeleted.name} ha sido eliminado`,
+      };
+    } catch (error) {
+      throw error;
+    }
   }
 
   public async updateCourse(newInformation: any, courseId: string) {
     try {
-      const { id, createdAt, userId, user, categories, period, ...restNewInformation } =
-        newInformation;
+      const {
+        id,
+        createdAt,
+        userId,
+        user,
+        categories,
+        period,
+        ...restNewInformation
+      } = newInformation;
 
       if (!this.isCourseInDataBase(courseId))
         throw CustomError.notFound('El curso no existe');
 
-      if ( period ) {
+      if (period) {
         const periodId = await this.periodService.getPeriodByName(period);
         if (!periodId) throw CustomError.notFound('El periodo no existe');
-        restNewInformation.periodId = periodId
+        restNewInformation.periodId = periodId;
       }
 
-      if ( categories ) {
-        await this.categoriesOnCoursesService.deleteCategoriesOnCourse( courseId )
-        await this.createCategoriesOfCourse(courseId, categories )
+      if (categories) {
+        await this.categoriesOnCoursesService.deleteCategoriesOnCourse(
+          courseId
+        );
+        await this.createCategoriesOfCourse(courseId, categories);
       }
 
       const courseUpdated = await prisma.course.update({
@@ -103,7 +133,7 @@ export class CourseService {
           },
           professor: {
             select: { name: true },
-        },
+          },
         },
       });
 
@@ -113,7 +143,6 @@ export class CourseService {
         msg: 'El curso ha sido actualizado',
         course: courseEntity,
       };
-
     } catch (error) {
       throw error;
     }
@@ -124,7 +153,7 @@ export class CourseService {
     userId: string,
     category: CourseCategories,
     period: number,
-    favorites: string,
+    favorites: string
   ): Promise<any> {
     const { page, limit } = paginationDto;
 
@@ -151,14 +180,22 @@ export class CourseService {
         formattedCourses.push(courseEntity);
       }
 
-      let finalCourses = this.filterCoursesByCategory( formattedCourses, category )
-      if ( period ) finalCourses = this.filterCoursesByPeriod(finalCourses, period)
-      if ( favorites === 'true' ) finalCourses = this.filterByFavorites( finalCourses )
-    
-      const coursesInPage = finalCourses.slice( (page - 1) * limit, limit * page )
+      let finalCourses = this.filterCoursesByCategory(
+        formattedCourses,
+        category
+      );
+      if (period)
+        finalCourses = this.filterCoursesByPeriod(finalCourses, period);
+      if (favorites === 'true')
+        finalCourses = this.filterByFavorites(finalCourses);
+
+      const coursesInPage = finalCourses.slice(
+        (page - 1) * limit,
+        limit * page
+      );
       const maxQuantityPages = Math.ceil(finalCourses.length / limit);
 
-      return {  
+      return {
         page: page,
         totalCoursesForThisCategory: finalCourses.length,
         totalPagesForThisCategory: maxQuantityPages,
@@ -186,7 +223,7 @@ export class CourseService {
         },
       });
 
-      await this.createCategoriesOfCourse( newCourse.id, categories )
+      await this.createCategoriesOfCourse(newCourse.id, categories);
 
       return {
         msg: `La materia "${name}" ha sido creada exitosamente.`,

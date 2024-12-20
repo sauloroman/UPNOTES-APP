@@ -22,6 +22,7 @@ export class CoursesRoutes {
     router.post('/', courseController.createCourse )
     router.get('/', [ CategoriesMiddleware.validateCourseCategory ], courseController.getCoursesOfUser )
     router.put('/:id', courseController.updateCourse )
+    router.delete('/:id', courseController.deleteCourse )
 
     return router
   }
