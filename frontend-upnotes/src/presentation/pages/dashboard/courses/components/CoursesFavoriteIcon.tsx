@@ -1,12 +1,12 @@
 import React from 'react';
-import { useCourses } from '../../../../../shared/redux-hooks';
+import { useCourses } from '../../../../shared/redux-hooks';
 
 interface Props {
   isFavorite: boolean;
   courseId: string;
 }
 
-export const FavoriteIconButton: React.FC<Props> = ({ isFavorite, courseId }) => {
+export const CoursesFavoriteIcon: React.FC<Props> = ({ isFavorite, courseId }) => {
   const { updateCourse } = useCourses();
 
   const onToggleFavorite = () => {

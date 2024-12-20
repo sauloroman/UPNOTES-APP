@@ -2,7 +2,7 @@ import React from 'react';
 import { LayoutCourse } from '../../../layouts';
 import { useCourses, useModal } from '../../../shared/redux-hooks';
 import { useNavigationPage } from '../../../shared/hooks';
-import { CourseCover, CourseEditCourseModal, CourseProfessorsModal, CoursesInfo } from './components';
+import { CourseCover, CourseCreateTaskButton, CourseEditCourseModal, CourseProfessorsModal, CoursesInfo } from './components';
 import { ModalNames } from '../../../../infrastructure/store/slices/modal.slice';
 
 export const Course: React.FC = () => {
@@ -15,12 +15,14 @@ export const Course: React.FC = () => {
   return (
     <LayoutCourse>
       <div className="course">
+
         <CourseCover
           color={course?.color!}
           id={course?.id!}
           name={course?.name!}
           favorite={ course?.isFavorite! }
         />
+
         <CoursesInfo 
           categories={ course?.categories!}
           color={course?.color!}
@@ -35,10 +37,7 @@ export const Course: React.FC = () => {
 
           <div className="course-buttons">
             <div className="course-buttons__container">
-              <button className='btn btn--green course-buttons__create'>
-                <i className='bx bx-check-circle'></i>
-                Crear tarea
-              </button>
+              <CourseCreateTaskButton />
               <form className="form course-filter">
                 <select name="category" id="course-category" className="form__input course-filter__select">
                   <option defaultValue='' disabled>Categorías</option>
@@ -55,8 +54,9 @@ export const Course: React.FC = () => {
         </main>
 
       </div>
+
       { (isOpen && name === ModalNames.professors) && <CourseProfessorsModal courseId={course?.id!} />}
-      { (isOpen && name === ModalNames.editCourse) && <CourseEditCourseModal />}
+      { (isOpen && name === ModalNames.editCourse) && <CourseEditCourseModal courseId={course?.id!} />}
     </LayoutCourse>
   );
 };

@@ -22,13 +22,13 @@ export const InputColor: React.FC<Props> = ({ selectedColor, onChange }) => {
   }
   
   return (
-    <div className='form__circle'>
+    <div className='input-color'>
       {
         optionColors.map( optionColor => (
           <div 
             key={optionColor}
             onClick={ () => onChangeColor(optionColor) }
-            className={`form__circle-color ${selectedColor === optionColor && 'form__circle-color--active'}`} 
+            className={`input-color__circle ${selectedColor === optionColor && 'input-color__circle--active'}`} 
             style={{ backgroundColor: `${optionColor}` }}></div>
         ))
       }

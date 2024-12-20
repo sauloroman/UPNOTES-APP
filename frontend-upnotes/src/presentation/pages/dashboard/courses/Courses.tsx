@@ -1,30 +1,29 @@
-import React, { useEffect } from "react";
-
-import { ModalNames } from "../../../../infrastructure/store/slices/modal.slice";
-
-import { MainLayout } from "../../../layouts";
-
-import { useCourses, useLoading } from "../../../shared/redux-hooks";
-import { useModal } from "../../../shared/redux-hooks/useModal";
-import { usePagination } from "../../../shared/hooks/usePagination";
-
-import { Loader } from "../../../shared/components";
+import React, { useEffect } from 'react';
+import { ModalNames } from '../../../../infrastructure/store/slices/modal.slice';
+import { MainLayout } from '../../../layouts';
 import {
-  AddButton,
+  useCourses,
+  useLoading,
+  usePagination,
+} from '../../../shared/redux-hooks';
+import { useModal } from '../../../shared/redux-hooks/useModal';
+import { Loader } from '../../../shared/components';
+import {
+  CoursesCreateCourseButton,
   CoursesList,
-  CreateCourseModal,
-  DefaultCoursesView,
-  FavoriteButton,
-  FilterButtons,
-  PeriodSelect,
-  CoursesPagination
-} from "./components";
+  CoursesCreateCourseModal,
+  CoursesDefault,
+  CoursesFavoriteButton,
+  CoursesFilterButtons,
+  CoursesSelectPeriod,
+  CoursesPagination,
+} from './components';
 
 export const Courses: React.FC = () => {
   const { isOpen, name } = useModal();
   const { isLoading } = useLoading();
   const { courses, getCoursesByUser, filter, period, favorites } = useCourses();
-  const { currentPage } = usePagination('courses')
+  const { currentPage } = usePagination('courses');
 
   useEffect(() => {
     getCoursesByUser({
@@ -33,7 +32,7 @@ export const Courses: React.FC = () => {
       period: period,
       favorites: favorites,
     });
-  }, [filter, period, favorites, currentPage ]);
+  }, [filter, period, favorites, currentPage]);
 
   return (
     <MainLayout titleView="Materias">
@@ -46,28 +45,30 @@ export const Courses: React.FC = () => {
           <>
             <header className="courses-header">
               <div className="flex flex-between">
-                <AddButton />
+                <CoursesCreateCourseButton />
 
                 <div className="courses-buttons flex flex-center">
-                  <FavoriteButton />
-                  <PeriodSelect />
+                  <CoursesFavoriteButton />
+                  <CoursesSelectPeriod />
                 </div>
               </div>
             </header>
 
             <div className="courses-container">
-              <FilterButtons />
+              <CoursesFilterButtons />
               {courses.length > 0 ? (
                 <CoursesList courses={courses} />
               ) : (
-                <DefaultCoursesView />
+                <CoursesDefault />
               )}
               <CoursesPagination />
             </div>
           </>
         )}
       </main>
-      {isOpen && name === ModalNames.createCourse && <CreateCourseModal />}
+      {isOpen && name === ModalNames.createCourse && (
+        <CoursesCreateCourseModal />
+      )}
     </MainLayout>
   );
 };

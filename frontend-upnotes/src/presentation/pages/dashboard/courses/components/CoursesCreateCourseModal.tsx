@@ -1,7 +1,7 @@
 import { LayoutModal } from "../../../../layouts/modal/LayoutModal"
-import { FormCreateCourse } from "./FormCreateCourse"
+import { CoursesCreateCourseForm } from "./"
 
-export const CreateCourseModal = () => {
+export const CoursesCreateCourseModal = () => {
   return (
     <LayoutModal width={80}>
       <div className="create-course">
@@ -9,7 +9,7 @@ export const CreateCourseModal = () => {
           <p className="create-course__title">Crear Nuevo Curso</p>
         </header>
         <div className="create-course__container">
-          <FormCreateCourse />
+          <CoursesCreateCourseForm />
         </div>
       </div>
     </LayoutModal>

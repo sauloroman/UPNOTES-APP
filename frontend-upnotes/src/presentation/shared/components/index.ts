@@ -1,2 +1,5 @@
 export * from './inputPasswod/InputPassword'
 export * from './loader/Loader'
+export * from './inputColor/InputColor'
+export * from './inputCourseCategories/InputCourseCategories'
+export * from './inputPeriod/InputPeriod'

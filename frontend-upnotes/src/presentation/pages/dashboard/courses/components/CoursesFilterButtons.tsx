@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useCategories } from '../../../../../shared/hooks/useCategories';
-import { useCourses } from '../../../../../shared/redux-hooks';
-import { usePagination } from '../../../../../shared/hooks/usePagination';
+import React from 'react';
+import { useCategories } from '../../../../shared/hooks';
+import { useCourses, usePagination } from '../../../../shared/redux-hooks';
 
 interface FilterElement {
   icon: string,
@@ -62,7 +61,7 @@ const filterElements: ({ [ key: string ]: FilterElement }) = {
   }
 }
 
-export const FilterButtons: React.FC = () => {
+export const CoursesFilterButtons: React.FC = () => {
   const { courseCategories: filters } = useCategories()
   const { filter, setFilter } = useCourses()
   const { setCurrentPageAc } = usePagination('courses')

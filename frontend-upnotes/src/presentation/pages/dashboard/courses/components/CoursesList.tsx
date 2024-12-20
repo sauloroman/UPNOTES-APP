@@ -1,5 +1,5 @@
 import React from 'react';
-import { CourseCard } from './CourseCard';
+import { CoursesCourseCard } from './';
 import { Course } from '../../../../../domain/entities/course';
 
 interface Props {
@@ -11,7 +11,7 @@ export const CoursesList: React.FC<Props> = ({ courses }) => {
     <div className="courses-grid">
       {
         courses.map( course => (
-          <CourseCard key={ course.id } course={course} />
+          <CoursesCourseCard key={ course.id } course={course} />
         ))
       }
     </div>

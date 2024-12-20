@@ -28,8 +28,8 @@ export const CoursesInfo: React.FC<CourseInfoProps> = ({
           <div className="course-info__tag">
             <p className="course-info__key">Categorias</p>
             <div className="course-info__categories">
-              {categories.map((category) => (
-                <p className="course-info__category">{category}</p>
+              {categories?.map((category) => (
+                <p key={category} className="course-info__category">{category}</p>
               ))}
             </div>
           </div>

@@ -69,13 +69,23 @@ export class CourseService {
     return courses.filter( course => course.isFavorite )
   }
 
+  public async deleteCourse() {
+    
+  }
+
   public async updateCourse(newInformation: any, courseId: string) {
     try {
-      const { id, createdAt, userId, user, categories, ...restNewInformation } =
+      const { id, createdAt, userId, user, categories, period, ...restNewInformation } =
         newInformation;
 
       if (!this.isCourseInDataBase(courseId))
         throw CustomError.notFound('El curso no existe');
+
+      if ( period ) {
+        const periodId = await this.periodService.getPeriodByName(period);
+        if (!periodId) throw CustomError.notFound('El periodo no existe');
+        restNewInformation.periodId = periodId
+      }
 
       if ( categories ) {
         await this.categoriesOnCoursesService.deleteCategoriesOnCourse( courseId )

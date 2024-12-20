@@ -11,7 +11,12 @@ export const useCourses = () => {
   const { courses: {courses, filter, period, favorites } } = useSelector( (state: RootState) => state.user)
 
   const createCourse = ( createCourse: CreateCourse ) => {
-    dispatch( createCourseThunk( createCourse ) ) 
+    dispatch( createCourseThunk( createCourse, {
+      page: 1,
+      category: filter,
+      favorites: favorites, 
+      period: period
+    })) 
   }
 
   const updateCourse = ( courseId: string, updateCourse: UpdateCourse ) => {

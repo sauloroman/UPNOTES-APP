@@ -7,3 +7,4 @@ export * from './CourseSelectProfessors';
 export * from './CourseCreateProfessorForm';
 export * from './CourseEditCourseModal';
 export * from './CourseSelectProfessorForm';
+export * from './CourseCreateTaskButton';

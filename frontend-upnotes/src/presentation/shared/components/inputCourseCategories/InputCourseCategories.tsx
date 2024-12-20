@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useCategories } from '../../../../../shared/hooks/useCategories';
+import { useCategories } from '../../hooks';
 
 interface Props {
+  selectedCourseCategories?: string[],
   isFormSubmitted: boolean;
   onChange: (target: any) => void;
 }
 
-export const InputCourseCategories: React.FC<Props> = ({ isFormSubmitted, onChange }) => {
+export const InputCourseCategories: React.FC<Props> = ({ selectedCourseCategories = [], isFormSubmitted, onChange }) => {
   const { courseCategories } = useCategories();
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(selectedCourseCategories);
 
   const onSelectCategory = (category: string) => {
     if (!selectedCategories.includes(category)) {
@@ -29,20 +30,20 @@ export const InputCourseCategories: React.FC<Props> = ({ isFormSubmitted, onChan
 
   useEffect(() => {
     if ( !isFormSubmitted ) {
-      setSelectedCategories([])
+      setSelectedCategories(selectedCourseCategories)
     }
   }, [isFormSubmitted])
 
   return (
-    <div className="create-course__categories">
-      {courseCategories?.map((courseCategory) => (
+    <div className="input-course-categories">
+      {courseCategories?.map((courseCategory: string) => (
         <div
           onClick={() => onSelectCategory(courseCategory)}
           key={courseCategory}
           className={`${
             selectedCategories.includes(courseCategory) &&
-            'create-course__category--active'
-          } create-course__category`}
+            'input-course-categories__category--active'
+          } input-course-categories__category`}
         >
           {courseCategory}
         </div>

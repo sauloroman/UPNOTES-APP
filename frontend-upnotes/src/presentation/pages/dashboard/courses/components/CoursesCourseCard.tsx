@@ -1,5 +1,5 @@
 import React from 'react';
-import { FavoriteIconButton } from './buttons/FavoriteIconButton';
+import { CoursesFavoriteIcon } from './';
 import { Course } from '../../../../../domain/entities/course';
 import { dateFormatter } from '../../../../shared/utils/format-date';
 import { useNavigation } from '../../../../shared/hooks';
@@ -8,7 +8,7 @@ interface Props {
   course: Course;
 }
 
-export const CourseCard: React.FC<Props> = ({ course }) => {
+export const CoursesCourseCard: React.FC<Props> = ({ course }) => {
 
   const { onGoPage } = useNavigation()
 
@@ -17,7 +17,7 @@ export const CourseCard: React.FC<Props> = ({ course }) => {
       <div className="courses-card__content">
         <div className="courses-card__header">
           <p className="courses-card__date">{ dateFormatter.convertToLocalTime( new Date(course.createdAt).toString() ) }</p>
-          <FavoriteIconButton isFavorite={course.isFavorite} courseId={course.id} />
+          <CoursesFavoriteIcon isFavorite={course.isFavorite} courseId={course.id} />
         </div>
         <div className="flex flex-end">
           <p className="courses-card__period">{course.period.numberPeriod}</p>

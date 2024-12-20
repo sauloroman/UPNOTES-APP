@@ -1,9 +1,8 @@
 import React from 'react'
-import { usePeriods } from '../../../../../shared/hooks/usePeriods'
-import { useCourses } from '../../../../../shared/redux-hooks'
-import { usePagination } from '../../../../../shared/hooks/usePagination'
+import { usePeriods } from '../../../../shared/hooks'
+import { useCourses, usePagination } from '../../../../shared/redux-hooks'
 
-export const PeriodSelect: React.FC = () => {
+export const CoursesSelectPeriod: React.FC = () => {
   const { periods } = usePeriods()
   const { setPeriod, period: selectedPeriod } = useCourses()
   const { setCurrentPageAc } = usePagination('courses')

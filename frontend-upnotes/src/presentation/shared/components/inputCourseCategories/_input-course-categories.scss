@@ -1,0 +1,19 @@
+.input-course-categories {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+
+  &__category {
+    padding: .5rem 1rem;
+    border-radius: 100px;
+    border: 1px solid $color-success;
+    transition: all .3s ease;
+
+    &:hover, &--active {
+      cursor: pointer;
+      background-color: $color-success;
+      color: $color-white;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import React from 'react'
-import createCourse from '../../../../../assets/images/create-course.svg'
+import createCourse from '../../../../assets/images/create-course.svg'
 
-export const DefaultCoursesView: React.FC = () => {
+export const CoursesDefault: React.FC = () => {
   return (
     <div className='default-courses'>
       <div className="default-courses__container">

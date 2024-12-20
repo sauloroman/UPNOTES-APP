@@ -1,5 +1,5 @@
 import React from 'react'
-import { usePeriods } from '../../../../../shared/hooks/usePeriods'
+import { usePeriods } from '../../hooks'
 
 interface Props {
   onSelectedPeriod?: string,

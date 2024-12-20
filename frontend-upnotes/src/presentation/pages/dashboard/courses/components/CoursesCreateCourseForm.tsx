@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { InputColor } from './inputs/InputColor';
-import { InputPeriod } from './inputs/InputPeriod';
-import { InputCourseCategories } from './inputs/InputCourseCategories';
 import { useCourses, useModal } from '../../../../shared/redux-hooks';
 import { useForm } from '../../../../shared/hooks';
+import { InputColor, InputCourseCategories, InputPeriod } from '../../../../shared/components';
 
 const formData = {
   name: '',
@@ -19,7 +17,7 @@ const formValidations = {
   categories: [ (value: string[]) => value.length > 0, 'Una categoría es necesaria'],
 }
 
-export const FormCreateCourse: React.FC = () => {
+export const CoursesCreateCourseForm: React.FC = () => {
   const { onCloseModal } = useModal();
   const [isFormSubmitted, setIsFormSubmitted] = useState<boolean>(false);
   const {

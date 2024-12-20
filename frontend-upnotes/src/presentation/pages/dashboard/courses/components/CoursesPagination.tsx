@@ -1,5 +1,5 @@
 import React from 'react';
-import { usePagination } from '../../../../shared/hooks/usePagination';
+import { usePagination } from '../../../../shared/redux-hooks';
 
 export const CoursesPagination: React.FC = () => {
   const { currentPage, totalOfPages, onNextPage, onPrevPage } =

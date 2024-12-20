@@ -1,8 +1,8 @@
 import React from 'react';
-import { useModal } from '../../../../../shared/redux-hooks/useModal';
-import { ModalNames } from '../../../../../../infrastructure/store/slices/modal.slice';
+import { useModal } from '../../../../shared/redux-hooks';
+import { ModalNames } from '../../../../../infrastructure/store/slices/modal.slice';
 
-export const AddButton: React.FC = () => {
+export const CoursesCreateCourseButton: React.FC = () => {
 
   const { onOpenModal } = useModal()
   return (

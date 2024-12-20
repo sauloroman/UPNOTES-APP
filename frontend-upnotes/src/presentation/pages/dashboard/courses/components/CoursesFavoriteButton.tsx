@@ -1,8 +1,8 @@
 import React from 'react'
-import { useCourses } from '../../../../../shared/redux-hooks'
-import { usePagination } from '../../../../../shared/hooks/usePagination'
+import { useCourses } from '../../../../shared/redux-hooks'
+import { usePagination } from '../../../../shared/redux-hooks/usePagination'
 
-export const FavoriteButton: React.FC = () => {
+export const CoursesFavoriteButton: React.FC = () => {
 
   const { setFavorites, favorites } = useCourses()
   const { setCurrentPageAc } = usePagination('courses')
