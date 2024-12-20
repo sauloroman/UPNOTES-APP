@@ -8,3 +8,4 @@ export * from './CourseCreateProfessorForm';
 export * from './CourseEditCourseModal';
 export * from './CourseSelectProfessorForm';
 export * from './CourseCreateTaskButton';
+export * from './CourseConfirmDeleteModal';

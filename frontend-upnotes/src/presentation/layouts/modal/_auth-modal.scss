@@ -41,3 +41,25 @@
   }
 
 }
+
+.modal-confirm {
+
+  font-size: 1.4rem;
+  padding: 2rem;
+
+  &__header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__buttons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+}

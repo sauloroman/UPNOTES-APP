@@ -35,6 +35,11 @@ export class AxiosCourseRepository implements CourseRepository {
     );
     return data;
   }
+
+  async deleteCourse(courseId: string): Promise<MessageResponse> {
+    const { data } = await axiosInstanceProtected.delete<MessageResponse>(`/courses/${courseId}`)
+    return data
+  }
 }
 
 export const axiosCourseRepository = new AxiosCourseRepository();

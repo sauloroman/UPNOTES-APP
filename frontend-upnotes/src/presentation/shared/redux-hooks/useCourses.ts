@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../infrastructure/store/store"
 import { CreateCourse, UpdateCourse, GetCoursesByUser } from '../../../domain/entities/course';
 import { setFavoritesCourses, setFilterCourses, setPeriodCourses } from "../../../infrastructure/store/slices/user.slice"
-import { createCourseThunk, getCoursesByUserThunk, updateCourseThunk } from "../../../infrastructure/store/thunks/courses";
+import { createCourseThunk, deleteCourseThunk, getCoursesByUserThunk, updateCourseThunk } from "../../../infrastructure/store/thunks/courses";
 
 export const useCourses = () => {
 
@@ -21,6 +21,15 @@ export const useCourses = () => {
 
   const updateCourse = ( courseId: string, updateCourse: UpdateCourse ) => {
     dispatch( updateCourseThunk( courseId, updateCourse, {
+      page: 1,
+      category: filter,
+      favorites: favorites, 
+      period: period
+    }))
+  }
+
+  const deleteCourse = ( courseId: string ) => {
+    dispatch( deleteCourseThunk( courseId , {
       page: 1,
       category: filter,
       favorites: favorites, 
@@ -53,6 +62,7 @@ export const useCourses = () => {
     createCourse,
     getCoursesByUser,
     updateCourse,
+    deleteCourse, 
     setFilter,
     setPeriod,
     setFavorites

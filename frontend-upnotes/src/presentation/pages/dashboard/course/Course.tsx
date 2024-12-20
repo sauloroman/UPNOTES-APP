@@ -2,7 +2,7 @@ import React from 'react';
 import { LayoutCourse } from '../../../layouts';
 import { useCourses, useModal } from '../../../shared/redux-hooks';
 import { useNavigationPage } from '../../../shared/hooks';
-import { CourseCover, CourseCreateTaskButton, CourseEditCourseModal, CourseProfessorsModal, CoursesInfo } from './components';
+import { CourseConfirmDeleteModal, CourseCover, CourseCreateTaskButton, CourseEditCourseModal, CourseProfessorsModal, CoursesInfo } from './components';
 import { ModalNames } from '../../../../infrastructure/store/slices/modal.slice';
 
 export const Course: React.FC = () => {
@@ -57,6 +57,7 @@ export const Course: React.FC = () => {
 
       { (isOpen && name === ModalNames.professors) && <CourseProfessorsModal courseId={course?.id!} />}
       { (isOpen && name === ModalNames.editCourse) && <CourseEditCourseModal courseId={course?.id!} />}
+      { (isOpen && name === ModalNames.deleteCourse) && <CourseConfirmDeleteModal courseId={course?.id!} />}
     </LayoutCourse>
   );
 };

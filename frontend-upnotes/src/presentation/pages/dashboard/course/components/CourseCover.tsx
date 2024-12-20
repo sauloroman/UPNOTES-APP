@@ -40,7 +40,7 @@ export const CourseCover: React.FC<CourseCoverProps> = ({
           <i className="bx bx-pencil"></i>
           <p>Editar</p>
         </button>
-        <button className="btn btn--cover btn--cover-delete">
+        <button onClick={ () => onOpenModal(ModalNames.deleteCourse) } className="btn btn--cover btn--cover-delete">
           <i className="bx bx-trash"></i>
           <p>Eliminar</p>
         </button>
