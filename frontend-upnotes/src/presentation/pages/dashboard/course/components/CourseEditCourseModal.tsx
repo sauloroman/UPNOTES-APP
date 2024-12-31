@@ -9,7 +9,7 @@ const formValidations = {
   description: [ (value: string) => value.length < 200, 'Máximo 200 caracteres'],
   color: [ (value: string) => value.length > 0, 'El color es obligatorio' ],
   categories: [ (values: string[]) => values.length > 0, 'Las categorias son obligatorias'],
-  period: [ (value: string) => value.length > 0, 'El periodo es obligatorio' ]
+  period: [ (value: number) => value > 0, 'El periodo es obligatorio' ]
 }
 
 interface Props {
@@ -92,7 +92,7 @@ export const CourseEditCourseModal: React.FC<Props> = ({ courseId }) => {
 
         <div className="form__field u-margin-bottom-small">
           <label className='form__label'>Color del curso</label>
-          <InputPeriod onSelectedPeriod={period} onChange={onInputChange} />
+          <InputPeriod selectedPeriod={period} onChange={onInputChange} />
           <span className={`${ isFormSubmitted && !isFormValid && 'u-text-red'} form__span`}>{periodValid}</span>
         </div>
 

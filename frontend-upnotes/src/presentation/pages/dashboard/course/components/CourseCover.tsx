@@ -34,7 +34,7 @@ export const CourseCover: React.FC<CourseCoverProps> = ({
           <p>{name}</p>
         </div>
       </div>
-      <CourseButtonFavorite isFavorite={favorite} />
+      <CourseButtonFavorite courseId={id} isFavorite={favorite} />
       <div className="course-cover__actions">
         <button onClick={ () => onOpenModal(ModalNames.editCourse) } className="btn btn--cover btn--cover-edit">
           <i className="bx bx-pencil"></i>

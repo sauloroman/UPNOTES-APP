@@ -1,14 +1,21 @@
 import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { RoutesAuth, RoutesMain } from "./";
-import { useAuth } from "../shared/redux-hooks";
+import { useAuth, useModal } from "../shared/redux-hooks";
 import { AuthStatus } from "../../infrastructure/store/slices/auth.slice";
 
 export const RoutesApp: React.FC = () => {
   const { status, renewToken } = useAuth()
+  const { onCloseModal } = useModal()
 
   useEffect(() => {
     renewToken()
+
+    document.addEventListener('keydown', (e) => {
+      if ( e.key === 'Escape' ) {
+        onCloseModal();
+      }
+    })
   }, [])
 
   if ( status === AuthStatus.authenticated ) {

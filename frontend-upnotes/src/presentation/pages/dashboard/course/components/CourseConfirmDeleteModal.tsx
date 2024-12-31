@@ -16,6 +16,7 @@ export const CourseConfirmDeleteModal: React.FC<Props> = ({ courseId }) => {
   const onDeleteCourse = () => {
     deleteCourse( courseId )
     onGoPage('/upnotes/courses')
+    onCloseModal()
   }
 
   return (
