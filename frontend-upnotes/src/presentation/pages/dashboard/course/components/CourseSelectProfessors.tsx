@@ -11,11 +11,11 @@ export const CourseSelectProfessors: React.FC<Props> = ({
   professorOfCourse,
 }) => {
   
-   const { getProfessorsByUser, professors } = useProfessors();
+   const { getProfessorsByUserModal } = useProfessors();
    const { onOpenModal } = useModal()
   
     useEffect(() => {
-      getProfessorsByUser();
+      getProfessorsByUserModal();
     }, []);
   
     return (

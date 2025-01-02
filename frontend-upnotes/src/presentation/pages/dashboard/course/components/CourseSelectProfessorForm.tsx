@@ -1,4 +1,4 @@
-  import React, { useState } from 'react';
+  import React from 'react';
   import { CourseProfessorsLists } from './CourseProfessorsLists';
   import { useProfessors } from '../../../../shared/redux-hooks/useProfessors';
   import { useCourses, useModal } from '../../../../shared/redux-hooks';

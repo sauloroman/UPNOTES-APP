@@ -1,4 +1,4 @@
-import { CreateProfessor, ProfessorResponse, ProfessorsResponse } from "../../domain/entities/professor";
+import { CreateProfessor, GetProfessorsByUser, ProfessorResponse, ProfessorsResponse } from "../../domain/entities/professor";
 import { ProfessorsRepository } from "../../domain/repositories/professors.repository";
 import { axiosInstanceProtected } from "../http/axiosInstance";
 
@@ -9,8 +9,8 @@ export class AxiosProfessorsRepository implements ProfessorsRepository {
     return data
   }
 
-  async getProfessorsOfUser(): Promise<ProfessorsResponse> {
-    const { data } = await axiosInstanceProtected.get<ProfessorsResponse>('/professors')
+  async getProfessorsOfUser( {limit = 10000, page = 1}: GetProfessorsByUser ): Promise<ProfessorsResponse> {
+    const { data } = await axiosInstanceProtected.get<ProfessorsResponse>(`/professors?page=${page}&limit=${limit}`)
     return data
   }
 

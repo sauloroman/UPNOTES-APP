@@ -180,19 +180,12 @@ export class CourseService {
         formattedCourses.push(courseEntity);
       }
 
-      let finalCourses = this.filterCoursesByCategory(
-        formattedCourses,
-        category
-      );
-      if (period)
-        finalCourses = this.filterCoursesByPeriod(finalCourses, period);
-      if (favorites === 'true')
-        finalCourses = this.filterByFavorites(finalCourses);
+      let finalCourses = this.filterCoursesByCategory( formattedCourses, category );
+      
+      if (period) finalCourses = this.filterCoursesByPeriod(finalCourses, period);
+      if (favorites === 'true') finalCourses = this.filterByFavorites(finalCourses);
 
-      const coursesInPage = finalCourses.slice(
-        (page - 1) * limit,
-        limit * page
-      );
+      const coursesInPage = finalCourses.slice( (page - 1) * limit, limit * page );
       const maxQuantityPages = Math.ceil(finalCourses.length / limit);
 
       return {

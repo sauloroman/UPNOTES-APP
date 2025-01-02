@@ -1,0 +1,72 @@
+.professors {
+  width: 95%;
+  margin: 5rem auto;
+}
+
+.professors-table {
+  display: flex;
+  flex-direction: column;
+
+  tr {
+    display: flex;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-bottom: 0;
+    height: 5rem;
+    align-items: center;
+  }
+  
+  td {
+    width: 25%;
+    
+    &:nth-child(1) {
+      width: 15rem;
+    }
+    
+  }
+  
+  &__thead {
+  
+    background-color: $color-black;
+    color: $color-white;
+    font-weight: 300;
+    
+    tr {
+      padding: 0;
+      border: none;
+    }
+
+    th {
+      text-align: left;
+      width: 25%;
+
+      &:nth-child(1) {
+        width: 15rem;
+      }
+    }
+
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &__circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    background-color: $color-period;
+    border-radius: 50%;
+    color: $color-white;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 2rem;
+  }
+
+}

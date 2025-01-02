@@ -1,5 +1,6 @@
 import { prisma } from '../../data';
 import { CreateProfessorDto } from '../../domain/dtos/professors/create-professor.dto';
+import { PaginationDto } from '../../domain/dtos/shared/pagination.dto';
 import { ProfessorEntity } from '../../domain/entities/professor.entity';
 
 export class ProfessorService {
@@ -28,10 +29,24 @@ export class ProfessorService {
 
   }
 
-  public async getProfessorsByUser( userId: string ): Promise<{ professors: ProfessorEntity[] }> {
+  public async getProfessorsByUser( 
+    paginationDto: PaginationDto, 
+    userId: string 
+  ): Promise<any> {
+
+    const { limit, page } = paginationDto
+
     const professors = await prisma.professor.findMany({ where: { userId }})
     const professorsEntity = professors.map( ProfessorEntity.fromObject )
-    return {professors: professorsEntity}
+    const finalProfessors = professorsEntity.slice( (page - 1) * limit, limit * page )
+    const maxQuantityPages = Math.ceil( professorsEntity.length / limit )
+
+    return {
+      page: page,
+      totalPages: maxQuantityPages,
+      professorsInThisPage: finalProfessors.length,
+      professors: finalProfessors
+    }
   }
 
 

@@ -6,11 +6,16 @@ interface Pagination {
 }
 
 interface InitialState {
-  courses: Pagination
+  courses: Pagination,
+  professors: Pagination,
 }
 
 const initialState: InitialState = {
   'courses': {
+    currentPage: 1,
+    totalOfPages: 1,
+  },
+  'professors': {
     currentPage: 1,
     totalOfPages: 1,
   }

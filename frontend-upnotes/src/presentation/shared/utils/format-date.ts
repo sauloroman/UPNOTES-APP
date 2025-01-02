@@ -5,8 +5,6 @@ interface DateFormatter {
 export const dateFormatter: DateFormatter = {
 
   convertToLocalTime( UTCDate: string, timeZone: string = 'America/Mexico_City' ): string {
-    console.log(UTCDate)
-
     const date = new Date(UTCDate)
 
     const localTimeDate = new Intl.DateTimeFormat('es-MX', {

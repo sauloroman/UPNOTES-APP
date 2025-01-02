@@ -16,5 +16,13 @@ export interface ProfessorResponse {
 }
 
 export interface ProfessorsResponse {
+  page: number,
+  totalPages: number,
+  professorsInThisPage: number,
   professors: Professor[]
+}
+
+export interface GetProfessorsByUser {
+  page?: number,
+  limit?: number
 }

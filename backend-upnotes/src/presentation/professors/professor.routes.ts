@@ -11,7 +11,7 @@ export class ProfessorRoutes {
     const professorService = new ProfessorService()
     const professorController = new ProfessorController( professorService )    
 
-    router.get('/', professorController.getProfessors )
+    router.get('/', professorController.getProfessorsByUser )
     router.post('/', professorController.createProfessor )
 
     return router

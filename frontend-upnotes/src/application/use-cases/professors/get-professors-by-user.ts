@@ -1,4 +1,4 @@
-import { ProfessorsResponse } from '../../../domain/entities/professor';
+import { GetProfessorsByUser, ProfessorsResponse } from '../../../domain/entities/professor';
 import { ProfessorsRepository } from '../../../domain/repositories/professors.repository';
 
 interface Options {
@@ -13,8 +13,8 @@ export class GetProfessorsByUserUseCase {
     this.professorsRepository = professorsRepository
   }
 
-  public async apply(): Promise<ProfessorsResponse> {
-    const professors = await this.professorsRepository.getProfessorsOfUser()
+  public async apply( getProfessorByUser: GetProfessorsByUser ): Promise<ProfessorsResponse> {
+    const professors = await this.professorsRepository.getProfessorsOfUser( getProfessorByUser )
     return professors
   }
 

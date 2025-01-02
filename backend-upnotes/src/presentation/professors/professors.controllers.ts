@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { CustomError } from '../../domain/errors/custom.error';
 import { ProfessorService } from './professors.services';
 import { CreateProfessorDto } from '../../domain/dtos/professors/create-professor.dto';
+import { PaginationDto } from '../../domain/dtos/shared/pagination.dto';
 
 export class ProfessorController {
   constructor(private readonly professorService: ProfessorService) {}
@@ -30,11 +31,19 @@ export class ProfessorController {
 
   }
 
-  public getProfessors = ( req: Request, res: Response ): any => {
+  public getProfessorsByUser = ( req: Request, res: Response ): any => {
 
+    const { page = 1, limit = 10 } = req.query
     const { user } = req.body
 
-    this.professorService.getProfessorsByUser( user.id )
+    console.log(page, limit)
+    const [ paginationDto, errorMessage ] = PaginationDto.create( +page, +limit )
+
+    if ( errorMessage ) {
+      return res.status(400).json({ error: errorMessage })
+    }
+
+    this.professorService.getProfessorsByUser( paginationDto!, user.id )
       .then( data => res.status(200).json( data ) )
       .catch( err => this.handleErrorResponse( err, res ) )
 

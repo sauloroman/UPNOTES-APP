@@ -8,7 +8,7 @@ import { setIsLoading } from '../../slices/loading.slice';
 import { setProfessors } from '../../slices/user.slice';
 import { AppThunk } from '../../store';
 
-export const createProfessorThunk = (
+export const createProfessorInModalThunk = (
   createProfessor: CreateProfessor
 ): AppThunk => {
   return async (dispatch) => {
@@ -28,7 +28,7 @@ export const createProfessorThunk = (
 
       const { professors } = await new GetProfessorsByUserUseCase({
         professorsRepository: axiosProfessorsRepository,
-      }).apply();
+      }).apply({});
 
       dispatch(setProfessors(professors));
 

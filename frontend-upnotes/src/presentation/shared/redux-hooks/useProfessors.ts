@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { CreateProfessor } from "../../../domain/entities/professor"
-import { createProfessorThunk, getProfessorByUserThunk } from "../../../infrastructure/store/thunks/professor"
+import { createProfessorInModalThunk, getProfessorsByUserModalThunk, getProfessorsByUserPageThunk } from "../../../infrastructure/store/thunks/professor"
 import { RootState } from "../../../infrastructure/store/store"
 
 export const useProfessors = () => {
@@ -10,18 +10,23 @@ export const useProfessors = () => {
   const { professors: {professors} } = useSelector( (state: RootState) => state.user )
 
   const createProfessor = ( createProfessor: CreateProfessor ) => {
-    dispatch( createProfessorThunk(createProfessor) )
+    dispatch( createProfessorInModalThunk(createProfessor) )
   }
 
-  const getProfessorsByUser = () => {
-    dispatch( getProfessorByUserThunk() )
+  const getProfessorsByUserModal = () => {
+    dispatch( getProfessorsByUserModalThunk() )
+  }
+
+  const getProfessorsByUserPage = ( page: number ) => {
+    dispatch( getProfessorsByUserPageThunk( page ) )
   }
 
   return {
     professors, 
 
     createProfessor,
-    getProfessorsByUser
+    getProfessorsByUserModal,
+    getProfessorsByUserPage,
   }
 
 }
