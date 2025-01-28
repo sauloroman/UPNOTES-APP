@@ -35,7 +35,7 @@ export class AxiosAuthRepository implements AuthRepository  {
   }
 
   async forgotPassword(forgotPassword: ForgotPassword): Promise<MessageResponse> {
-    const { data } = await axiosInstance.post<MessageResponse>('auth/forgot-password', forgotPassword )
+    const { data } = await axiosInstance.post<MessageResponse>('/auth/forgot-password', forgotPassword )
     return data
   }
 

@@ -10,7 +10,7 @@
     flex-direction: column;
     color: $color-black;
   }
-
+  
   &__field--password {
     display: flex;
     align-items: center;
@@ -20,11 +20,11 @@
     padding-right: 1rem;
     border-radius: 5px;
   }
-
+  
   &__label {
     margin-bottom: 1rem;
     font-weight: 700;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 
   &__input {
@@ -34,7 +34,7 @@
     width: 100%;
     border: 1px solid $color-gray;
     padding: 1rem;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 
   &__input:focus, &__textarea:focus {

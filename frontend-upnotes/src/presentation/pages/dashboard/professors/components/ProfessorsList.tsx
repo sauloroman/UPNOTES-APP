@@ -9,11 +9,11 @@ export const ProfessorsList: React.FC = () => {
     <table className='professors-table'>
       <thead className='professors-table__thead'>
         <tr>
-          <th>Id</th>
-          <th>Nombre del Profesor</th>
-          <th>Email</th>
-          <th>Teléfono</th>
-          <th>Acciones</th>
+          <th><i className='bx bx-hash icon' ></i> Id</th>
+          <th><i className='bx bx-rename icon' ></i>Nombre del Profesor</th>
+          <th><i className='bx bx-envelope icon' ></i>Email</th>
+          <th><i className='bx bx-phone icon' ></i>Teléfono</th>
+          <th><i className='bx bx-hard-hat icon' ></i>Acciones</th>
         </tr>
       </thead>
       <tbody className="professors-table__tbody">

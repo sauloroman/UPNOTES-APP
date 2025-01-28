@@ -8,12 +8,10 @@ import { useModal } from '../../shared/redux-hooks/useModal';
 
 interface MainLayoutProps {
   children: React.ReactNode;
-  titleView: string;
 }
 
 export const MainLayout: React.FC<MainLayoutProps> = ({
   children,
-  titleView,
 }) => {
   const { isMenuAsideShown } = useMenu();
   const { isAlertShown } = useAlert();
@@ -44,8 +42,6 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             }`}
           >
             <Location />
-            
-            <h1 className="main-layout-title">{titleView}</h1>
             {children}
           </div>
         </div>

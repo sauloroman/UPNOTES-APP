@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export enum ModalNames {
   createCourse,
   deleteCourse,
-  professors,
+  createProfessor,
   createTask,
   editCourse,
 }

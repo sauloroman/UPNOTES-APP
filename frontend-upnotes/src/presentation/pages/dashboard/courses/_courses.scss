@@ -35,7 +35,7 @@
 }
 
 .courses-grid {
-  @include grid( 4, 3rem );
+  @include grid( 3, 3rem );
   margin-bottom: 5rem;
 }
 
@@ -56,7 +56,7 @@
 
   &__content {
     padding: 2rem;
-    height: 35rem;
+    height: 32rem;
     border-radius: inherit;
     display: flex;
     flex-direction: column;

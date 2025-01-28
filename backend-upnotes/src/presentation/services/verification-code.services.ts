@@ -48,11 +48,24 @@ export class VerificationCodeService {
   }
 
   public async isValidationCodeActive( verificationCode: any ): Promise<boolean> {
+
     const currentDate = this.dateFormatter.convertToLocalTime( new Date().toString() )
-    const currentTime = new Date( currentDate ).getTime()
+
+    const [ dateCurrentDate, hourCurrentDate ] = currentDate.split(',')
+    const [ dayCD, monthCD, yearCD ] = dateCurrentDate.split('/')
+    const [ hourTimeCD ] = hourCurrentDate.trim().split(' ')
+
+    const currentTime = new Date(`${monthCD}/${dayCD}/${yearCD}, ${hourTimeCD}`).getTime()
 
     const localExpireDate = this.dateFormatter.convertToLocalTime( `${verificationCode.expiresAt}` )
-    const localExpireTime = new Date( localExpireDate ).getTime()
+
+    const [ date, hour ] = localExpireDate.split(',')
+    const [ day, month, year ] = date.split('/')
+    const [ hourTime ] = hour.trim().split(' ')
+
+    const localExpireTime = new Date(`${month}/${day}/${year}, ${hourTime}`).getTime()
+
+    console.log({ localExpireTime, currentTime })
 
     return localExpireTime > currentTime
   }

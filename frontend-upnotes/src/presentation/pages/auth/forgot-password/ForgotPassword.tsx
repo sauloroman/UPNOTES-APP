@@ -17,7 +17,6 @@ export const ForgotPassword: React.FC = () => {
   );
   const [isFormSubmitted, setIsFormSubmitted] = useState(false)
   const { forgotPassword } = useAuth()
-  const { onGoPage } = useNavigation()
 
   const onChangePassword = ( e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()

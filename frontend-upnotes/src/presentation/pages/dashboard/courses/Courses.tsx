@@ -35,7 +35,7 @@ export const Courses: React.FC = () => {
   }, [filter, period, favorites, currentPage]);
 
   return (
-    <MainLayout titleView="Materias">
+    <MainLayout>
       <main className="courses">
         {isLoading ? (
           <div className="flex flex-center h-full">

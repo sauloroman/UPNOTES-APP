@@ -10,7 +10,12 @@
   }
 
   &__slider-card {
-    padding: 10rem 2rem;
+    padding: 1rem 2rem;
+    height: 100%;
+  }
+
+  &__top {
+    width: 85%;
   }
 
   &__slider-img {
@@ -18,7 +23,7 @@
   }
 
   &__container {
-    @include grid(2, 0);
+    @include grid(2, 5rem);
 
     @include responsive("phone") {
       @include grid(1, 2rem );
@@ -30,12 +35,14 @@
   }
 
   &__logo {
-    height: 8rem;
+    height: 7rem;
   }
 
   &__content {
-    padding: 5rem 12rem;
-    height: 100vh;
+    padding: 5rem 0;
+    padding-bottom: 8rem    ;
+    width: 85%;
+    margin: 0 auto;
   }
 
 }
