@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGREDB_URL")
+}
+
+enum GenderUser {
+  M
+  F
+}
+
+model User {
+  id String @id @default( uuid() )
+  name String 
+  email String @unique
+  password String 
+  gender GenderUser
+  createdAt DateTime @default( now() )
+  isAccountVerified Boolean? @default(false)
+  isActive Boolean? @default(true)
+  profile Profile?
+  verificationCodes VerificacionCode[]
+  courses Course[]
+  professors Professor[]
+}
+
+model VerificacionCode {
+  id String @id @default( uuid() )
+  code String
+  expiresAt DateTime
+  createdAt DateTime @default( now() )
+  user User @relation(fields: [userId], references: [id])
+  userId String
+}
+
+model Profile {
+  id String @id @default( uuid() )
+  bio String?
+  image String?
+  phone String?
+  address String?
+  profession String?
+  user User @relation( fields: [userId], references: [id])
+  userId String @unique
+}
+
+model Professor {
+  id String @id @default( uuid() )
+  name String
+  email String? @unique
+  phone String?
+  courses Course[]
+  user User @relation( fields: [userId], references: [id])
+  userId String
+}
+
+model Period {
+  id String @id @default( uuid() )
+  numberPeriod Int
+  courses Course[]
+}
+
+model Course {
+  id String @id @default( uuid() )
+  name String 
+  color String
+  isFavorite Boolean @default( false )
+  createdAt DateTime @default( now() )
+  image String?
+  description String?
+  categories CategoriesOnCourses[]
+
+  user User @relation(fields: [userId], references: [id])
+  userId String
+
+  professor Professor? @relation(fields: [professorId], references: [id])
+  professorId String?
+
+  period Period @relation(fields: [periodId], references: [id])
+  periodId String
+}
+
+model CourseCategory {
+  id String @id @default( uuid() )
+  name String
+  courses CategoriesOnCourses[]
+}
+
+model CategoriesOnCourses {
+  id String @id @default( uuid() )
+  course Course @relation(fields: [courseId], references: [id])
+  courseId String
+  courseCategory CourseCategory @relation(fields: [courseCategoryId], references: [id])
+  courseCategoryId String
+}
