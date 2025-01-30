@@ -1,9 +1,12 @@
 import React from 'react'
 import { useProfessors } from '../../../../shared/redux-hooks/useProfessors'
+import { useModal } from '../../../../shared/redux-hooks'
+import { ModalNames } from '../../../../../infrastructure/store/slices/modal.slice'
 
 export const ProfessorsList: React.FC = () => {
 
   const { professors } = useProfessors()
+  const { onOpenModal } = useModal()
 
   return (
     <table className='professors-table'>
@@ -23,12 +26,12 @@ export const ProfessorsList: React.FC = () => {
               <td>{professor.id.split('-')[0]}</td>
               <td className='professors-table__name'>
                 <span className="professors-table__circle">{professor.name[0]}</span>
-                {professor.name}
+                <p>{professor.name}</p>
               </td>
               <td>{professor.email || 'No asignado'}</td>
               <td>{professor.phone || 'No asignado'}</td>
               <td className='professors-table__buttons'>
-                <button className='btn btn--table'>Editar</button>
+                <button onClick={ () => onOpenModal( ModalNames.updateProfessor ) } className='btn btn--table'>Editar</button>
                 <button className='btn btn--table'>Eliminar</button>
               </td>
             </tr>

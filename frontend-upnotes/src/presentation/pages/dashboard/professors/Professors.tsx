@@ -8,7 +8,8 @@ import { ModalNames } from '../../../../infrastructure/store/slices/modal.slice'
 import { 
   ProfessorsList, 
   ProfessorsCreateProfessorButton, 
-  ProfessorsCreateProfessorModal 
+  ProfessorsCreateProfessorModal,
+  ProfessorsUpdateProfessorModal
 } from './components'
 
 export const Professors: React.FC = () => {
@@ -28,6 +29,7 @@ export const Professors: React.FC = () => {
         <ProfessorsList />
 
         { isOpen && name === ModalNames.createProfessor && <ProfessorsCreateProfessorModal />}
+        { isOpen && name === ModalNames.updateProfessor && <ProfessorsUpdateProfessorModal />}
       </div>
     </MainLayout>
   )

@@ -27,6 +27,15 @@
     @include buttonOutline( $color-white, $color-green );
   }
 
+  &--table {
+    padding: .4rem;
+    border: 1px solid #ddd;
+    width: 10rem;
+    line-height: 1;
+    font-size: 1.4rem;
+    @include buttonOutline( $color-black, $color-white );
+  }
+
   &--filter {
     display: flex;
     justify-content: center;

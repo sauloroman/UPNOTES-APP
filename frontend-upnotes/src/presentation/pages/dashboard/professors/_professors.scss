@@ -23,16 +23,24 @@
     display: flex;
     width: 100%;
     border: 1px solid #ddd;
-    border-bottom: 0;
     height: 4.5rem;
     align-items: center;
+    
+    &:not(:last-child) {
+      border-bottom: 0;
+    }
+
+    &:nth-child(even) {
+      background-color: $color-green-light;
+    }
   }
   
   td {
     width: 25%;
+    text-align: center;
     
     &:nth-child(1) {
-      width: 15rem;
+      width: 16rem;
     }
     
   }
@@ -69,7 +77,13 @@
   &__name {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    justify-content: center;
+    gap: 1rem;
+
+    p {
+      width: 85%;
+      @include textToLines(1);
+    }
   }
 
   &__circle {
@@ -85,6 +99,7 @@
 
   &__buttons {
     display: flex;
+    justify-content: center;
     gap: 2rem;
   }
 
