@@ -14,7 +14,7 @@ import {
 
 export const Professors: React.FC = () => {
 
-  const { getProfessorsByUserPage } = useProfessors()
+  const { getProfessorsByUserPage, professorIdToEditInModal } = useProfessors()
   const { currentPage } = usePagination('professors')
   const { name, isOpen } = useModal()
 
@@ -29,7 +29,7 @@ export const Professors: React.FC = () => {
         <ProfessorsList />
 
         { isOpen && name === ModalNames.createProfessor && <ProfessorsCreateProfessorModal />}
-        { isOpen && name === ModalNames.updateProfessor && <ProfessorsUpdateProfessorModal />}
+        { isOpen && name === ModalNames.updateProfessor && <ProfessorsUpdateProfessorModal professorId={professorIdToEditInModal} />}
       </div>
     </MainLayout>
   )

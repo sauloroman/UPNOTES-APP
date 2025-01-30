@@ -55,7 +55,7 @@ export const Course: React.FC = () => {
 
       </div>
 
-      { (isOpen && name === ModalNames.professors) && <CourseProfessorsModal courseId={course?.id!} />}
+      { (isOpen && name === ModalNames.createProfessor) && <CourseProfessorsModal courseId={course?.id!} />}
       { (isOpen && name === ModalNames.editCourse) && <CourseEditCourseModal courseId={course?.id!} />}
       { (isOpen && name === ModalNames.deleteCourse) && <CourseConfirmDeleteModal courseId={course?.id!} />}
       { (isOpen && name === ModalNames.createTask) && <CourseCreateTaskModal courseId={course?.id!} />}

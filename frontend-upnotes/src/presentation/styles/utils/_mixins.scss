@@ -4,15 +4,28 @@
   gap: $gap;
 }
 
-@mixin buttonOutline( $color, $bgColor ) {
-  background-color: $color;
-    color: $bgColor;
+@mixin buttonOutline( $color, $bgColor, $reversed: "false"  ) {
 
+  @if $reversed == "true" {
+    border-color: $color;
+    color: $color;
+    background-color: $bgColor;
+  
+    &:hover {
+      background-color: $color;
+      color: $bgColor;
+    }
+  } @else {
+    background-color: $color;
+    color: $bgColor;
+  
     &:hover {
       border-color: $color;
       color: $color;
       background-color: $bgColor;
     }
+  }
+
 }
 
 @mixin textToLines( $quantity-of-lines ) {

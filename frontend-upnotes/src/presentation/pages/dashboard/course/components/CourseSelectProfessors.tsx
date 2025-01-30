@@ -29,7 +29,7 @@ export const CourseSelectProfessors: React.FC<Props> = ({
             </div>
           )
           : (
-            <button onClick={() => onOpenModal(ModalNames.professors)} className='btn btn--professor'>Asignar profesor</button>
+            <button onClick={() => onOpenModal(ModalNames.createProfessor)} className='btn btn--professor'>Asignar profesor</button>
           )
         }
       </div>

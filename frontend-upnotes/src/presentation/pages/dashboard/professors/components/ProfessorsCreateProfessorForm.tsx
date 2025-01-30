@@ -7,6 +7,8 @@ import {
 import { useForm } from "../../../../shared/hooks";
 import { Loader } from "../../../../shared/components";
 
+const emailRegExp: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 const formValidations = {
   name: [
     (value: string) => value.trim().length > 1,
@@ -15,8 +17,8 @@ const formValidations = {
 };
 
 export const ProfessorsCreateProfessorForm: React.FC = () => {
-  const { name, nameValid, isFormValid, onInputChange } = useForm(
-    { name: "" },
+  const { name, email,phone, formState, nameValid, isFormValid, onInputChange } = useForm(
+    { name: "", email: "", phone: "" },
     formValidations as any
   );
 
@@ -31,14 +33,14 @@ export const ProfessorsCreateProfessorForm: React.FC = () => {
 
     if (!isFormValid) return;
 
-    createProfessor({ name });
+    createProfessor(formState);
     onCloseModal();
     setIsFormSubmitted(false);
   };
 
   return (
     <form onSubmit={onCreateProfessor} className="form professors-create-modal">
-      <div className="form__field u-margin-bottom-medium">
+      <div className="form__field u-margin-bottom-small">
         <label htmlFor="professor-name" className="form__label">
           Nombre del profesor:
         </label>
@@ -58,6 +60,34 @@ export const ProfessorsCreateProfessorForm: React.FC = () => {
         >
           {nameValid}
         </span>
+      </div>
+      <div className="form__field u-margin-bottom-medium">
+        <label htmlFor="professor-email" className="form__label">
+          Email del profesor:
+        </label>
+        <input
+          name="email"
+          value={email}
+          onChange={onInputChange}
+          id="professor-email"
+          placeholder="Ingrese el nombre del profesor"
+          type="email"
+          className="form__input"
+        />
+      </div>
+      <div className="form__field u-margin-bottom-medium">
+        <label htmlFor="professor-phone" className="form__label">
+          Teléfono del profesor:
+        </label>
+        <input
+          name="phone"
+          value={phone}
+          onChange={onInputChange}
+          id="professor-phone"
+          placeholder="Ingrese el teléfono del profesor"
+          type="tel"
+          className="form__input"
+        />
       </div>
       {isLoading ? (
         <Loader />

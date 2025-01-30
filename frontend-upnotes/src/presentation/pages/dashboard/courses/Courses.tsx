@@ -55,20 +55,21 @@ export const Courses: React.FC = () => {
             </header>
 
             <div className="courses-container">
-              <CoursesFilterButtons />
               {courses.length > 0 ? (
-                <CoursesList courses={courses} />
+                <div>
+                  <h2 className="courses-title">Tus Cursos Creados</h2>
+                  <CoursesList courses={courses} />
+                  <CoursesPagination />
+                </div>
               ) : (
                 <CoursesDefault />
               )}
-              <CoursesPagination />
+              <CoursesFilterButtons />
             </div>
           </>
         )}
       </main>
-      {isOpen && name === ModalNames.createCourse && (
-        <CoursesCreateCourseModal />
-      )}
+      {isOpen && name === ModalNames.createCourse && (<CoursesCreateCourseModal />)}
     </MainLayout>
   );
 };

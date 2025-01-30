@@ -5,8 +5,13 @@ import { ModalNames } from '../../../../../infrastructure/store/slices/modal.sli
 
 export const ProfessorsList: React.FC = () => {
 
-  const { professors } = useProfessors()
+  const { professors, selectProfessorToEdit } = useProfessors()
   const { onOpenModal } = useModal()
+
+  const onSelectProfessorToEditInModal = ( professorId: string ) => {
+    onOpenModal( ModalNames.updateProfessor )
+    selectProfessorToEdit( professorId )
+  }
 
   return (
     <table className='professors-table'>
@@ -31,8 +36,8 @@ export const ProfessorsList: React.FC = () => {
               <td>{professor.email || 'No asignado'}</td>
               <td>{professor.phone || 'No asignado'}</td>
               <td className='professors-table__buttons'>
-                <button onClick={ () => onOpenModal( ModalNames.updateProfessor ) } className='btn btn--table'>Editar</button>
-                <button className='btn btn--table'>Eliminar</button>
+                <button onClick={() => onSelectProfessorToEditInModal(professor.id)} className='btn btn--table btn--table-edit'>Editar</button>
+                <button className='btn btn--table  btn--table-delete'>Eliminar</button>
               </td>
             </tr>
           ))

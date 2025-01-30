@@ -10,7 +10,8 @@ interface Courses {
 }
 
 interface Professors {
-  professors: Professor[]
+  professors: Professor[];
+  professorIdToEditInModal: string,
 }
 
 interface InitialState {
@@ -26,7 +27,8 @@ const initialState: InitialState = {
     favorites: undefined,
   },
   professors: {
-    professors: []
+    professors: [],
+    professorIdToEditInModal: ''
   }
 };
 
@@ -52,6 +54,10 @@ export const userSlice = createSlice({
 
     setProfessors( state, { payload }: PayloadAction<Professor[]>) {
       state.professors.professors = payload
+    },
+
+    setProfessorIdToEditInModal( state, {payload}: PayloadAction<string>) {
+      state.professors.professorIdToEditInModal = payload
     }
   },
 });
@@ -62,4 +68,5 @@ export const {
   setFilterCourses,
   setCourses,
   setProfessors,
+  setProfessorIdToEditInModal
 } = userSlice.actions;

@@ -2,13 +2,23 @@ import { prisma } from '../../data';
 import { CreateProfessorDto } from '../../domain/dtos/professors/create-professor.dto';
 import { PaginationDto } from '../../domain/dtos/shared/pagination.dto';
 import { ProfessorEntity } from '../../domain/entities/professor.entity';
+import { CustomError } from '../../domain/errors/custom.error';
 
 export class ProfessorService {
+
+  private async isProfessorInDataBase( professorName: string, userId: string ) {
+    const professor = await prisma.professor.findFirst({ where: { userId, name: professorName } })
+    if ( !professor ) return false
+    return true
+  }
 
   public async postProfessor( createProfessorDto: CreateProfessorDto, userId: string ): Promise<{professor: ProfessorEntity} | null> {
     const { name, email, phone } = createProfessorDto
 
     try {
+
+      if ( await this.isProfessorInDataBase(name, userId) ) 
+        throw CustomError.badRequest(`El profesor ${name} ya existe`)
       
       const professorCreated = await prisma.professor.create({
         data: {
@@ -24,7 +34,7 @@ export class ProfessorService {
       return { professor: professorEntity }
 
     } catch (error) {
-      return null
+      throw error
     }
 
   }
