@@ -73,6 +73,7 @@ export const CoursesFilterButtons: React.FC = () => {
 
   return (
     <div className="courses-filter">
+      <p className='courses-filter__title'>Filtros de busqueda</p>
       <button
         onClick={() => onChangeFilter('Todos')}
         className={`btn btn--filter ${

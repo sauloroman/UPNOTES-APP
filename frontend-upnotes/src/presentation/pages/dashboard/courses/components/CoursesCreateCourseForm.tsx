@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useCourses, useModal } from '../../../../shared/redux-hooks';
+import { useCourses, useModal, usePagination } from '../../../../shared/redux-hooks';
 import { useForm } from '../../../../shared/hooks';
 import { InputColor, InputCourseCategories, InputPeriod } from '../../../../shared/components';
 
@@ -33,6 +33,7 @@ export const CoursesCreateCourseForm: React.FC = () => {
     onResetForm,
   } = useForm(formData, formValidations as any);
   const { createCourse } = useCourses()
+  const { setCurrentPageAc } = usePagination("courses")
 
   const onCreateCourse = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,6 +42,7 @@ export const CoursesCreateCourseForm: React.FC = () => {
     if ( !isFormValid ) return 
 
     createCourse({ ...formState, period: Number(formState.period)})
+    setCurrentPageAc(1)
     setIsFormSubmitted( false )
     onCloseModal()
     onResetForm()

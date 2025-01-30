@@ -20,7 +20,7 @@ export class AxiosCourseRepository implements CourseRepository {
 
   async getCoursesByUser( { page, category, favorites, period}: GetCoursesByUser ): Promise<CoursesResponse> {
     const { data } = await axiosInstanceProtected.get<CoursesResponse>(
-      `/courses?page=${page}&limit=8&category=${category}&period=${period}&favorites=${favorites}`
+      `/courses?page=${page}&limit=6&category=${category}&period=${period}&favorites=${favorites}`
     );
     return data;
   }
