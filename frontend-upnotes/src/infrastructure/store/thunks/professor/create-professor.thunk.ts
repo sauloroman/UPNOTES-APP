@@ -38,6 +38,7 @@ export const createProfessorInModalThunk = (
     } catch (error) {
       console.log(error);
       const errorMessage = axiosError( error )
+      
       alert.title = 'No se pudo crear el profesor';
       alert.description = errorMessage;
       alert.type = AlertType.error  

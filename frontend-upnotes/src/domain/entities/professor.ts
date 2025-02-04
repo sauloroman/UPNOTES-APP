@@ -4,6 +4,10 @@ export interface CreateProfessor {
   phone?: string;
 }
 
+export interface DeleteProfessorByUser {
+  id: string,
+}
+
 export interface Professor {
   id: string;
   name: string;

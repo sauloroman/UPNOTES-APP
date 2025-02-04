@@ -36,7 +36,6 @@ export class ProfessorController {
     const { page = 1, limit = 10 } = req.query
     const { user } = req.body
 
-    console.log(page, limit)
     const [ paginationDto, errorMessage ] = PaginationDto.create( +page, +limit )
 
     if ( errorMessage ) {
@@ -44,6 +43,17 @@ export class ProfessorController {
     }
 
     this.professorService.getProfessorsByUser( paginationDto!, user.id )
+      .then( data => res.status(200).json( data ) )
+      .catch( err => this.handleErrorResponse( err, res ) )
+
+  }
+
+  public deleteProfessor = ( req: Request, res: Response ): any => {
+
+    const { id } = req.params
+    const { user } = req.body
+
+    this.professorService.deleteProfessorByUser( id, user.id )
       .then( data => res.status(200).json( data ) )
       .catch( err => this.handleErrorResponse( err, res ) )
 

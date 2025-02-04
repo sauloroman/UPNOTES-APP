@@ -13,6 +13,7 @@ export class ProfessorRoutes {
 
     router.get('/', professorController.getProfessorsByUser )
     router.post('/', professorController.createProfessor )
+    router.delete('/:id', professorController.deleteProfessor )
 
     return router
 

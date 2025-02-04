@@ -1,9 +1,9 @@
+import { MessageResponse } from "../entities";
 import { 
   AccountResponse, 
   ChangePassword, 
   ForgotPassword, 
   LoginAccount, 
-  MessageResponse, 
   NewVerificationCode, 
   RegisterAccount, 
   TokenResponse, 

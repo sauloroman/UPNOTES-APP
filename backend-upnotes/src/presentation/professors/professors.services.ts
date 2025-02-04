@@ -59,5 +59,23 @@ export class ProfessorService {
     }
   }
 
+  public async deleteProfessorByUser( professorID: string, userId: string ) {
+
+    try {
+      
+      const professorDeleted = await prisma.professor.delete({ where: { id: professorID }})
+
+      if ( !professorDeleted ) 
+        throw CustomError.notFound('El profesor no existe')
+
+      return {
+        msg: 'El profesor ha sido eliminado exitosamente'
+      }
+
+    } catch (error) {
+      throw error
+    }
+
+  }
 
 }

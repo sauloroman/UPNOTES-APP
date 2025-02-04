@@ -5,6 +5,7 @@ export enum ModalNames {
   deleteCourse,
   createProfessor,
   updateProfessor,
+  deleteProfessor,
   createTask,
   editCourse,
 }

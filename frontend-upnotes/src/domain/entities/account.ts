@@ -48,10 +48,6 @@ export interface AccountResponse {
   token: string;
 }
 
-export interface MessageResponse {
-  msg: string;
-}
-
 export interface TokenResponse {
   token: string;
   user: Account;
