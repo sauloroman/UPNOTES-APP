@@ -1,4 +1,5 @@
 import { prisma } from '../../data';
+import { UpdateProfessorDto } from '../../domain/dtos';
 import { CreateProfessorDto } from '../../domain/dtos/professors/create-professor.dto';
 import { PaginationDto } from '../../domain/dtos/shared/pagination.dto';
 import { ProfessorEntity } from '../../domain/entities/professor.entity';
@@ -59,7 +60,7 @@ export class ProfessorService {
     }
   }
 
-  public async deleteProfessorByUser( professorID: string, userId: string ) {
+  public async deleteProfessorByUser( professorID: string ) {
 
     try {
       
@@ -70,6 +71,28 @@ export class ProfessorService {
 
       return {
         msg: 'El profesor ha sido eliminado exitosamente'
+      }
+
+    } catch (error) {
+      throw error
+    }
+
+  }
+
+  public async updateProfessorById( professorID: string, updateProfessorDto: UpdateProfessorDto ) {
+
+    try {
+      
+      const updatedProfessor = await prisma.professor.update({ 
+        where: { id: professorID} ,
+        data: { ...updateProfessorDto } 
+      })
+
+      if ( !updateProfessorDto ) 
+        throw CustomError.notFound('El profesor no existe')
+
+      return {
+        msg: `El profesor ${updatedProfessor.name} ha sido actualizado`
       }
 
     } catch (error) {

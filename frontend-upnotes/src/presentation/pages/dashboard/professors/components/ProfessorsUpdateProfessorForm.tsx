@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from '../../../../shared/hooks';
 import { Professor } from '../../../../../domain/entities/professor';
-import { useModal } from '../../../../shared/redux-hooks';
+import { useModal, useProfessors } from '../../../../shared/redux-hooks';
 
 interface Props {
   professor: Professor,
@@ -26,6 +26,8 @@ export const ProfessorsUpdateProfessorForm: React.FC<Props> = ({ professor }) =>
 
   const { onCloseModal } = useModal()
 
+  const { updateProfessorOfUser } = useProfessors()
+
   const { formState, name, nameValid, email, emailValid, phone, phoneValid, isFormValid, onInputChange, onResetForm } = useForm({
     name: professor.name,
     email: professor.email || '',
@@ -38,8 +40,9 @@ export const ProfessorsUpdateProfessorForm: React.FC<Props> = ({ professor }) =>
 
     if ( !isFormValid ) return 
 
-    
+    updateProfessorOfUser( professor.id, formState )
     setIsFormSubmitted( false )
+    onCloseModal()
     onResetForm()
   }
 

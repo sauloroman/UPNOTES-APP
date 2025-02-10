@@ -15,13 +15,14 @@ export class AxiosProfessorsRepository implements ProfessorsRepository {
     return data
   }
 
-  async deleteProfessorOfUser({ id }: DeleteProfessorByUser): Promise<MessageResponse> {
-    const { data } = await axiosInstanceProtected.delete<MessageResponse>(`/professors/${id}`)
+  async deleteProfessorOfUser( professorId: string ): Promise<MessageResponse> {
+    const { data } = await axiosInstanceProtected.delete<MessageResponse>(`/professors/${professorId}`)
     return data
   } 
 
-  async updateProfessorOfUser(updateProfessorByUser: UpdateProfessorOfUser): Promise<MessageResponse> {
-    const {} = await axiosInstanceProtected.put('')
+  async updateProfessorOfUser(professorId: string, updateProfessorByUser: UpdateProfessorOfUser): Promise<MessageResponse> {
+    const { data } = await axiosInstanceProtected.put(`/professors/${professorId}`, updateProfessorByUser)
+    return data
   }
 
 }

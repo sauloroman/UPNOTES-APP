@@ -1,7 +1,6 @@
 import { MessageResponse } from "../entities";
 import { 
   CreateProfessor, 
-  DeleteProfessorByUser, 
   GetProfessorsByUser, 
   ProfessorResponse, 
   ProfessorsResponse, 
@@ -12,7 +11,7 @@ export abstract class ProfessorsRepository {
 
   abstract createProfessor( createProfessor: CreateProfessor ): Promise<ProfessorResponse>
   abstract getProfessorsOfUser( getProfessorsByUser: GetProfessorsByUser ): Promise<ProfessorsResponse>
-  abstract deleteProfessorOfUser ( deleteProfessorByUser: DeleteProfessorByUser ): Promise<MessageResponse>
-  abstract updateProfessorOfUser( updateProfessorByUser: UpdateProfessorOfUser ): Promise<MessageResponse>
+  abstract deleteProfessorOfUser ( professorId: string ): Promise<MessageResponse>
+  abstract updateProfessorOfUser( professorId: string, updateProfessorByUser: UpdateProfessorOfUser ): Promise<MessageResponse>
 
 }
