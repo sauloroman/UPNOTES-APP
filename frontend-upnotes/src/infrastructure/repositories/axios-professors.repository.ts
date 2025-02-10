@@ -1,5 +1,5 @@
 import { MessageResponse } from "../../domain/entities";
-import { CreateProfessor, DeleteProfessorByUser, GetProfessorsByUser, ProfessorResponse, ProfessorsResponse } from "../../domain/entities/professor";
+import { CreateProfessor, DeleteProfessorByUser, GetProfessorsByUser, ProfessorResponse, ProfessorsResponse, UpdateProfessorOfUser } from "../../domain/entities/professor";
 import { ProfessorsRepository } from "../../domain/repositories/professors.repository";
 import { axiosInstanceProtected } from "../http/axiosInstance";
 
@@ -18,6 +18,10 @@ export class AxiosProfessorsRepository implements ProfessorsRepository {
   async deleteProfessorOfUser({ id }: DeleteProfessorByUser): Promise<MessageResponse> {
     const { data } = await axiosInstanceProtected.delete<MessageResponse>(`/professors/${id}`)
     return data
+  } 
+
+  async updateProfessorOfUser(updateProfessorByUser: UpdateProfessorOfUser): Promise<MessageResponse> {
+    const {} = await axiosInstanceProtected.put('')
   }
 
 }

@@ -30,3 +30,9 @@ export interface GetProfessorsByUser {
   page?: number,
   limit?: number
 }
+
+export interface UpdateProfessorOfUser {
+  name?: string,
+  email?: string,
+  phone?: string,
+}

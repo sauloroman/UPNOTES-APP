@@ -35,6 +35,7 @@ export const createProfessorInModalThunk = (
 
       alert.title = 'Profesor Creado';
       alert.description = `Profesor ${professor.name} ha sido creado existosamente`;
+      
     } catch (error) {
       console.log(error);
       const errorMessage = axiosError( error )
