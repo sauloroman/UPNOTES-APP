@@ -3,6 +3,7 @@ import { CustomError } from '../../domain/errors/custom.error';
 import { ProfessorService } from './professors.services';
 import { CreateProfessorDto } from '../../domain/dtos/professors/create-professor.dto';
 import { PaginationDto } from '../../domain/dtos/shared/pagination.dto';
+import { UpdateProfessorDto } from '../../domain/dtos';
 
 export class ProfessorController {
   constructor(private readonly professorService: ProfessorService) {}
@@ -51,12 +52,25 @@ export class ProfessorController {
   public deleteProfessor = ( req: Request, res: Response ): any => {
 
     const { id } = req.params
-    const { user } = req.body
 
-    this.professorService.deleteProfessorByUser( id, user.id )
+    this.professorService.deleteProfessorByUser( id )
       .then( data => res.status(200).json( data ) )
       .catch( err => this.handleErrorResponse( err, res ) )
 
+  }
+
+  public updateProfessor = ( req: Request, res: Response ): any => {
+    const { id } = req.params
+    const [ updateProfessorDto, errorMessage ] = UpdateProfessorDto.create(req.body)
+    
+    if ( errorMessage ) {
+      return res.status(400).json({ error: errorMessage })
+    }
+
+    this.professorService.updateProfessorByUser( updateProfessorDto!, id )
+      .then( data => res.status(200).json( data ) )
+      .catch( err => this.handleErrorResponse( err, res ) )
+    
   }
 
 }
