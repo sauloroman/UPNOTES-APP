@@ -10,7 +10,7 @@ import { setTotalOfPages } from "../../slices/pagination.slice"
 import { setProfessors } from "../../slices/user.slice"
 import { AppThunk } from "../../store"
 
-export const deleteProfessorThunk = ( deleteProfessorByUser: DeleteProfessorByUser ): AppThunk => {
+export const deleteProfessorThunk = ( professorId: string ): AppThunk => {
   return async ( dispatch ) => {
 
     const alert: Alert = {
@@ -24,7 +24,7 @@ export const deleteProfessorThunk = ( deleteProfessorByUser: DeleteProfessorByUs
     try {
 
       const useCase = new DeleteProfessorsUseCase({ professorsRepository: axiosProfessorsRepository })
-      const { msg } = await useCase.apply( deleteProfessorByUser )
+      const { msg } = await useCase.apply( professorId )
 
       const { professors, totalPages } = await new GetProfessorsByUserUseCase({ professorsRepository: axiosProfessorsRepository }).apply({ page: 1, limit: 10 })
 

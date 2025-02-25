@@ -30,7 +30,7 @@ export const LayoutProfile: React.FC<LayoutCourseProps> = ({ children }) => {
           </div>
         </aside>
         <div
-          className={`main-layout-profile__content animate__animated animate__fadeIn ${
+          className={`main-layout-profile__content a  nimate__animated animate__fadeIn ${
             !isMenuAsideShown && 'main-layout__container--small'
           }`}
         >

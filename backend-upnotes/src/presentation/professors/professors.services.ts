@@ -76,21 +76,20 @@ export class ProfessorService {
 
   }
 
-  public async updateProfessorByUser( updateProfessorDto: UpdateProfessorDto, professorId: string ) {
+  public async updateProfessorById( professorID: string, updateProfessorDto: UpdateProfessorDto ) {
 
     try {
-  
-      const professorUpdated = await prisma.professor.update({
-        where: { id: professorId },
-        data: { ...updateProfessorDto }
-      }) 
+      
+      const updatedProfessor = await prisma.professor.update({ 
+        where: { id: professorID} ,
+        data: { ...updateProfessorDto } 
+      })
 
-      if ( !professorUpdated ) {
+      if ( !updateProfessorDto ) 
         throw CustomError.notFound('El profesor no existe')
-      }
 
       return {
-        msg: `El profesor ${professorUpdated.name} ha sido actualizado`,
+        msg: `El profesor ${updatedProfessor.name} ha sido actualizado`
       }
 
     } catch (error) {

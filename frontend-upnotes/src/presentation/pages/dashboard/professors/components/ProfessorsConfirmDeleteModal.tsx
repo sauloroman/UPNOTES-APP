@@ -13,7 +13,7 @@ export const ProfessorsConfirmDeleteModal: React.FC<Props> = ({ professorId }) =
   const professor = professors.find( professor => professor.id === professorId )
 
   const onDeleteProfessor = ( id: string ) => {
-    deleteProfessorOfUser({id})
+    deleteProfessorOfUser( id )
     onCloseModal()
   }
 

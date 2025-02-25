@@ -1,5 +1,9 @@
 import { useDispatch, useSelector } from "react-redux"
+<<<<<<< HEAD
 import { CreateProfessor, DeleteProfessorByUser, UpdateProfessorOfUser } from "../../../domain/entities/professor"
+=======
+import { CreateProfessor, UpdateProfessorOfUser } from "../../../domain/entities/professor"
+>>>>>>> 031799c63acadf8f71246fef2d72ee8b0b4efa33
 import { 
   createProfessorInModalThunk, 
   getProfessorsByUserModalThunk, 
@@ -36,12 +40,16 @@ export const useProfessors = () => {
     dispatch( setProfessorIdToDelete( professorId ) )
   }
 
-  const deleteProfessorOfUser = ( deleteProfessorByUser: DeleteProfessorByUser ) => {
-    dispatch( deleteProfessorThunk( deleteProfessorByUser ) )
+  const deleteProfessorOfUser = ( professorId: string ) => {
+    dispatch( deleteProfessorThunk( professorId ) )
   }
 
   const updateProfessorOfUser = ( professorId: string, updateProfessorByUser: UpdateProfessorOfUser ) => {
+<<<<<<< HEAD
     dispatch( updateProfessorByUserThunk( professorId, updateProfessorByUser ) )
+=======
+    dispatch( updateProfessorByUserThunk(professorId, updateProfessorByUser ) )
+>>>>>>> 031799c63acadf8f71246fef2d72ee8b0b4efa33
   }
 
   return {

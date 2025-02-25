@@ -1,4 +1,4 @@
-import { DeleteProfessorByUser, MessageResponse } from "../../../domain/entities";
+import { MessageResponse } from "../../../domain/entities";
 import { ProfessorsRepository } from "../../../domain/repositories/professors.repository";
 
 interface Options {
@@ -13,8 +13,8 @@ export class DeleteProfessorsUseCase {
     this.professorsRepository = professorsRepository
   }
 
-  public async apply( deleteProfessorByUser: DeleteProfessorByUser ): Promise<MessageResponse> {
-    const msg = await this.professorsRepository.deleteProfessorOfUser( deleteProfessorByUser )
+  public async apply( professorId: string ): Promise<MessageResponse> {
+    const msg = await this.professorsRepository.deleteProfessorOfUser( professorId )
     return msg
   }
 

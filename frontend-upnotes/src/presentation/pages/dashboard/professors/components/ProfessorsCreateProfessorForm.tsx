@@ -14,6 +14,7 @@ const formValidations = {
     (value: string) => value.trim().length > 1,
     "El nombre del profesor es obligatorio",
   ],
+  email: [ ( value: string ) => value && emailRegExp.test( value ), 'El email debe ser valido']
 };
 
 export const ProfessorsCreateProfessorForm: React.FC = () => {
