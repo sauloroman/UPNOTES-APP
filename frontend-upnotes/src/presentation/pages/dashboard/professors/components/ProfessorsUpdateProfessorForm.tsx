@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from '../../../../shared/hooks';
 import { Professor } from '../../../../../domain/entities/professor';
-import { useModal } from '../../../../shared/redux-hooks';
+import { useModal, useProfessors } from '../../../../shared/redux-hooks';
 
 interface Props {
   professor: Professor,
@@ -10,14 +10,14 @@ interface Props {
 const emailRegExp: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const formValidations = {
-  name: [ (value: string) => value.trim().length > 1, "El nombre de profesor es necesario" ],
+  name: [ (value: string) => value?.trim().length > 1, "El nombre de profesor es necesario" ],
   email: [ (value: string) => {
-    if ( value.trim().length > 0 ) {
+    if ( value?.trim().length > 0 ) {
       return emailRegExp.test(value)
     }
     return true
   }, "El email no es valido" ],
-  phone: [ (value: string) => value.trim().length <= 10, "El teléfono no debe exceder los 10 caracteres"],
+  phone: [ (value: string) => value?.trim().length <= 10, "El teléfono no debe exceder los 10 caracteres"],
 }
 
 export const ProfessorsUpdateProfessorForm: React.FC<Props> = ({ professor }) => {
@@ -26,9 +26,11 @@ export const ProfessorsUpdateProfessorForm: React.FC<Props> = ({ professor }) =>
 
   const { onCloseModal } = useModal()
 
+  const { updateProfessorOfUser } = useProfessors()
+
   const { formState, name, nameValid, email, emailValid, phone, phoneValid, isFormValid, onInputChange, onResetForm } = useForm({
     name: professor.name,
-    email: professor.email || '',
+    email: professor.email || null,
     phone: professor.phone || '',
   }, formValidations as any )
 
@@ -38,7 +40,13 @@ export const ProfessorsUpdateProfessorForm: React.FC<Props> = ({ professor }) =>
 
     if ( !isFormValid ) return 
 
-    
+    if (name === professor.name && email === professor.email && phone === professor.phone) {
+      onCloseModal()
+      return
+    }
+
+    updateProfessorOfUser( professor.id, formState )
+    onCloseModal()
     setIsFormSubmitted( false )
     onResetForm()
   }

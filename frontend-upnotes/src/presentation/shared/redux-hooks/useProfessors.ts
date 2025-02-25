@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux"
-import { CreateProfessor, DeleteProfessorByUser } from "../../../domain/entities/professor"
+import { CreateProfessor, DeleteProfessorByUser, UpdateProfessorOfUser } from "../../../domain/entities/professor"
 import { 
   createProfessorInModalThunk, 
   getProfessorsByUserModalThunk, 
   getProfessorsByUserPageThunk, 
-  deleteProfessorThunk 
+  deleteProfessorThunk, 
+  updateProfessorByUserThunk
 } from "../../../infrastructure/store/thunks/professor"
 import { RootState } from "../../../infrastructure/store/store"
 import { setProfessorIdToDelete, setProfessorIdToEditInModal } from "../../../infrastructure/store/slices/user.slice"
@@ -39,8 +40,8 @@ export const useProfessors = () => {
     dispatch( deleteProfessorThunk( deleteProfessorByUser ) )
   }
 
-  const updateProfessorOfUser = ( ) => {
-    
+  const updateProfessorOfUser = ( professorId: string, updateProfessorByUser: UpdateProfessorOfUser ) => {
+    dispatch( updateProfessorByUserThunk( professorId, updateProfessorByUser ) )
   }
 
   return {

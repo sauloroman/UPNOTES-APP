@@ -11,6 +11,7 @@ export const MenuOver: React.FC = () => {
 
   const onLogoutAccount = () => {
     logoutAccount()
+    closeMenuOver()
     onGoPage('/auth/login')
     onShowAlert('Hasta la próxima', 'Gracias por usar UpNotes. Tu organizador de tareas por excelencia.')
   }
@@ -26,7 +27,7 @@ export const MenuOver: React.FC = () => {
       <div className={`main-layout-menu ${!isMenuOverShown && 'main-layout-menu--hidden' }`}>
         <p className="main-layout-menu__title">Menú de opciones</p>
         <ul className="main-layout-menu__nav flex">
-          <li className="main-layout-menu__item">
+          <li onClick={ () => onGoPage('/upnotes/profile')} className="main-layout-menu__item">
             <i className='bx bx-user icon icon--menu-over'></i>
             Perfíl
           </li>

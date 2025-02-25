@@ -18,7 +18,7 @@ const formValidations = {
 
 export const ProfessorsCreateProfessorForm: React.FC = () => {
   const { name, email,phone, formState, nameValid, isFormValid, onInputChange } = useForm(
-    { name: "", email: "", phone: "" },
+    { name: "", email: null, phone: "" },
     formValidations as any
   );
 

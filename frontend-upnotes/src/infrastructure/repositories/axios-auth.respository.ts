@@ -4,11 +4,11 @@ import {
   RegisterAccount, 
   ValidateAccount, 
   NewVerificationCode, 
-  MessageResponse, 
   ForgotPassword, 
   ChangePassword, 
   TokenResponse
 } from "../../domain/entities/account";
+import { MessageResponse } from "../../domain/entities";
 import { AuthRepository } from "../../domain/repositories/auth.repository";
 import { axiosInstance, axiosInstanceProtected } from "../http/axiosInstance";
 
