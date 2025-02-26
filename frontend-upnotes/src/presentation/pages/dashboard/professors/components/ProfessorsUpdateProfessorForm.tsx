@@ -40,7 +40,6 @@ export const ProfessorsUpdateProfessorForm: React.FC<Props> = ({ professor }) =>
 
     if ( !isFormValid ) return 
 
-<<<<<<< HEAD
     if (name === professor.name && email === professor.email && phone === professor.phone) {
       onCloseModal()
       return
@@ -48,9 +47,6 @@ export const ProfessorsUpdateProfessorForm: React.FC<Props> = ({ professor }) =>
 
     updateProfessorOfUser( professor.id, formState )
     onCloseModal()
-=======
-    updateProfessorOfUser( professor.id, formState )
->>>>>>> 031799c63acadf8f71246fef2d72ee8b0b4efa33
     setIsFormSubmitted( false )
     onCloseModal()
     onResetForm()

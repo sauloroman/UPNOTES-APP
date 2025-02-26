@@ -21,11 +21,7 @@ export class AxiosProfessorsRepository implements ProfessorsRepository {
   } 
 
   async updateProfessorOfUser(professorId: string, updateProfessorByUser: UpdateProfessorOfUser): Promise<MessageResponse> {
-<<<<<<< HEAD
     const { data } = await axiosInstanceProtected.put(`/professors/${professorId}`, updateProfessorByUser )
-=======
-    const { data } = await axiosInstanceProtected.put(`/professors/${professorId}`, updateProfessorByUser)
->>>>>>> 031799c63acadf8f71246fef2d72ee8b0b4efa33
     return data
   }
 

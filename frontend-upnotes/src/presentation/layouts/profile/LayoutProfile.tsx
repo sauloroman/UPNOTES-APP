@@ -2,7 +2,6 @@ import React from 'react';
 import { useAlert, useMenu, useModal } from '../../shared/redux-hooks';
 import { AlertApp } from '../app/components/alert/AlertApp';
 import { Navigation } from '../app/components/navigation/Navigation';
-import { NavigationItem } from '../app/components/navigation/NavigationItem';
 import { UserPhoto } from '../app/components/header/UserPhoto';
 
 interface LayoutCourseProps {
@@ -12,7 +11,7 @@ interface LayoutCourseProps {
 export const LayoutProfile: React.FC<LayoutCourseProps> = ({ children }) => {
   const { isMenuAsideShown } = useMenu();
   const { isAlertShown } = useAlert();
-  const { isOpen } = useModal();
+  const { isOpen: isOpenModal } = useModal();
 
   return (
     <div className='main-layout-profile'>
@@ -20,7 +19,7 @@ export const LayoutProfile: React.FC<LayoutCourseProps> = ({ children }) => {
         <aside
           className={`main-layout-aside ${
             !isMenuAsideShown && 'main-layout-aside--closed'
-          }  ${isOpen && 'z-index-1 '}`}
+          }  ${isOpenModal && 'z-index-1 '}`}
         >
           <Navigation />
 
@@ -30,7 +29,7 @@ export const LayoutProfile: React.FC<LayoutCourseProps> = ({ children }) => {
           </div>
         </aside>
         <div
-          className={`main-layout-profile__content a  nimate__animated animate__fadeIn ${
+          className={`main-layout-profile__content animate__animated animate__fadeIn ${
             !isMenuAsideShown && 'main-layout__container--small'
           }`}
         >

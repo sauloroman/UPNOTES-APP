@@ -67,7 +67,7 @@ export class ProfessorController {
       return res.status(400).json({ error: errorMessage })
     }
 
-    this.professorService.updateProfessorByUser( updateProfessorDto!, id )
+    this.professorService.updateProfessorById( id, updateProfessorDto! )
       .then( data => res.status(200).json( data ) )
       .catch( err => this.handleErrorResponse( err, res ) )
     
