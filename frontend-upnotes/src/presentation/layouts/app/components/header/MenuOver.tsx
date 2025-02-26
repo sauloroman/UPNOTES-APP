@@ -13,7 +13,6 @@ export const MenuOver: React.FC = () => {
     logoutAccount()
     closeMenuOver()
     onGoPage('/auth/login')
-    onShowAlert('Hasta la próxima', 'Gracias por usar UpNotes. Tu organizador de tareas por excelencia.')
   }
 
   return (

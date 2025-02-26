@@ -18,6 +18,8 @@ import {
   validateAccountThunk,
 } from '../../../infrastructure/store/thunks/auth';
 import { logoutUserAuth } from '../../../infrastructure/store/slices/auth.slice';
+import { closeModal } from '../../../infrastructure/store/slices/modal.slice';
+import { setIsMenuAsideShown, setIsMenuOverShown } from '../../../infrastructure/store/slices/menu.slice';
 
 export const useAuth = () => {
   
@@ -40,6 +42,9 @@ export const useAuth = () => {
 
   const logoutAccount = () => {
     dispatch( logoutUserAuth() )
+    dispatch( closeModal() )
+    dispatch( setIsMenuOverShown(false) )
+    dispatch( setIsMenuAsideShown( true ) )
     localStorage.removeItem('user')
   }
 

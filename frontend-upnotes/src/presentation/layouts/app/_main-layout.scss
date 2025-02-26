@@ -8,10 +8,22 @@
     z-index: -1;
   }
 
+  &__profile {
+    top: 3rem;
+    width: calc( 100% - $menu-aside-width - 8rem );
+    left: calc($menu-aside-width + 4rem);
+  }
+  
   &__container--small {
     width: calc( 100% - $menu-aside-width-small - 5rem );
     left: calc($menu-aside-width-small + 2rem);
     top: calc($header-height + 3rem);
+  }
+  
+  &__profile--small {
+    top: 3rem;
+    left: calc($menu-aside-width-small + 4rem);
+    width: calc( 100% - $menu-aside-width-small - 8rem );
   }
 }
 
@@ -24,16 +36,14 @@
     margin-top: 5rem;
     display: flex;
     align-items: center;
+    color: $color-white;
   }
 
   &__logout {
-    color: $color-white;
     margin-left: 2rem;
     transition: all .4s ease;
     cursor: pointer;
     width: fit-content;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid currentColor;
   }
 
 }
